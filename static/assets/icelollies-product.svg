@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgLollyGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#eff6ff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#dbeafe" stop-opacity="0.4" />
+    </radialGradient>
+    <linearGradient id="lollyGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#00d2ff" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="lollyGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="stickGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fde68a" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <circle cx="300" cy="300" r="270" fill="url(#bgLollyGlow)" />
+  <!-- Wooden Stick -->
+  <rect x="280" y="380" width="40" height="150" rx="18" fill="url(#stickGradient)" stroke="#b45309" stroke-width="3" />
+  <!-- Frozen Ice Lolly Body -->
+  <path d="M210 190 Q210 90 300 90 Q390 90 390 190 L380 400 Q380 415 300 415 Q220 415 220 400 Z" fill="url(#lollyGradient1)" stroke="#ffffff" stroke-width="4" />
+  <!-- Gloss / Highlights -->
+  <path d="M235 180 Q235 120 300 115 Q310 115 305 130 Q265 140 260 210 L255 370 Q240 370 235 360 Z" fill="#ffffff" opacity="0.45" />
+  <!-- Ice Crystals -->
+  <circle cx="330" cy="180" r="6" fill="#ffffff" opacity="0.8" />
+  <circle cx="350" cy="240" r="8" fill="#ffffff" opacity="0.7" />
+  <circle cx="320" cy="310" r="5" fill="#ffffff" opacity="0.9" />
+  <circle cx="280" cy="350" r="7" fill="#ffffff" opacity="0.8" />
+  <!-- Drip Accents -->
+  <path d="M290 415 Q300 440 305 440 Q310 440 310 415 Z" fill="#00d2ff" />
+  <!-- Badge -->
+  <rect x="235" y="240" width="130" height="55" rx="10" fill="#0b2b5b" opacity="0.9" />
+  <text x="300" y="264" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="15" fill="#ffffff">CoolerBox</text>
+  <text x="300" y="282" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="10" fill="#7dd3fc" letter-spacing="2">ICE LOLLIES</text>
+</svg>

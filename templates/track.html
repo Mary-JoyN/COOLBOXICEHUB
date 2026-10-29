@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Track My Enquiry | CoolerBox Ice Hub</title>
+  <meta name="description" content="Track your CoolerBox Ice Hub enquiry or order status. Ongwediva, Namibia.">
+  <link rel="stylesheet" href="/home-base.css">
+  <link rel="stylesheet" href="/premium.css">
+  <link rel="stylesheet" href="/commerce.css">
+  <link rel="stylesheet" href="/community.css">
+  <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+</head>
+<body class="premium-page">
+  <div class="demo"><span>COOLERBOX ICE HUB</span><span>Makalani Mall · Ongwediva, Namibia · Official Enquiries &amp; Orders</span></div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="CoolerBox Ice Hub home">
+        <img class="brand-logo" src="/assets/logo-primary.jpeg" width="170" height="114" alt="The CoolerBox — Ice, Water, Refreshment">
+      </a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="/#products">Our products</a>
+        <a href="/#event-water">Event water</a>
+        <a href="/#bulk">For business</a>
+        <a href="/order?supplier=1">Local suppliers</a>
+        <a href="/track" style="color:var(--accent,#00d2ff);font-weight:700">Track enquiry</a>
+      </nav>
+      <a class="order-nav" href="/order">Order Now <span aria-hidden="true">↗</span></a>
+      <button class="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="/order">Order Now ↗</a>
+      <a href="/order?supplier=1">Become a Local Supplier ↗</a>
+      <a href="/#products">Our products</a>
+      <a href="/#event-water">Event water</a>
+      <a href="/#bulk">For business</a>
+      <a href="/shop#services">Services &amp; partnerships</a>
+      <a href="/news">News &amp; community</a>
+      <a href="/track">Track my enquiry</a>
+      <a href="/reviews">Ratings &amp; reviews</a>
+    </nav>
+  </header>
+
+  <main class="wrap" style="padding-top:40px;padding-bottom:80px;min-height:75vh">
+    <section class="page-hero">
+      <div class="eyebrow">ENQUIRY TRACKER · REAL-TIME STATUS</div>
+      <h1>Track your enquiry.<br><em>Stay in the loop.</em></h1>
+      <p>Enter your CoolerBox reference (e.g. <strong>CBX-2610-1042</strong>) to view quotation status, availability confirmation, and production milestones.</p>
+    </section>
+
+    <div style="background:var(--surface,#ffffff);border:1px solid var(--border,#d4e3eb);border-radius:18px;padding:32px;box-shadow:0 10px 30px rgba(11,43,91,0.06);margin-bottom:40px">
+      <form id="track-search" style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:280px">
+          <label for="track-reference" style="display:block;font-weight:700;margin-bottom:8px;font-size:14px;color:#0b2b5b">Enquiry Reference Number</label>
+          <input id="track-reference" type="text" placeholder="e.g. CBX-2610-8492" style="width:100%;padding:14px 18px;border:1px solid #c2d6e3;border-radius:10px;font-size:16px;text-transform:uppercase" required>
+        </div>
+        <button class="btn" type="submit" style="padding:15px 28px;height:52px">Find enquiry ↗</button>
+        <button id="track-refresh" class="btn outline" type="button" style="padding:15px 22px;height:52px">Refresh</button>
+        <button id="track-read" class="btn outline" type="button" style="padding:15px 22px;height:52px">Mark notifications read</button>
+      </form>
+      <p id="track-status" style="margin-top:14px;font-weight:600;color:#0b2b5b" role="status"></p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px">
+      <section>
+        <div class="eyebrow" style="margin-bottom:12px">STATUS &amp; MILESTONES</div>
+        <div id="track-orders" style="display:flex;flex-direction:column;gap:18px">
+          <p style="color:#64748b">Enter your reference above to inspect your order details.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="eyebrow" style="margin-bottom:12px">RECENT NOTIFICATIONS</div>
+        <div id="track-updates" style="display:flex;flex-direction:column;gap:14px">
+          <p style="color:#64748b">Updates from the CoolerBox team will appear here.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <img class="brand-logo" src="/assets/logo-primary.jpeg" width="170" height="114" alt="The CoolerBox — Ice, Water, Refreshment">
+        </a>
+        <p>Your local ice and water hub.<br>Makalani Mall, Ongwediva.</p>
+      </div>
+      <div>
+        <h3>Explore CoolerBox</h3>
+        <a href="/shop">Products &amp; prices</a>
+        <a href="/order">Order &amp; estimate</a>
+        <a href="/order?supplier=1">Become a Local Supplier</a>
+        <a href="/shop#event-water">Event bottled water</a>
+        <a href="/shop#services">Services &amp; partnerships</a>
+        <a href="/news">News &amp; community</a>
+      </div>
+      <div>
+        <h3>Here to help</h3>
+        <a href="/questions">Questions &amp; answers</a>
+        <a href="/track">Track my enquiry</a>
+        <a href="/reviews">Ratings &amp; reviews</a>
+        <a href="/privacy">Privacy information</a>
+      </div>
+    </div>
+    <section class="wrap" id="site-contacts">
+      <div id="contact-links"></div>
+      <div id="social-links"></div>
+    </section>
+    <div class="wrap footer-bottom">
+      <span>CoolerBox Ice Hub · Makalani Mall, Ongwediva, Namibia</span>
+      <a href="/dashboard">Owner dashboard ↗</a>
+    </div>
+  </footer>
+
+  <script src="/commerce-ui.js"></script>
+  <script src="/track.js"></script>
+  <script src="/qa.js"></script>
+  <script src="/contacts.js"></script>
+  <script src="/catalogue-link.js"></script>
+  <script src="/specials.js"></script>
+  <script src="/premium.js"></script>
+</body>
+</html>

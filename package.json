@@ -1,0 +1,12 @@
+{
+  "name": "coolerbox-ice-hub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "ruff check ."
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

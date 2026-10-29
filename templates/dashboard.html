@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Owner &amp; Admin Dashboard | CoolerBox Ice Hub</title>
+  <meta name="description" content="Secured management dashboard for CoolerBox Ice Hub enquiries, pricing and noticeboard.">
+  <link rel="stylesheet" href="/home-base.css">
+  <link rel="stylesheet" href="/premium.css">
+  <link rel="stylesheet" href="/commerce.css">
+  <link rel="stylesheet" href="/community.css">
+  <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+  <style>
+    .dash-tabs { display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; flex-wrap: wrap; }
+    .dash-tab-btn { background: none; border: none; font-size: 15px; font-weight: 700; color: #64748b; padding: 10px 18px; cursor: pointer; border-radius: 8px; }
+    .dash-tab-btn.active { color: #0b2b5b; background: #e0f2fe; }
+    .dash-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 30px; }
+    .dash-stat-card { background: #ffffff; border: 1px solid #d0e2ec; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .dash-stat-card .num { font-size: 28px; font-weight: 800; color: #006da6; margin-top: 6px; }
+  </style>
+</head>
+<body class="premium-page">
+  <div class="demo"><span>COOLERBOX MANAGEMENT CONSOLE</span><span>Makalani Mall · Ongwediva, Namibia · Operations &amp; Enquiries</span></div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/" aria-label="CoolerBox Ice Hub home">
+        <img class="brand-logo" src="/assets/logo-primary.jpeg" width="170" height="114" alt="The CoolerBox — Ice, Water, Refreshment">
+      </a>
+      <nav class="links" aria-label="Main navigation">
+        <a href="/#products">Our products</a>
+        <a href="/#event-water">Event water</a>
+        <a href="/#bulk">For business</a>
+        <a href="/order">Order</a>
+        <a href="/track">Track enquiry</a>
+        <a href="/dashboard" style="color:var(--accent,#00d2ff);font-weight:700">Dashboard</a>
+      </nav>
+      <a class="order-nav" href="/order">Storefront <span aria-hidden="true">↗</span></a>
+      <button class="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-top:40px;padding-bottom:80px;min-height:80vh">
+    <section class="page-hero">
+      <div class="eyebrow">ADMINISTRATIVE OPERATIONS</div>
+      <h1>CoolerBox Management.<br><em>Fulfilment &amp; Enquiries.</em></h1>
+      <p>Review customer quotation requests, track order milestones, moderate reviews, and maintain catalogue availability.</p>
+    </section>
+
+    <!-- Stat overview -->
+    <div class="dash-stat-grid">
+      <div class="dash-stat-card">
+        <div style="font-size:12px;font-weight:bold;color:#64748b;text-transform:uppercase">Total Enquiries</div>
+        <div id="stat-orders" class="num">0</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:12px;font-weight:bold;color:#64748b;text-transform:uppercase">Awaiting Quotation</div>
+        <div id="stat-pending-quotes" class="num" style="color:#d97706">0</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:12px;font-weight:bold;color:#64748b;text-transform:uppercase">Customer Reviews</div>
+        <div id="stat-reviews" class="num">0</div>
+      </div>
+      <div class="dash-stat-card">
+        <div style="font-size:12px;font-weight:bold;color:#64748b;text-transform:uppercase">Announcements</div>
+        <div id="stat-posts" class="num">0</div>
+      </div>
+    </div>
+
+    <!-- Navigation tabs -->
+    <div class="dash-tabs">
+      <button class="dash-tab-btn active" data-dash-tab="orders">Quotations &amp; Orders</button>
+      <button class="dash-tab-btn" data-dash-tab="catalogue">Product Catalogue</button>
+      <button class="dash-tab-btn" data-dash-tab="reviews">Customer Reviews</button>
+      <button class="dash-tab-btn" data-dash-tab="posts">Noticeboard / News</button>
+    </div>
+
+    <p id="dash-status" style="font-weight:600;color:#0b2b5b" role="status"></p>
+
+    <!-- TAB 1: Orders -->
+    <div id="tab-orders" class="dash-section">
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+        <input id="dash-order-search" type="search" placeholder="Search reference, customer or phone…" style="padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px;flex:1;min-width:240px">
+        <select id="dash-filter-status" style="padding:10px 14px;border:1px solid #cbd5e1;border-radius:8px">
+          <option value="all">All statuses</option>
+          <option value="new">New (Awaiting quote)</option>
+          <option value="quoted">Quoted</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div id="dash-orders-list"></div>
+    </div>
+
+    <!-- TAB 2: Catalogue -->
+    <div id="tab-catalogue" class="dash-section" hidden>
+      <h3>Catalogue Pricing &amp; Availability</h3>
+      <p style="color:#64748b;font-size:14px;margin-bottom:16px">Prices updated here are immediately reflected across the website calculator, order flow, and product catalogue.</p>
+      <div id="dash-cat-list"></div>
+    </div>
+
+    <!-- TAB 3: Reviews -->
+    <div id="tab-reviews" class="dash-section" hidden>
+      <h3>Customer Ratings &amp; Reviews</h3>
+      <p style="color:#64748b;font-size:14px;margin-bottom:16px">Reviews submitted online or via the Makalani Mall counter QR code card.</p>
+      <div id="dash-rev-list"></div>
+    </div>
+
+    <!-- TAB 4: News & Posts -->
+    <div id="tab-posts" class="dash-section" hidden>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+        <div>
+          <h3>Publish Announcement</h3>
+          <form id="dash-new-post-form" style="background:#ffffff;border:1px solid #e2e8f0;padding:20px;border-radius:12px">
+            <label style="display:block;font-size:13px;font-weight:bold;margin-bottom:6px">Headline / Title</label>
+            <input id="post-title" type="text" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:12px" required>
+
+            <label style="display:block;font-size:13px;font-weight:bold;margin-bottom:6px">Category</label>
+            <select id="post-category" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:12px">
+              <option value="news">News &amp; Updates</option>
+              <option value="community">Community Work &amp; Partnerships</option>
+              <option value="events">Events &amp; Holiday Hours</option>
+            </select>
+
+            <label style="display:block;font-size:13px;font-weight:bold;margin-bottom:6px">Location</label>
+            <input id="post-location" type="text" placeholder="e.g. Makalani Mall, Ongwediva" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:12px">
+
+            <label style="display:block;font-size:13px;font-weight:bold;margin-bottom:6px">Announcement Body</label>
+            <textarea id="post-body" rows="4" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:16px" required></textarea>
+
+            <button class="btn" type="submit" style="width:100%">Publish to Noticeboard ↗</button>
+          </form>
+        </div>
+        <div>
+          <h3>Published Updates</h3>
+          <div id="dash-post-list"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand">
+          <img class="brand-logo" src="/assets/logo-primary.jpeg" width="170" height="114" alt="The CoolerBox — Ice, Water, Refreshment">
+        </a>
+        <p>Your local ice and water hub.<br>Makalani Mall, Ongwediva.</p>
+      </div>
+      <div>
+        <h3>Explore CoolerBox</h3>
+        <a href="/shop">Products &amp; prices</a>
+        <a href="/order">Order &amp; estimate</a>
+        <a href="/order?supplier=1">Become a Local Supplier</a>
+        <a href="/shop#event-water">Event bottled water</a>
+        <a href="/shop#services">Services &amp; partnerships</a>
+        <a href="/news">News &amp; community</a>
+      </div>
+      <div>
+        <h3>Here to help</h3>
+        <a href="/questions">Questions &amp; answers</a>
+        <a href="/track">Track my enquiry</a>
+        <a href="/reviews">Ratings &amp; reviews</a>
+        <a href="/privacy">Privacy information</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>CoolerBox Ice Hub · Administrative Console</span>
+      <a href="/">Back to storefront ↗</a>
+    </div>
+  </footer>
+
+  <script src="/commerce-ui.js"></script>
+  <script src="/dashboard.js"></script>
+  <script src="/qa.js"></script>
+  <script src="/contacts.js"></script>
+  <script src="/catalogue-link.js"></script>
+  <script src="/premium.js"></script>
+</body>
+</html>
