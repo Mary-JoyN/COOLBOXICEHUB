@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "lint": "ruff check ."
+    "lint": "./.venv/bin/ruff check ."
   },
   "devDependencies": {
     "typescript": "^5.8.0"

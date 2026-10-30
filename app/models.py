@@ -87,3 +87,12 @@ class ProductUpdateRequest(BaseModel):
     gourmetRetailPrice: float | None = None
     gourmetBulkPrice: float | None = None
     availability: str | None = None
+
+
+class ContactMessageRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=150)
+    email: str = Field(..., min_length=3, max_length=150)
+    phone: str | None = Field(default="", max_length=50)
+    subject: str = Field(default="CoolerBox Website Enquiry", max_length=200)
+    message: str = Field(..., min_length=1, max_length=2000)
+

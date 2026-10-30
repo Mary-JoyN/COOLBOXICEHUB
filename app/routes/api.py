@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import uuid
@@ -21,6 +22,7 @@ from app.database import (
     update_order_milestone,
 )
 from app.models import (
+    ContactMessageRequest,
     MilestoneUpdateRequest,
     OrderCreateRequest,
     PostCreateRequest,
@@ -107,6 +109,37 @@ def create_review_endpoint(req: ReviewCreateRequest) -> dict[str, Any]:
         "createdAt": now,
     })
     return {"status": "success", "message": "Review submitted successfully"}
+
+
+@router.post("/contact")
+def contact_endpoint(req: ContactMessageRequest) -> dict[str, Any]:
+    now = datetime.now(UTC).isoformat()
+    ref = f"MSG-{datetime.now(UTC).strftime('%y%m')}-{random.randint(1000, 9999)}"
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        INSERT INTO orders (reference, customer_json, items_json, details_json, status, created_at, updated_at)
+        VALUES (?, ?, ?, ?, 'received', ?, ?)
+        """,
+        (
+            ref,
+            json.dumps({"name": req.name, "email": req.email, "phone": req.phone or "", "business": ""}),
+            json.dumps([]),
+            json.dumps({"notes": f"Subject: {req.subject}\nMessage: {req.message}", "fulfilment": "message", "date": now}),
+            now,
+            now,
+        ),
+    )
+    conn.commit()
+    conn.close()
+    return {
+        "success": True,
+        "status": "success",
+        "reference": ref,
+        "email": "info@coolerboxicehub.com",
+        "message": "Thank you! Your message has been sent to info@coolerboxicehub.com. Our team will get back to you shortly.",
+    }
 
 
 @router.get("/my-orders")

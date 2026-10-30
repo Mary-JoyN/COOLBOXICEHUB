@@ -140,7 +140,7 @@ def get_site_settings() -> dict[str, Any]:
     if row:
         return json.loads(row["value_json"])
     return {
-        "email": "sebiuerasmus@gmail.com",
+        "email": "info@coolerboxicehub.com",
         "whatsapp": "264852485426",
         "socials": {
             "facebook": "",
