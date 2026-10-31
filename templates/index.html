@@ -145,15 +145,17 @@
           </div>
         </div>
 
-        <div style="border-radius:var(--cb-radius-md);overflow:hidden;box-shadow:0 8px 24px rgba(0,79,132,0.12);border:1px solid var(--cb-border);background:#f2f6fa;min-height:360px;position:relative">
+        <div style="border-radius:var(--cb-radius-md);overflow:hidden;box-shadow:0 8px 24px rgba(0,79,132,0.12);border:1px solid var(--cb-border);background:#e8f1f8;min-height:360px;position:relative;display:flex;align-items:center;justify-content:center">
+          <div style="position:absolute;color:var(--cb-navy);font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:0;pointer-events:none">
+            <span>📍 Loading Makalani Mall Map…</span>
+          </div>
           <iframe 
-            src="https://maps.google.com/maps?q=Makalani+Mall,+Ongwediva,+Namibia&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
+            src="https://maps.google.com/maps?q=-17.7783,15.7646+(Makalani+Mall,+Ongwediva,+Namibia)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
             width="100%" 
             height="360" 
-            style="border:0;display:block" 
+            style="border:0;display:block;position:relative;z-index:1" 
             allowfullscreen="" 
-            loading="eager" 
-            fetchpriority="high"
+            loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade" 
             title="The CoolerBox Ice Hub location map at Makalani Mall, Ongwediva">
           </iframe>
