@@ -32,16 +32,16 @@
 .product-group-heading{grid-column:1/-1;font-size:22px;margin:22px 0 2px;padding-bottom:16px;border-bottom:1px solid #c9d5dd;color:#004878}#order-products .product-group-heading{margin-top:30px}#order-products .product-group-heading:first-child{margin-top:12px}
 /* CoolerBox official navy, bright blue and white identity. */
 :root{--brand-navy:#0b2b5b;--brand-blue:#00a5ef;--brand-white:#fff}
-header .brand{display:flex;flex-shrink:0;align-items:center;background:#fff}
-.brand .brand-logo{display:block;width:170px;height:105px;max-width:100%;object-fit:contain}
+header .brand{display:flex;flex-shrink:0;align-items:center;background:transparent;padding:0;margin:0}
+.brand .brand-logo{display:block;width:auto;height:48px;max-height:48px;max-width:155px;object-fit:contain}
 .footer-brand .brand{background:#fff;border-radius:10px;padding:8px;display:inline-flex}.footer-brand .brand-logo{width:175px;height:112px}
 .order-nav,.premium-home .hero .btn,.btn:not(.outline):not(.light){background:#0b2b5b;color:#fff;border-color:#0b2b5b}.order-nav:hover,.btn:not(.outline):hover{background:#075b96;border-color:#075b96}
 .premium-home .hero h1 em,.premium-home .hero h1 span{color:#007db7}
 .product-art{position:relative}.premium-home .product-art>.product-brand{position:absolute!important;right:12px;bottom:12px;width:106px!important;height:72px!important;object-fit:contain!important;background:#fff;padding:5px;border-radius:8px;box-shadow:0 4px 16px #0b2b5b18;z-index:2}
 .product-photo-wrap{position:relative}.product-photo-wrap .product-brand{position:absolute;bottom:12px;right:12px;width:106px;height:72px;object-fit:contain;background:#fff;border-radius:8px;padding:5px;box-shadow:0 4px 16px #0b2b5b18}
 .premium-home .supplier-minimum strong{color:#79d5ff}.premium-home .demo,.demo{background:#0b2b5b;color:#fff}.premium-home .demo span:last-child,.demo span:last-child{color:#d9f1ff}
-@media(max-width:850px){.brand .brand-logo{width:140px;height:92px}.premium-home header .nav,.premium-page header .nav{gap:14px}}
-@media(max-width:600px){.brand .brand-logo{width:128px;height:86px}.premium-home .product-art>.product-brand{width:96px!important;height:65px!important}.footer-brand .brand-logo{width:175px;height:112px}}
+@media(max-width:850px){.brand .brand-logo{width:auto;height:42px;max-height:42px;max-width:135px}.premium-home header .nav,.premium-page header .nav{gap:14px}}
+@media(max-width:600px){.brand .brand-logo{width:auto;height:38px;max-height:38px;max-width:120px}.premium-home .product-art>.product-brand{width:96px!important;height:65px!important}.footer-brand .brand-logo{width:175px;height:112px}}
 /* Full-range gathering planner */
 .gather-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:24px 0}.gather-product{min-width:0;padding:20px;border:1px solid #b9d8ed;border-radius:12px;background:#f4faff;color:#0b2b5b}.gather-product>label{display:block;margin:12px 0 6px;font-weight:600}.gather-product>label:first-child{font-size:18px;margin-top:0;display:flex;gap:10px;align-items:center}.gather-product input[type=checkbox],.gather-label input{width:18px;height:18px;flex-shrink:0}.gather-product select,.gather-product input[type=number]{width:100%;min-height:44px;background:#fff;color:#0b2b5b;border:1px solid #8eb5d2;border-radius:6px;padding:10px;font:inherit}.gather-product p{font-size:13px;line-height:1.6}.gather-label{display:flex;gap:10px;align-items:center;font-weight:600;margin-top:16px}#gathering-form>.calc-results{margin-top:24px}#gather-lines p{padding:12px 0;border-bottom:1px solid #ffffff38;line-height:1.6}#gathering-form input:disabled,#gathering-form select:disabled{opacity:.55}#gathering-form input:focus-visible,#gathering-form select:focus-visible{outline:3px solid #168fe0;outline-offset:3px}@media(max-width:640px){.gather-products{grid-template-columns:1fr}.gather-product{padding:16px}}
 /* Select regular and gourmet independently inside a shared bag size. */

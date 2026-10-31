@@ -2864,15 +2864,18 @@ header .brand {
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  background: #fff
+  background: transparent;
+  padding: 0;
+  margin: 0;
 }
 
 .brand .brand-logo {
   display: block;
-  width: 170px;
-  height: 105px;
-  max-width: 100%;
-  object-fit: contain
+  width: auto;
+  height: 48px;
+  max-height: 48px;
+  max-width: 155px;
+  object-fit: contain;
 }
 
 .footer-brand .brand {
@@ -2958,8 +2961,10 @@ header .brand {
 
 @media(max-width:850px) {
   .brand .brand-logo {
-    width: 140px;
-    height: 92px
+    width: auto;
+    height: 42px;
+    max-height: 42px;
+    max-width: 135px;
   }
 
   .premium-home header .nav,
@@ -2970,8 +2975,10 @@ header .brand {
 
 @media(max-width:600px) {
   .brand .brand-logo {
-    width: 128px;
-    height: 86px
+    width: auto;
+    height: 38px;
+    max-height: 38px;
+    max-width: 120px;
   }
 
   .premium-home .product-art>.product-brand {
