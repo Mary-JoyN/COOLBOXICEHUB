@@ -368,7 +368,7 @@ def seed_database() -> None:
 
     # Seed Site Settings (Contacts & Socials)
     settings_data = {
-        "email": "info@coolerboxicehub.com",
+        "email": "sebiuerasmus@gmail.com",
         "whatsapp": "264852485426",
         "socials": {
             "facebook": "https://facebook.com/coolerboxicehub",

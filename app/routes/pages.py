@@ -24,8 +24,20 @@ def order_page() -> HTMLResponse:
 
 
 @router.get("/shop", response_class=HTMLResponse)
+@router.get("/products", response_class=HTMLResponse)
 def shop_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("shop.html"))
+
+
+@router.get("/services", response_class=HTMLResponse)
+@router.get("/hire", response_class=HTMLResponse)
+def services_page() -> HTMLResponse:
+    return HTMLResponse(content=_read_template("services.html"))
+
+
+@router.get("/contact", response_class=HTMLResponse)
+def contact_page() -> HTMLResponse:
+    return HTMLResponse(content=_read_template("contact.html"))
 
 
 @router.get("/track", response_class=HTMLResponse)
