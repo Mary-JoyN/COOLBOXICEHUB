@@ -1,17 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Order Now | CoolerBox Ice Hub</title>
-  <meta name="description" content="Order pure ice bags, slow-melt ice blocks, ice cups, and purified bottled water with custom labels. Ongwediva, Namibia.">
-  <link rel="stylesheet" href="/community.css">
-  <link rel="stylesheet" href="/commerce.css">
-  <link rel="stylesheet" href="/premium.css">
-  <link rel="stylesheet" href="/ice-company.css">
+  <meta name="theme-color" content="#0b2b5b">
+  <title>Order Now | The CoolerBox Ice Hub — Ongwediva, Namibia</title>
+  <meta name="description" content="Calculate and place your order enquiry for pure ice cubes, gourmet ice, block ice, cups, and purified bottled water at Makalani Mall, Ongwediva.">
   <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+  <link rel="stylesheet" href="/commerce.css">
+  <link rel="stylesheet" href="/ice-company.css">
 </head>
-<body class="premium-page">
+<body>
   <!-- Top Bar -->
   <div class="site-top-bar">
     <div class="site-top-inner">
@@ -28,38 +27,44 @@
   <!-- Header Navigation -->
   <header class="site-header">
     <div class="site-nav-container">
-      <a class="site-brand brand" href="/" aria-label="CoolerBox Ice Hub Home">
-        <img class="brand-logo" src="/assets/logo-primary.jpeg" alt="The CoolerBox — Ice, Water, Refreshment">
+      <a class="site-brand" href="/" aria-label="CoolerBox Ice Hub Home">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox — Ice, Water, Refreshment">
       </a>
-      <ul class="site-nav-menu links">
+      <ul class="site-nav-menu">
         <li><a class="site-nav-link" href="/">Home</a></li>
         <li><a class="site-nav-link" href="/products">Products</a></li>
-        <li><a class="site-nav-link" href="/services">Hire &amp; Solutions</a></li>
+        <li><a class="site-nav-link" href="/services">Hire & Solutions</a></li>
         <li><a class="site-nav-link" href="/contact">Contact</a></li>
       </ul>
-      <a class="btn-header-order order-nav active" href="/order">Order Now ↗</a>
-      <button class="mobile-menu-toggle menu" id="menu-btn" aria-label="Toggle navigation">☰</button>
+      <a class="btn-header-order active" href="/order">Order Now ↗</a>
+      <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
     </div>
-    <div class="mobile-drawer mobile-nav" id="mobile-drawer">
+    <div class="mobile-drawer" id="mobile-drawer">
       <a href="/">Home</a>
       <a href="/products">Products</a>
-      <a href="/services">Hire &amp; Solutions</a>
+      <a href="/services">Hire & Solutions</a>
       <a href="/contact">Contact</a>
       <a class="active" href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="page-hero">
-      <div class="eyebrow">ORDER NOW · CALCULATE YOUR ESTIMATE</div>
-      <h1>Choose your cool.<br><em>We’ll handle the rest.</em></h1>
+  <!-- Title Banner -->
+  <section class="page-title-banner">
+    <div class="page-title-inner">
+      <span class="page-title-tag">ONLINE ESTIMATOR & ENQUIRY</span>
+      <h1>Choose Your Cool. We’ll Handle the Rest.</h1>
       <p>Choose your products, enter quantities or use the estimator, then review your price and complete the enquiry.</p>
-      <div class="actions">
-        <a class="btn" href="/order?supplier=1">Become a Local Supplier ↗</a>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:24px 28px;margin-bottom:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;box-shadow:var(--cb-shadow-sm)">
+      <div>
+        <strong style="color:var(--cb-navy);font-size:16px;display:block;margin-bottom:4px">Planning a Large Commercial or Vendor Supply?</strong>
+        <p style="color:var(--cb-text-muted);margin:0;font-size:14px">Apply to become an official retail stockist or explore bulk discount terms.</p>
       </div>
-      <p class="small notice">Formal quotations and artwork proofs will be provided or further discussed on WhatsApp. Prices on this site are estimates until agreed.</p>
-      <p class="small notice">SAMPLE WORKFLOW · Saving creates a sample enquiry or supplier application and reference in the owner dashboard. It does not reserve stock, take payment or send an email / WhatsApp message.</p>
-    </section>
+      <a class="btn-hero-primary" href="/order?supplier=1" style="padding:10px 20px;font-size:13.5px">Become a Local Supplier ↗</a>
+    </div>
 
     <p id="order-loading" role="status">Loading products…</p>
 
@@ -329,50 +334,45 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-col footer-col-brand">
-        <div class="footer-brand-card">
-          <img class="footer-logo" src="/assets/logo-primary.jpeg" alt="The CoolerBox — Ice, Water, Refreshment">
-          <p>Your premier pure ice manufacturer, purified bottled water supplier, and commercial mobile refrigeration partner in Ongwediva, Namibia.</p>
-        </div>
+  <!-- Global Footer -->
+  <footer class="site-footer-new">
+    <div class="footer-inner-grid">
+      <div class="footer-col-brand">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox Ice Hub">
+        <p>Pure Ice. Everyday Water. Reliable Supply across Ongwediva & Northern Namibia.</p>
+        <p style="margin-top:12px;font-size:13px;color:#8dafc9">📍 Shop 14, Makalani Mall, Ongwediva</p>
       </div>
       <div class="footer-col">
-        <h4>Products &amp; Ice</h4>
+        <h4>Navigation</h4>
         <ul>
-          <li><a href="/products">2 kg Pure Ice Bags</a></li>
-          <li><a href="/products">5 kg Gourmet Ice</a></li>
-          <li><a href="/products">Slow-Melt Block Ice</a></li>
-          <li><a href="/products">Purified Bottled Water</a></li>
-          <li><a href="/products">Personalised Label Water</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/services">Hire & Solutions</a></li>
+          <li><a href="/order">Order & Estimates</a></li>
+          <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Solutions &amp; Support</h4>
+        <h4>Help & Info</h4>
         <ul>
-          <li><a href="/services">Cold Storage Hire</a></li>
-          <li><a href="/services">Mobile Freezer Trailers</a></li>
-          <li><a href="/services">Event &amp; Wedding Supply</a></li>
-          <li><a href="/order?supplier=1">Become a Local Reseller</a></li>
-          <li><a href="/contact">Get a Formal Quotation</a></li>
+          <li><a href="/questions">Questions & Answers</a></li>
+          <li><a href="/reviews">Customer Reviews</a></li>
+          <li><a href="/privacy">Privacy Notice</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact &amp; Location</h4>
-        <div class="footer-contact-info">
-          <p>📍 Shop 12, Makalani Mall<br>Ongwediva, Oshana Region, Namibia</p>
-          <p>✉ <a href="mailto:info@coolerboxicehub.com">info@coolerboxicehub.com</a></p>
-          <p>💬 <a href="https://wa.me/264852485426" target="_blank" rel="noopener">WhatsApp: +264 85 248 5426</a></p>
-          <p>🕒 Mon – Sat: 08:00 – 19:00<br>Sun &amp; Public Holidays: 09:00 – 15:00</p>
-        </div>
+        <h4>Direct Contact</h4>
+        <ul>
+          <li><a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a></li>
+          <li><a href="https://wa.me/264852485426">💬 WhatsApp +264 85 248 5426</a></li>
+          <li><a href="tel:+264852485426">📞 Phone: +264 85 248 5426</a></li>
+          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 & 16:00–17:00</span></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom-bar">
-      <span>&copy; The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva, Namibia.</span>
-      <div style="display:flex;gap:16px">
-        <a href="mailto:info@coolerboxicehub.com">Email Us</a>
-        <a href="/privacy">Privacy Policy</a>
-      </div>
+      <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
+      <a href="/dashboard">Owner Dashboard ↗</a>
     </div>
   </footer>
 
@@ -387,7 +387,6 @@
   <script src="/qa.js"></script>
   <script src="/contacts.js"></script>
   <script src="/catalogue-link.js"></script>
-  <script src="/premium.js"></script>
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const drawer = document.getElementById('mobile-drawer');

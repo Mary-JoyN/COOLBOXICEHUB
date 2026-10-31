@@ -207,6 +207,11 @@ body {
   box-shadow: 0 6px 18px rgba(0, 165, 239, 0.35);
 }
 
+.btn-header-order.active {
+  background: var(--cb-cyan-dark);
+  box-shadow: 0 0 0 3px rgba(0, 165, 239, 0.35), 0 4px 14px rgba(0, 165, 239, 0.28);
+}
+
 .mobile-menu-toggle {
   display: none;
   background: none;
