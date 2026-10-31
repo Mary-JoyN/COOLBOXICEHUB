@@ -2855,7 +2855,7 @@ button:disabled {
 
 /* CoolerBox official navy, bright blue and white identity. */
 :root {
-  --brand-navy: #0b2b5b;
+  --brand-navy: #004f84;
   --brand-blue: #00a5ef;
   --brand-white: #fff
 }
@@ -2893,9 +2893,9 @@ header .brand {
 .order-nav,
 .premium-home .hero .btn,
 .btn:not(.outline):not(.light) {
-  background: #0b2b5b;
+  background: #004f84;
   color: #fff;
-  border-color: #0b2b5b
+  border-color: #004f84
 }
 
 .order-nav:hover,
@@ -2950,7 +2950,7 @@ header .brand {
 
 .premium-home .demo,
 .demo {
-  background: #0b2b5b;
+  background: #004f84;
   color: #fff
 }
 

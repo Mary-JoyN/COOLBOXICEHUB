@@ -1,23 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --cb-navy: #0b2b5b;
-  --cb-navy-deep: #061c3d;
-  --cb-navy-light: #163f7d;
+  --cb-navy: #004f84;
+  --cb-navy-deep: #003a63;
+  --cb-navy-light: #0d65a1;
   --cb-cyan: #00a5ef;
   --cb-cyan-soft: #bdeaff;
   --cb-cyan-dark: #0087c5;
   --cb-ice-white: #f4f9fd;
   --cb-surface: #ffffff;
   --cb-surface-alt: #f0f6fb;
-  --cb-text-main: #0c2340;
-  --cb-text-muted: #536b82;
+  --cb-text-main: #062842;
+  --cb-text-muted: #4e6b84;
   --cb-text-light: #8fa7be;
   --cb-border: #d4e3ef;
   --cb-border-subtle: #e6eef5;
-  --cb-shadow-sm: 0 2px 8px rgba(11, 43, 91, 0.05);
-  --cb-shadow-md: 0 8px 24px rgba(11, 43, 91, 0.08);
-  --cb-shadow-lg: 0 16px 40px rgba(11, 43, 91, 0.12);
+  --cb-shadow-sm: 0 2px 8px rgba(0, 79, 132, 0.06);
+  --cb-shadow-md: 0 8px 24px rgba(0, 79, 132, 0.09);
+  --cb-shadow-lg: 0 16px 40px rgba(0, 79, 132, 0.13);
   --cb-radius-sm: 8px;
   --cb-radius-md: 14px;
   --cb-radius-lg: 20px;
@@ -1095,4 +1095,25 @@ body {
 .footer-bottom-bar a {
   color: #bed7ea;
   text-decoration: none;
+}
+
+/* Story Card & Hub Map Responsive Grids */
+.story-hub-grid,
+.hub-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .story-hub-grid,
+  .hub-map-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .story-hub-image-wrap img {
+    max-height: 380px !important;
+  }
 }
