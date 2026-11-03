@@ -157,8 +157,15 @@ def run_comprehensive_test():
 
     # 13. Test Showcase
     showcase = showcase_endpoint()
-    assert len(showcase) >= 4
+    assert len(showcase) >= 1
     print(f"✓ Reviews & Showcase: {len(showcase)} approved customer testimonials.")
+
+    # Clean up test review so reviews table remains completely empty for user population
+    from app.database import get_db_connection
+
+    with get_db_connection() as cleanup_conn:
+        cleanup_conn.execute("DELETE FROM reviews WHERE id = 'rev-unit-test-1'")
+        cleanup_conn.commit()
 
     # 14. Test All Orders (Admin view)
     all_orders = all_orders_endpoint()

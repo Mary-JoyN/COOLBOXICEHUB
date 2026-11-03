@@ -468,61 +468,6 @@ def seed_database() -> None:
             ),
         )
 
-    # Seed Initial Reviews
-    initial_reviews = [
-        {
-            "id": "rev-001",
-            "rating": 5,
-            "title": "Crystal clear gourmet ice and prompt collection!",
-            "comment": "We ordered 20 bags of gourmet ice cubes for our wedding celebration at Ongwediva. The ice was beautifully clear and lasted throughout the warm afternoon. Highly recommended!",
-            "name": "Ndapewa S.",
-            "anonymous": 0,
-            "reference": "CBX-2610-1042",
-            "permission": 1,
-            "createdAt": "2026-10-22T14:30:00Z",
-        },
-        {
-            "id": "rev-002",
-            "rating": 5,
-            "title": "Dependable water refill station",
-            "comment": "Best tasting purified water in town. Clean facilities, fast service, and great value for our 25L office drum refills.",
-            "name": "Tomas K.",
-            "anonymous": 0,
-            "reference": "CBX-2610-1288",
-            "permission": 1,
-            "createdAt": "2026-10-25T09:15:00Z",
-        },
-        {
-            "id": "rev-003",
-            "rating": 5,
-            "title": "Personalised funeral water was treated with great dignity",
-            "comment": "CoolerBox designed beautiful memorial water bottle labels for our family gathering and kept them perfectly chilled at 10°C until collection. Thank you for your kindness and efficiency.",
-            "name": "Johannes M.",
-            "anonymous": 0,
-            "reference": "CBX-2610-1450",
-            "permission": 1,
-            "createdAt": "2026-10-27T16:45:00Z",
-        },
-    ]
-
-    for r in initial_reviews:
-        cursor.execute(
-            """
-            INSERT OR REPLACE INTO reviews (id, rating, title, comment, name, anonymous, reference, permission, status, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'published', ?)
-            """,
-            (
-                r["id"],
-                r["rating"],
-                r["title"],
-                r["comment"],
-                r["name"],
-                r["anonymous"],
-                r["reference"],
-                r["permission"],
-                r["createdAt"],
-            ),
-        )
-
+    # Initial reviews are left unseeded so the owner can populate them directly
     conn.commit()
     conn.close()
