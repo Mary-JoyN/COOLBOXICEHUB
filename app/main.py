@@ -5,6 +5,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from starlette.requests import Request
+from starlette.responses import Response
 
 from app.routes.api import router as api_router
 from app.routes.pages import router as pages_router
@@ -40,6 +42,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def add_cache_control_headers(request: Request, call_next) -> Response:
+    response: Response = await call_next(request)
+    path = request.url.path
+    if path.endswith((".css", ".js")) or path in ["/order", "/shop", "/products", "/services", "/"]:
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
 
 # API routes
 app.include_router(api_router)
