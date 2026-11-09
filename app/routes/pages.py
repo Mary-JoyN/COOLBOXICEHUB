@@ -65,6 +65,14 @@ def privacy_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("privacy.html"))
 
 
+@router.get("/admin", response_class=HTMLResponse)
 @router.get("/dashboard", response_class=HTMLResponse)
-def dashboard_page() -> HTMLResponse:
+def admin_page() -> HTMLResponse:
+    if os.path.exists(os.path.join(TEMPLATES_DIR, "admin.html")):
+        return HTMLResponse(content=_read_template("admin.html"))
     return HTMLResponse(content=_read_template("dashboard.html"))
+
+
+def dashboard_page() -> HTMLResponse:
+    return admin_page()
+

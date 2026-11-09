@@ -1,25 +1,37 @@
 from app.models import (
+    BusinessSettingsUpdateRequest,
     CustomerModel,
     MilestoneUpdateRequest,
     OrderCreateRequest,
     OrderItemModel,
+    ProductCreateRequest,
+    ProductUpdateRequest,
     ReviewCreateRequest,
+    SiteSettingsUpdateRequest,
 )
 from app.routes.api import (
     all_orders_endpoint,
     business_endpoint,
     catalogue_endpoint,
+    create_product_endpoint,
     create_review_endpoint,
+    delete_product_endpoint,
     faqs_endpoint,
     get_order_endpoint,
+    get_single_product_endpoint,
     health_check,
     my_orders_endpoint,
     place_order_endpoint,
     posts_endpoint,
+    settings_endpoint,
     showcase_endpoint,
+    update_business_endpoint,
     update_order_endpoint,
+    update_product_endpoint,
+    update_settings_endpoint,
 )
 from app.routes.pages import (
+    admin_page,
     dashboard_page,
     home_page,
     news_page,
@@ -172,8 +184,83 @@ def run_comprehensive_test():
     assert len(all_orders["orders"]) >= 1
     print(f"✓ Admin Orders List: {len(all_orders['orders'])} total records in system.")
 
+    # 15. Test Admin Page Route
+    adm_resp = admin_page()
+    assert adm_resp.status_code == 200
+    assert b"Operations Admin" in adm_resp.body or b"CoolerBox" in adm_resp.body
+    print(f"✓ Admin Page (/admin): Status {adm_resp.status_code}, Length {len(adm_resp.body)} bytes")
+
+    # 16. Test Product Creation with Image
+    new_prod_req = ProductCreateRequest(
+        id="test-party-ice",
+        name="7 kg Party Ice Bag",
+        description="Extra-large bulk party ice for weekend functions, weddings, and celebrations.",
+        unit="bag",
+        size=7.0,
+        sizeUnit="kg",
+        retailPrice=48.0,
+        bulkPrice=40.0,
+        bulkMinimum=15,
+        availability="available",
+        leadDays=1,
+        image="/assets/ice-product.webp",
+    )
+    created_prod = create_product_endpoint(new_prod_req)
+    assert created_prod["id"] == "test-party-ice"
+    assert created_prod["name"] == "7 kg Party Ice Bag"
+    assert created_prod["retailPrice"] == 48.0
+    print(f"✓ Product Creation: Successfully added '{created_prod['name']}' with image.")
+
+    # 17. Test Single Product Retrieval and Update
+    fetched_prod = get_single_product_endpoint("test-party-ice")
+    assert fetched_prod["id"] == "test-party-ice"
+    update_prod_req = ProductUpdateRequest(
+        retailPrice=50.0,
+        availability="advance-booking",
+        description="Updated party ice description with new pricing.",
+    )
+    updated_prod = update_product_endpoint("test-party-ice", update_prod_req)
+    assert updated_prod["product"]["retailPrice"] == 50.0
+    assert updated_prod["product"]["availability"] == "advance-booking"
+    print("✓ Product Update: Updated price and availability successfully.")
+
+    # 18. Test Product Deletion
+    del_res = delete_product_endpoint("test-party-ice")
+    assert del_res["status"] == "deleted"
+    print("✓ Product Deletion: Product removed cleanly.")
+
+    # 19. Test Site Settings & Phone Update
+    sett_req = SiteSettingsUpdateRequest(
+        phone="+264 85 999 8888",
+        whatsapp="264859998888",
+        email="orders@coolerboxicehub.com",
+    )
+    updated_sett = update_settings_endpoint(sett_req)
+    assert updated_sett["status"] == "success"
+    current_sett = settings_endpoint()
+    assert current_sett["phone"] == "+264 85 999 8888"
+    assert current_sett["whatsapp"] == "264859998888"
+    assert current_sett["email"] == "orders@coolerboxicehub.com"
+    print("✓ Contact & Phone Update: Phone and WhatsApp numbers updated.")
+
+    # Reset contact settings back to standard
+    update_settings_endpoint(SiteSettingsUpdateRequest(
+        phone="+264 85 248 5426",
+        whatsapp="264852485426",
+        email="info@coolerboxicehub.com",
+    ))
+
+    # 20. Test Business Settings Update
+    biz_req = BusinessSettingsUpdateRequest(
+        hours="Monday–Saturday: 08:30–20:00. Sunday: 10:00–18:00.",
+    )
+    updated_biz = update_business_endpoint(biz_req)
+    assert updated_biz["status"] == "success"
+    assert "08:30" in business_endpoint()["hours"]
+    print("✓ Business Settings Update: Trading hours updated.")
+
     print("\n==================================================")
-    print("  ALL 14 SUITES PASSED WITH 100% SUCCESS!         ")
+    print("  ALL 20 SUITES PASSED WITH 100% SUCCESS!         ")
     print("==================================================\n")
 
 

@@ -79,11 +79,57 @@ class PostCreateRequest(BaseModel):
     eventDate: str | None = ""
 
 
+class ProductCreateRequest(BaseModel):
+    id: str | None = None
+    name: str = Field(..., min_length=1, max_length=150)
+    description: str = Field(default="", max_length=1000)
+    unit: str = Field(default="bag", max_length=50)
+    size: float = Field(default=1.0, ge=0)
+    sizeUnit: str = Field(default="kg", max_length=50)
+    retailPrice: float | None = None
+    bulkPrice: float | None = None
+    bulkMinimum: int | None = 1
+    gourmetRetailPrice: float | None = None
+    gourmetBulkPrice: float | None = None
+    availability: str = Field(default="available")
+    leadDays: int = Field(default=1, ge=0)
+    image: str | None = ""
+    minOrder: int | None = 1
+    orderMultiple: int | None = 1
+
+
 class ProductUpdateRequest(BaseModel):
-    id: str
+    id: str | None = None
+    name: str | None = None
+    description: str | None = None
+    unit: str | None = None
+    size: float | None = None
+    sizeUnit: str | None = None
     retailPrice: float | None = None
     bulkPrice: float | None = None
     bulkMinimum: int | None = None
     gourmetRetailPrice: float | None = None
     gourmetBulkPrice: float | None = None
     availability: str | None = None
+    leadDays: int | None = None
+    image: str | None = None
+    minOrder: int | None = None
+    orderMultiple: int | None = None
+
+
+class SiteSettingsUpdateRequest(BaseModel):
+    email: str | None = None
+    phone: str | None = None
+    whatsapp: str | None = None
+    socials: dict[str, str] | None = None
+
+
+class BusinessSettingsUpdateRequest(BaseModel):
+    about: str | None = None
+    location: str | None = None
+    hours: str | None = None
+    collection: str | None = None
+    deliveryAreas: str | None = None
+    deliveryRadiusKm: int | None = None
+    bookingTerms: str | None = None
+    paymentTerms: str | None = None

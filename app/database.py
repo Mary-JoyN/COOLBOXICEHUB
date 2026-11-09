@@ -1,7 +1,7 @@
 import json
 import os
 import sqlite3
-from datetime import UTC
+from datetime import UTC, datetime
 from typing import Any
 
 DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "coolerbox.db")
@@ -138,13 +138,17 @@ def get_site_settings() -> dict[str, Any]:
     row = cursor.fetchone()
     conn.close()
     if row:
-        return json.loads(row["value_json"])
+        data = json.loads(row["value_json"])
+        if "phone" not in data or not data["phone"]:
+            data["phone"] = "+264 85 248 5426"
+        return data
     return {
         "email": "sebiuerasmus@gmail.com",
+        "phone": "+264 85 248 5426",
         "whatsapp": "264852485426",
         "socials": {
-            "facebook": "",
-            "instagram": "",
+            "facebook": "https://facebook.com/coolerboxicehub",
+            "instagram": "https://instagram.com/coolerboxicehub",
             "tiktok": "",
             "linkedin": "",
             "youtube": "",
@@ -370,3 +374,86 @@ def insert_review(review_data: dict[str, Any]) -> None:
     )
     conn.commit()
     conn.close()
+
+
+def save_catalogue_item(item: dict[str, Any]) -> dict[str, Any]:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    now = datetime.now(UTC).isoformat()
+    product_id = item["id"]
+    cursor.execute(
+        "INSERT OR REPLACE INTO catalogue (id, data_json, updated_at) VALUES (?, ?, ?)",
+        (product_id, json.dumps(item), now),
+    )
+    conn.commit()
+    conn.close()
+    return item
+
+
+def delete_catalogue_item(product_id: str) -> bool:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM catalogue WHERE id = ?", (product_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return deleted
+
+
+def update_site_settings(new_settings: dict[str, Any]) -> dict[str, Any]:
+    current = get_site_settings()
+    for k, v in new_settings.items():
+        if v is not None:
+            if k == "socials" and isinstance(v, dict):
+                current["socials"] = current.get("socials", {})
+                current["socials"].update(v)
+            else:
+                current[k] = v
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT OR REPLACE INTO settings (key, value_json) VALUES ('settings', ?)",
+        (json.dumps(current),),
+    )
+    conn.commit()
+    conn.close()
+    return current
+
+
+def update_business_settings(new_business: dict[str, Any]) -> dict[str, Any]:
+    current = get_business_settings()
+    for k, v in new_business.items():
+        if v is not None:
+            current[k] = v
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT OR REPLACE INTO settings (key, value_json) VALUES ('business', ?)",
+        (json.dumps(current),),
+    )
+    conn.commit()
+    conn.close()
+    return current
+
+
+def delete_review(review_id: str) -> bool:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM reviews WHERE id = ?", (review_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return deleted
+
+
+def delete_post(post_id: str) -> bool:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM posts WHERE id = ?", (post_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return deleted
+

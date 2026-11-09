@@ -1,5 +1,7 @@
+import json
 import os
 import random
+import re
 import uuid
 from datetime import UTC, datetime
 from typing import Any
@@ -8,6 +10,9 @@ from fastapi import APIRouter, HTTPException, Request
 
 from app.database import (
     create_order,
+    delete_catalogue_item,
+    delete_post,
+    delete_review,
     get_all_faqs,
     get_all_posts,
     get_business_settings,
@@ -18,14 +23,20 @@ from app.database import (
     get_site_settings,
     insert_review,
     mark_updates_read,
+    save_catalogue_item,
+    update_business_settings,
     update_order_milestone,
+    update_site_settings,
 )
 from app.models import (
+    BusinessSettingsUpdateRequest,
     MilestoneUpdateRequest,
     OrderCreateRequest,
     PostCreateRequest,
+    ProductCreateRequest,
     ProductUpdateRequest,
     ReviewCreateRequest,
+    SiteSettingsUpdateRequest,
 )
 
 router = APIRouter(prefix="/api", tags=["API"])
@@ -290,6 +301,60 @@ async def upload_file_endpoint(request: Request) -> dict[str, str]:
     return {"url": f"/uploads/{unique_name}", "filename": filename}
 
 
+@router.post("/catalogue")
+def create_product_endpoint(req: ProductCreateRequest) -> dict[str, Any]:
+    if req.id and req.id.strip():
+        product_id = re.sub(r"[^a-zA-Z0-9_-]", "-", req.id.strip().lower())
+    else:
+        base_slug = re.sub(r"[^a-zA-Z0-9]+", "-", req.name.strip().lower()).strip("-")
+        product_id = f"{base_slug}-{uuid.uuid4().hex[:4]}" if base_slug else f"prod-{uuid.uuid4().hex[:6]}"
+
+    # Verify uniqueness
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM catalogue WHERE id = ?", (product_id,))
+    if cursor.fetchone():
+        product_id = f"{product_id}-{uuid.uuid4().hex[:4]}"
+    conn.close()
+
+    product_data = {
+        "id": product_id,
+        "name": req.name.strip(),
+        "description": req.description.strip(),
+        "unit": req.unit.strip(),
+        "size": req.size,
+        "sizeUnit": req.sizeUnit.strip(),
+        "retailPrice": req.retailPrice,
+        "bulkPrice": req.bulkPrice,
+        "bulkMinimum": req.bulkMinimum or 1,
+        "gourmetRetailPrice": req.gourmetRetailPrice,
+        "gourmetBulkPrice": req.gourmetBulkPrice,
+        "availability": req.availability,
+        "leadDays": req.leadDays,
+        "image": req.image or "/assets/ice-product.webp",
+        "samplePrice": False,
+        "salesRevision": 1,
+        "minOrder": req.minOrder or 1,
+        "orderMultiple": req.orderMultiple or 1,
+        "maxPerOrder": None,
+        "dailyCapacity": None,
+    }
+    saved = save_catalogue_item(product_data)
+    return saved
+
+
+@router.get("/catalogue/{product_id}")
+def get_single_product_endpoint(product_id: str) -> dict[str, Any]:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT data_json FROM catalogue WHERE id = ?", (product_id,))
+    row = cursor.fetchone()
+    conn.close()
+    if not row:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return json.loads(row["data_json"])
+
+
 @router.patch("/catalogue/{product_id}")
 def update_product_endpoint(product_id: str, req: ProductUpdateRequest) -> dict[str, Any]:
     conn = get_db_connection()
@@ -300,8 +365,17 @@ def update_product_endpoint(product_id: str, req: ProductUpdateRequest) -> dict[
         conn.close()
         raise HTTPException(status_code=404, detail="Product not found")
 
-    import json
     data = json.loads(row["data_json"])
+    if req.name is not None and req.name.strip():
+        data["name"] = req.name.strip()
+    if req.description is not None:
+        data["description"] = req.description.strip()
+    if req.unit is not None:
+        data["unit"] = req.unit.strip()
+    if req.size is not None:
+        data["size"] = req.size
+    if req.sizeUnit is not None:
+        data["sizeUnit"] = req.sizeUnit.strip()
     if req.retailPrice is not None:
         data["retailPrice"] = req.retailPrice
     if req.bulkPrice is not None:
@@ -314,11 +388,65 @@ def update_product_endpoint(product_id: str, req: ProductUpdateRequest) -> dict[
         data["gourmetBulkPrice"] = req.gourmetBulkPrice
     if req.availability is not None:
         data["availability"] = req.availability
+    if req.leadDays is not None:
+        data["leadDays"] = req.leadDays
+    if req.image is not None and req.image.strip():
+        data["image"] = req.image.strip()
+    if req.minOrder is not None:
+        data["minOrder"] = req.minOrder
+    if req.orderMultiple is not None:
+        data["orderMultiple"] = req.orderMultiple
 
-    from datetime import datetime
     now = datetime.now(UTC).isoformat()
     cursor.execute("UPDATE catalogue SET data_json = ?, updated_at = ? WHERE id = ?", (json.dumps(data), now, product_id))
     conn.commit()
     conn.close()
     return {"status": "updated", "product": data}
-    return {"status": "updated", "product": data}
+
+
+@router.delete("/catalogue/{product_id}")
+def delete_product_endpoint(product_id: str) -> dict[str, Any]:
+    deleted = delete_catalogue_item(product_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return {"status": "deleted", "id": product_id}
+
+
+@router.patch("/settings")
+def update_settings_endpoint(req: SiteSettingsUpdateRequest) -> dict[str, Any]:
+    updates: dict[str, Any] = {}
+    if req.email is not None and req.email.strip():
+        updates["email"] = req.email.strip()
+    if req.phone is not None and req.phone.strip():
+        updates["phone"] = req.phone.strip()
+    if req.whatsapp is not None and req.whatsapp.strip():
+        clean_wa = re.sub(r"[^\d]", "", req.whatsapp.strip())
+        updates["whatsapp"] = clean_wa if clean_wa else req.whatsapp.strip()
+    if req.socials is not None:
+        updates["socials"] = req.socials
+
+    updated = update_site_settings(updates)
+    return {"status": "success", "settings": updated}
+
+
+@router.patch("/business")
+def update_business_endpoint(req: BusinessSettingsUpdateRequest) -> dict[str, Any]:
+    updates = {k: v for k, v in req.model_dump().items() if v is not None}
+    updated = update_business_settings(updates)
+    return {"status": "success", "business": updated}
+
+
+@router.delete("/reviews/{review_id}")
+def delete_review_endpoint(review_id: str) -> dict[str, Any]:
+    deleted = delete_review(review_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Review not found")
+    return {"status": "deleted", "id": review_id}
+
+
+@router.delete("/posts/{post_id}")
+def delete_post_endpoint(post_id: str) -> dict[str, Any]:
+    deleted = delete_post(post_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return {"status": "deleted", "id": post_id}

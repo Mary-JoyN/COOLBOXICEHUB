@@ -305,11 +305,14 @@ def seed_database() -> None:
             if "gourmetBulkPrice" not in p or p["gourmetBulkPrice"] is None:
                 p["gourmetBulkPrice"] = 14 if p["id"] == "ice" else (22 if p["id"] == "ice3" else 35)
 
-    for p in products:
-        cursor.execute(
-            "INSERT OR REPLACE INTO catalogue (id, data_json, updated_at) VALUES (?, ?, ?)",
-            (p["id"], json.dumps(p), now),
-        )
+    cursor.execute("SELECT count(*) FROM catalogue")
+    cat_count = cursor.fetchone()[0]
+    if cat_count == 0:
+        for p in products:
+            cursor.execute(
+                "INSERT INTO catalogue (id, data_json, updated_at) VALUES (?, ?, ?)",
+                (p["id"], json.dumps(p), now),
+            )
 
     # Seed Business Settings
     business_file = os.path.join(
@@ -361,14 +364,17 @@ def seed_database() -> None:
             "collectionEnd": "19:00",
         }
 
-    cursor.execute(
-        "INSERT OR REPLACE INTO settings (key, value_json) VALUES ('business', ?)",
-        (json.dumps(business_data),),
-    )
+    cursor.execute("SELECT count(*) FROM settings WHERE key = 'business'")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute(
+            "INSERT INTO settings (key, value_json) VALUES ('business', ?)",
+            (json.dumps(business_data),),
+        )
 
     # Seed Site Settings (Contacts & Socials)
     settings_data = {
-        "email": "sebiuerasmus@gmail.com",
+        "email": "info@coolerboxicehub.com",
+        "phone": "+264 85 248 5426",
         "whatsapp": "264852485426",
         "socials": {
             "facebook": "https://facebook.com/coolerboxicehub",
@@ -378,10 +384,12 @@ def seed_database() -> None:
             "youtube": "",
         },
     }
-    cursor.execute(
-        "INSERT OR REPLACE INTO settings (key, value_json) VALUES ('settings', ?)",
-        (json.dumps(settings_data),),
-    )
+    cursor.execute("SELECT count(*) FROM settings WHERE key = 'settings'")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute(
+            "INSERT INTO settings (key, value_json) VALUES ('settings', ?)",
+            (json.dumps(settings_data),),
+        )
 
     # Seed FAQs
     faqs_file = os.path.join(
