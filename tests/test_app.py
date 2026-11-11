@@ -39,6 +39,7 @@ from app.routes.pages import (
     privacy_page,
     questions_page,
     reviews_page,
+    services_page,
     shop_page,
     track_page,
 )
@@ -58,6 +59,7 @@ def run_comprehensive_test():
     pages = {
         "Homepage (/)": home_page(),
         "Shop (/shop)": shop_page(),
+        "Services / Business & Events (/services)": services_page(),
         "Order (/order)": order_page(),
         "Track (/track)": track_page(),
         "Reviews (/reviews)": reviews_page(),
@@ -70,6 +72,8 @@ def run_comprehensive_test():
         assert resp.status_code == 200, f"{name} returned {resp.status_code}"
         assert len(resp.body) > 500, f"{name} body too short ({len(resp.body)} bytes)"
         assert b"logo-primary.jpeg" in resp.body or b"brand-logo" in resp.body, f"{name} missing official logo reference"
+        if name != "Dashboard (/dashboard)":
+            assert b"admin-side-tab.js" in resp.body, f"{name} missing admin-side-tab.js"
         print(f"✓ {name}: Status {resp.status_code}, Length {len(resp.body)} bytes")
 
     # 3. Test Health Check
