@@ -31,6 +31,8 @@ def shop_page() -> HTMLResponse:
 
 @router.get("/services", response_class=HTMLResponse)
 @router.get("/hire", response_class=HTMLResponse)
+@router.get("/business", response_class=HTMLResponse)
+@router.get("/events", response_class=HTMLResponse)
 def services_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("services.html"))
 
