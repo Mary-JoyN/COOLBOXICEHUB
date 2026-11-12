@@ -113,7 +113,7 @@ body {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 20px;
-  height: 74px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -130,17 +130,17 @@ body {
 }
 
 .site-brand img {
-  height: 48px;
-  max-height: 48px;
+  height: 66px;
+  max-height: 70px;
   width: auto;
-  max-width: 155px;
+  max-width: 240px;
   object-fit: contain;
   display: block;
   transition: transform 0.2s ease;
 }
 
 .site-brand:hover img {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .site-nav-menu {
@@ -251,12 +251,12 @@ body {
 
 @media (max-width: 900px) {
   .site-nav-container {
-    height: 66px;
+    height: 74px;
   }
   .site-brand img {
-    height: 42px;
-    max-height: 42px;
-    max-width: 135px;
+    height: 56px;
+    max-height: 58px;
+    max-width: 200px;
   }
   .site-nav-menu, .btn-header-order {
     display: none;
@@ -268,13 +268,13 @@ body {
 
 @media (max-width: 480px) {
   .site-nav-container {
-    height: 60px;
+    height: 68px;
     padding: 0 16px;
   }
   .site-brand img {
-    height: 38px;
-    max-height: 38px;
-    max-width: 120px;
+    height: 48px;
+    max-height: 50px;
+    max-width: 170px;
   }
 }
 

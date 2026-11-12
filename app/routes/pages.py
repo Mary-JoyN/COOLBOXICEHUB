@@ -37,6 +37,12 @@ def services_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("services.html"))
 
 
+@router.get("/calculator", response_class=HTMLResponse)
+@router.get("/estimator", response_class=HTMLResponse)
+def calculator_page() -> HTMLResponse:
+    return HTMLResponse(content=_read_template("calculator.html"))
+
+
 @router.get("/contact", response_class=HTMLResponse)
 def contact_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("contact.html"))

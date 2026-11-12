@@ -32,6 +32,7 @@ from app.routes.api import (
 )
 from app.routes.pages import (
     admin_page,
+    calculator_page,
     dashboard_page,
     home_page,
     news_page,
@@ -60,6 +61,7 @@ def run_comprehensive_test():
         "Homepage (/)": home_page(),
         "Shop (/shop)": shop_page(),
         "Services / Business & Events (/services)": services_page(),
+        "Calculator (/calculator)": calculator_page(),
         "Order (/order)": order_page(),
         "Track (/track)": track_page(),
         "Reviews (/reviews)": reviews_page(),
