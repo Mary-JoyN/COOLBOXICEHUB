@@ -10,47 +10,23 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    /* Visible Admin Tab Handle on Right Edge */
+    /* Invisible Admin Trigger Hotspot on Right Edge (hidden from regular users) */
     .cbx-admin-side-handle {
       position: fixed;
       right: 0;
       top: 50%;
       transform: translateY(-50%);
+      width: 22px;
+      height: 84px;
       z-index: 99998;
-      background: linear-gradient(180deg, #002b49 0%, #001f35 100%);
-      color: #ffffff;
-      border: 1.5px solid #00a5ef;
-      border-right: none;
-      border-radius: 12px 0 0 12px;
-      padding: 12px 7px 12px 9px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      box-shadow: -4px 0 20px rgba(0, 43, 73, 0.4), 0 0 12px rgba(0, 165, 239, 0.25);
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: default;
+      opacity: 0;
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s, background 0.2s;
-    }
-
-    .cbx-admin-side-handle:hover {
-      background: linear-gradient(180deg, #003a63 0%, #002b49 100%);
-      box-shadow: -6px 0 24px rgba(0, 165, 239, 0.45);
-      transform: translateY(-50%) translateX(-2px);
-    }
-
-    .cbx-admin-side-handle.shake {
-      animation: cbx-tab-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    }
-
-    @keyframes cbx-tab-shake {
-      10%, 90% { transform: translateY(-50%) translate3d(-3px, 0, 0); }
-      20%, 80% { transform: translateY(-50%) translate3d(4px, 0, 0); }
-      30%, 50%, 70% { transform: translateY(-50%) translate3d(-4px, 0, 0); }
-      40%, 60% { transform: translateY(-50%) translate3d(4px, 0, 0); }
     }
 
     .cbx-admin-side-icon {
@@ -273,17 +249,10 @@
   `;
   document.head.appendChild(style);
 
-  // 1. Create Handle Button on Right Edge
+  // 1. Create Invisible Handle Hotspot on Right Edge
   const handle = document.createElement('div');
   handle.className = 'cbx-admin-side-handle';
-  handle.setAttribute('role', 'button');
-  handle.setAttribute('tabindex', '0');
-  handle.setAttribute('aria-label', 'CoolerBox Admin Tab (Double-tap to open)');
-  handle.title = 'Admin Tab (Double-tap to open)';
-  handle.innerHTML = `
-    <span class="cbx-admin-side-icon" id="cbx-lock-icon">🔒</span>
-    <span class="cbx-admin-side-text">ADMIN</span>
-  `;
+  handle.setAttribute('aria-hidden', 'true');
 
   // 2. Create Tooltip
   const tooltip = document.createElement('div');
@@ -355,11 +324,7 @@
   }
 
   function onSingleTap() {
-    // Single tap shakes the handle and tells the user to double tap
-    handle.classList.remove('shake');
-    void handle.offsetWidth; // trigger reflow
-    handle.classList.add('shake');
-    showTooltip('Double-tap tab to open Admin');
+    // Keep silent so regular users are unaware of the hidden admin hotspot
   }
 
   function onDoubleTap() {

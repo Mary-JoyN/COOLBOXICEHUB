@@ -1,7 +1,7 @@
 import os
 
 from fastapi import APIRouter
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 router = APIRouter(tags=["Pages"])
 
@@ -37,10 +37,10 @@ def services_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("services.html"))
 
 
-@router.get("/calculator", response_class=HTMLResponse)
-@router.get("/estimator", response_class=HTMLResponse)
-def calculator_page() -> HTMLResponse:
-    return HTMLResponse(content=_read_template("calculator.html"))
+@router.get("/calculator")
+@router.get("/estimator")
+def calculator_page() -> RedirectResponse:
+    return RedirectResponse(url="/products", status_code=302)
 
 
 @router.get("/contact", response_class=HTMLResponse)

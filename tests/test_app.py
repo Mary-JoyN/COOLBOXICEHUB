@@ -61,7 +61,6 @@ def run_comprehensive_test():
         "Homepage (/)": home_page(),
         "Shop (/shop)": shop_page(),
         "Services / Business & Events (/services)": services_page(),
-        "Calculator (/calculator)": calculator_page(),
         "Order (/order)": order_page(),
         "Track (/track)": track_page(),
         "Reviews (/reviews)": reviews_page(),
@@ -70,6 +69,11 @@ def run_comprehensive_test():
         "Privacy (/privacy)": privacy_page(),
         "Dashboard (/dashboard)": dashboard_page(),
     }
+    calc_resp = calculator_page()
+    assert calc_resp.status_code == 302 and calc_resp.headers["location"] == "/products", (
+        f"Calculator (/calculator) should redirect to /products, got {calc_resp.status_code}"
+    )
+    print("✓ Calculator (/calculator): Redirects 302 -> /products")
     for name, resp in pages.items():
         assert resp.status_code == 200, f"{name} returned {resp.status_code}"
         assert len(resp.body) > 500, f"{name} body too short ({len(resp.body)} bytes)"
