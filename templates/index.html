@@ -51,10 +51,10 @@
     </div>
   </header>
 
-  <!-- Ice Cubes Hero Section (Smooth animated 3D-shaded ice cubes) -->
+  <!-- Ice Cubes Dropping in Water Hero Section -->
   <section class="hero-video-banner">
-    <canvas id="hero-ice-canvas" class="hero-video-bg" style="opacity:0.78" aria-hidden="true"></canvas>
-    <div class="hero-video-overlay"></div>
+    <div class="hero-video-overlay" style="z-index:1"></div>
+    <canvas id="hero-ice-canvas" class="hero-video-bg" style="opacity:0.95;z-index:2;pointer-events:none" aria-hidden="true"></canvas>
     <div class="hero-content-wrap">
       <span class="hero-pill-tag">ICE · BOTTLED WATER · WATER REFILLS</span>
       <h1>
@@ -232,7 +232,7 @@
     </div>
   </footer>
 
-  <script src="/hero-ice.js"></script>
+  <script src="/hero-ice.js?v=2"></script>
   <script src="/admin-side-tab.js"></script>
   <script>
     const menuBtn = document.getElementById('menu-btn');
