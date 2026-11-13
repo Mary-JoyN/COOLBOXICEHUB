@@ -1,5 +1,6 @@
 from app.models import (
     BusinessSettingsUpdateRequest,
+    ContactMessageRequest,
     CustomerModel,
     MilestoneUpdateRequest,
     OrderCreateRequest,
@@ -25,6 +26,7 @@ from app.routes.api import (
     posts_endpoint,
     settings_endpoint,
     showcase_endpoint,
+    submit_contact_endpoint,
     update_business_endpoint,
     update_order_endpoint,
     update_product_endpoint,
@@ -268,6 +270,22 @@ def run_comprehensive_test():
     assert updated_biz["status"] == "success"
     assert "08:30" in business_endpoint()["hours"]
     print("✓ Business Settings Update: Trading hours updated.")
+
+    # 21. Test Contact Form Submission (/api/contact)
+    contact_req = ContactMessageRequest(
+        name="Test Customer",
+        phone="+264814335145",
+        email="admin@telecom.na",
+        subject="Bulk Retail & Business Supply",
+        message="Testing contact enquiry submission.",
+    )
+    contact_res = submit_contact_endpoint(contact_req)
+    assert contact_res["status"] == "success"
+    assert contact_res["reference"].startswith("CBX-MSG-")
+    with get_db_connection() as cleanup_conn:
+        cleanup_conn.execute("DELETE FROM contact_messages WHERE reference = ?", (contact_res["reference"],))
+        cleanup_conn.commit()
+    print(f"✓ Contact Form (/api/contact): Saved enquiry {contact_res['reference']}.")
 
     print("\n==================================================")
     print("  ALL 20 SUITES PASSED WITH 100% SUCCESS!         ")

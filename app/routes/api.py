@@ -24,12 +24,14 @@ from app.database import (
     insert_review,
     mark_updates_read,
     save_catalogue_item,
+    save_contact_message,
     update_business_settings,
     update_order_milestone,
     update_site_settings,
 )
 from app.models import (
     BusinessSettingsUpdateRequest,
+    ContactMessageRequest,
     MilestoneUpdateRequest,
     OrderCreateRequest,
     PostCreateRequest,
@@ -450,3 +452,83 @@ def delete_post_endpoint(post_id: str) -> dict[str, Any]:
     if not deleted:
         raise HTTPException(status_code=404, detail="Post not found")
     return {"status": "deleted", "id": post_id}
+
+
+def _send_contact_email(
+    recipient: str,
+    reference: str,
+    req: ContactMessageRequest,
+) -> bool:
+    import smtplib
+    from email.message import EmailMessage
+
+    smtp_host = os.environ.get("SMTP_HOST", "").strip()
+    smtp_port = int(os.environ.get("SMTP_PORT", "587"))
+    smtp_user = os.environ.get("SMTP_USER", "").strip()
+    smtp_pass = os.environ.get("SMTP_PASSWORD", "").strip()
+    smtp_from = os.environ.get("SMTP_FROM", smtp_user or recipient).strip()
+
+    if not smtp_host or not smtp_user or not smtp_pass:
+        return False
+
+    msg = EmailMessage()
+    msg["Subject"] = f"[CoolerBox Enquiry {reference}] {req.subject}"
+    msg["From"] = smtp_from
+    msg["To"] = recipient
+    msg["Reply-To"] = req.email.strip()
+    msg.set_content(
+        f"New website enquiry received ({reference})\n\n"
+        f"Name: {req.name.strip()}\n"
+        f"Phone / WhatsApp: {req.phone.strip()}\n"
+        f"Email: {req.email.strip()}\n"
+        f"Subject: {req.subject.strip()}\n\n"
+        f"Message:\n{req.message.strip()}\n"
+    )
+
+    try:
+        if smtp_port == 465:
+            with smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=10) as server:
+                server.login(smtp_user, smtp_pass)
+                server.send_message(msg)
+        else:
+            with smtplib.SMTP(smtp_host, smtp_port, timeout=10) as server:
+                server.starttls()
+                server.login(smtp_user, smtp_pass)
+                server.send_message(msg)
+        return True
+    except Exception:
+        return False
+
+
+@router.post("/contact")
+def submit_contact_endpoint(req: ContactMessageRequest) -> dict[str, Any]:
+    now = datetime.now(UTC)
+    now_iso = now.isoformat()
+    ref = f"CBX-MSG-{now.strftime('%y%m')}-{random.randint(1000, 9999)}"
+
+    site_settings = get_site_settings()
+    recipient = site_settings.get("email") or "info@coolerboxicehub.com"
+    email_sent = _send_contact_email(recipient, ref, req)
+
+    save_contact_message(
+        reference=ref,
+        name=req.name.strip(),
+        phone=req.phone.strip(),
+        email_addr=req.email.strip(),
+        subject=req.subject.strip(),
+        message=req.message.strip(),
+        email_sent=email_sent,
+        created_at=now_iso,
+    )
+
+    detail_msg = (
+        f"Your enquiry has been emailed to {recipient} and saved to our system."
+        if email_sent
+        else f"Your enquiry has been saved for {recipient}. Our team will follow up with you shortly."
+    )
+    return {
+        "status": "success",
+        "reference": ref,
+        "emailSent": email_sent,
+        "message": detail_msg,
+    }

@@ -133,3 +133,11 @@ class BusinessSettingsUpdateRequest(BaseModel):
     deliveryRadiusKm: int | None = None
     bookingTerms: str | None = None
     paymentTerms: str | None = None
+
+
+class ContactMessageRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=150)
+    phone: str = Field(..., min_length=4, max_length=50)
+    email: str = Field(..., min_length=3, max_length=150)
+    subject: str = Field(default="General Enquiry", max_length=200)
+    message: str = Field(..., min_length=1, max_length=4000)

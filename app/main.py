@@ -2,6 +2,7 @@ import os
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -11,6 +12,8 @@ from starlette.responses import Response
 from app.routes.api import router as api_router
 from app.routes.pages import router as pages_router
 from app.seed_data import seed_database
+
+load_dotenv()
 
 STATIC_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
 ASSETS_DIR = os.path.join(STATIC_DIR, "assets")

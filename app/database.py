@@ -106,6 +106,21 @@ def init_db() -> None:
     );
     """)
 
+    # Contact form messages
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS contact_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        reference TEXT UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        email TEXT NOT NULL,
+        subject TEXT NOT NULL,
+        message TEXT NOT NULL,
+        email_sent INTEGER NOT NULL DEFAULT 0,
+        created_at TEXT NOT NULL
+    );
+    """)
+
     conn.commit()
     conn.close()
 
@@ -456,4 +471,37 @@ def delete_post(post_id: str) -> bool:
     conn.commit()
     conn.close()
     return deleted
+
+
+def save_contact_message(
+    reference: str,
+    name: str,
+    phone: str,
+    email_addr: str,
+    subject: str,
+    message: str,
+    email_sent: bool,
+    created_at: str,
+) -> dict[str, Any]:
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        INSERT INTO contact_messages (reference, name, phone, email, subject, message, email_sent, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (reference, name, phone, email_addr, subject, message, 1 if email_sent else 0, created_at),
+    )
+    conn.commit()
+    conn.close()
+    return {
+        "reference": reference,
+        "name": name,
+        "phone": phone,
+        "email": email_addr,
+        "subject": subject,
+        "message": message,
+        "emailSent": email_sent,
+        "createdAt": created_at,
+    }
 
