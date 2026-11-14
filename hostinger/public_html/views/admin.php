@@ -1,3 +1,9 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/security.php';
+$cbxCsrf = htmlspecialchars(cbx_csrf_token(), ENT_QUOTES, 'UTF-8');
+$cbxAdminUser = htmlspecialchars((string)($_SESSION['admin_username'] ?? 'admin'), ENT_QUOTES, 'UTF-8');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin &amp; Client Management Console | CoolerBox Ice Hub</title>
   <meta name="description" content="Manage product catalogue, image uploads, phone &amp; contact numbers, orders, customer reviews and announcements for CoolerBox Ice Hub.">
+  <meta name="csrf-token" content="<?= $cbxCsrf ?>">
+  <meta name="admin-user" content="<?= $cbxAdminUser ?>">
   <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
   <link rel="stylesheet" href="/static/admin.css">
 </head>

@@ -126,3 +126,4 @@ All PHP files passed `php -l` syntax checks, and an automated 12-part HTTP test 
 - **All existing pages, branding, CSS, JS, images, and videos** are preserved 1:1.
 - **Admin security upgraded:** The original Python app had an unauthenticated `/admin` portal; the PHP version protects `/admin` and all mutating/admin `/api/*` endpoints with session auth, bcrypt password hashing, and CSRF tokens.
 - **Email delivery:** `cbx_send_contact_email()` uses PHP `mail()` on Hostinger (which routes through Hostinger's local MTA when `From:` matches your domain email `info@coolerboxicehub.com`) and always persists every enquiry in `contact_messages` so zero enquiries are lost even if mail delivery is delayed.
+

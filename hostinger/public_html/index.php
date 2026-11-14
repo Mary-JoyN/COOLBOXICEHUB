@@ -50,40 +50,27 @@ if ($path === '/admin' || $path === '/dashboard') {
     cbx_send_security_headers();
     header('Content-Type: text/html; charset=utf-8');
     header('Cache-Control: no-store, no-cache, must-revalidate');
-
-    $html = file_get_contents(__DIR__ . '/views/admin.html');
-    if ($html === false) {
-        http_response_code(500);
-        echo 'Admin template not found.';
-        exit;
-    }
-
-    $csrf = htmlspecialchars(cbx_csrf_token(), ENT_QUOTES, 'UTF-8');
-    $adminUser = htmlspecialchars((string)($_SESSION['admin_username'] ?? 'admin'), ENT_QUOTES, 'UTF-8');
-    $injection = '<meta name="csrf-token" content="' . $csrf . '">' . "\n  "
-        . '<meta name="admin-user" content="' . $adminUser . '">';
-    $html = str_replace('</head>', "  {$injection}\n</head>", $html);
-    echo $html;
+    require __DIR__ . '/views/admin.php';
     exit;
 }
 
-// Public HTML routes
+// Public PHP template routes
 $routeMap = [
-    '/' => 'index.html',
-    '/index.html' => 'index.html',
-    '/order' => 'order.html',
-    '/shop' => 'shop.html',
-    '/products' => 'shop.html',
-    '/services' => 'services.html',
-    '/hire' => 'services.html',
-    '/business' => 'services.html',
-    '/events' => 'services.html',
-    '/contact' => 'contact.html',
-    '/track' => 'track.html',
-    '/reviews' => 'reviews.html',
-    '/news' => 'news.html',
-    '/questions' => 'questions.html',
-    '/privacy' => 'privacy.html',
+    '/' => 'index.php',
+    '/index.html' => 'index.php',
+    '/order' => 'order.php',
+    '/shop' => 'shop.php',
+    '/products' => 'shop.php',
+    '/services' => 'services.php',
+    '/hire' => 'services.php',
+    '/business' => 'services.php',
+    '/events' => 'services.php',
+    '/contact' => 'contact.php',
+    '/track' => 'track.php',
+    '/reviews' => 'reviews.php',
+    '/news' => 'news.php',
+    '/questions' => 'questions.php',
+    '/privacy' => 'privacy.php',
 ];
 
 $normalized = $path !== '/' ? rtrim($path, '/') : '/';
@@ -93,7 +80,7 @@ if (isset($routeMap[$normalized])) {
         cbx_send_security_headers();
         header('Content-Type: text/html; charset=utf-8');
         header('Cache-Control: no-cache');
-        readfile($viewPath);
+        require $viewPath;
         exit;
     }
 }
@@ -166,3 +153,4 @@ function cbx_serve_static(string $filePath): never
     readfile($filePath);
     exit;
 }
+

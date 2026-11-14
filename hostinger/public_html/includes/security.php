@@ -244,3 +244,4 @@ function cbx_send_contact_email(
 
     return @mail($to, $safeSubject, $body, implode("\r\n", $headers));
 }
+

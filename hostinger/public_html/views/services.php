@@ -1,3 +1,15 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/db.php';
+$cbxServices = [];
+try {
+    $cbxServices = cbx_db()
+        ->query('SELECT id, title, category, price_label, summary, details_json FROM services WHERE active = 1 ORDER BY sort_order ASC, title ASC')
+        ->fetchAll();
+} catch (Throwable $e) {
+    $cbxServices = [];
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -64,6 +76,38 @@
       <h2>From CoolerBox to Events. We've got you covered.</h2>
       <p>Whether you're hosting an event, managing a busy retail outlet, or need regular ice deliveries, explore our dedicated supply options below.</p>
     </div>
+
+    <?php if (!empty($cbxServices)): ?>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:28px 0 42px">
+      <?php foreach ($cbxServices as $svc): ?>
+        <?php $details = json_decode((string)($svc['details_json'] ?? '[]'), true) ?: []; ?>
+        <article style="background:#ffffff;border:1px solid var(--cb-border,#d9e6f2);border-radius:16px;padding:24px;box-shadow:var(--cb-shadow-sm,0 4px 16px rgba(11,56,97,0.06));display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#0077B3;background:#E6F4FB;padding:4px 10px;border-radius:999px;margin-bottom:10px">
+              <?= htmlspecialchars((string)$svc['category'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
+            <h3 style="margin:0 0 8px;color:var(--cb-navy,#0B3861);font-size:20px;font-family:var(--cb-font-heading,inherit)">
+              <?= htmlspecialchars((string)$svc['title'], ENT_QUOTES, 'UTF-8') ?>
+            </h3>
+            <p style="margin:0 0 12px;color:var(--cb-text-muted,#556b82);font-size:14.5px;line-height:1.55">
+              <?= htmlspecialchars((string)($svc['summary'] ?? ''), ENT_QUOTES, 'UTF-8') ?>
+            </p>
+            <?php if (!empty($details)): ?>
+              <ul style="margin:0 0 16px;padding-left:18px;color:var(--cb-navy,#0B3861);font-size:13.5px;line-height:1.6">
+                <?php foreach ($details as $item): ?>
+                  <li><?= htmlspecialchars((string)$item, ENT_QUOTES, 'UTF-8') ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid #eef4f9">
+            <strong style="color:#0077B3;font-size:14px"><?= htmlspecialchars((string)$svc['price_label'], ENT_QUOTES, 'UTF-8') ?></strong>
+            <a href="/contact" style="color:var(--cb-navy,#0B3861);font-weight:700;font-size:13.5px;text-decoration:none">Enquire &rarr;</a>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
 
     <!-- Event Option: The Moments That Matter (Matching Reference Image 3) -->
     <section class="event-feature" id="event-water">

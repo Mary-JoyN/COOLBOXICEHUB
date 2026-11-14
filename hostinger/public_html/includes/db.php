@@ -71,3 +71,4 @@ function cbx_now_iso(): string
 {
     return gmdate('Y-m-d\TH:i:s\Z');
 }
+
