@@ -1,0 +1,6 @@
+(async()=>{
+const make=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n};
+await Promise.allSettled([
+(async()=>{const r=await fetch('/api/posts');if(!r.ok)return;const posts=(await r.json()).slice(0,2);if(!posts.length)return;const box=make('div',undefined,'home-posts');for(const p of posts){const a=make('a',undefined,'home-post');a.href='/news?post='+encodeURIComponent(p.id);if(p.image){const i=make('img');i.src=p.image;i.alt=p.title;i.loading='lazy';a.append(i)}const copy=make('div');copy.append(make('div',p.category==='events'?'UPCOMING EVENT':p.category==='community'?'COMMUNITY':'NEWS','post-meta'),make('h3',p.title),make('p',p.body.slice(0,135)+(p.body.length>135?'…':'')),make('span','Read the update ↗','text-link'));a.append(copy);box.append(a)}document.querySelector('#home-news .community-intro')?.replaceWith(box)})(),
+(async()=>{const r=await fetch('/api/showcase');if(!r.ok)return;const reviews=(await r.json()).filter(p=>p.type==='review');if(!reviews.length)return;const average=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;const target=document.getElementById('home-review-summary');if(target)target.textContent=average.toFixed(1)+' / 5 from '+reviews.length+' published '+(reviews.length===1?'review.':'reviews.')+' Tell us about your experience.'})()
+]);})();
