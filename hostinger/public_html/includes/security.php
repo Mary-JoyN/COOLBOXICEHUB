@@ -92,6 +92,53 @@ function cbx_is_admin(): bool
     return true;
 }
 
+function cbx_has_admin_users(): bool
+{
+    $pdo = cbx_db();
+    $count = (int)$pdo->query('SELECT COUNT(*) FROM admin_users WHERE active = 1')->fetchColumn();
+    return $count > 0;
+}
+
+function cbx_create_initial_admin(string $username, string $displayName, string $password): array
+{
+    cbx_start_session();
+    if (cbx_has_admin_users()) {
+        return ['ok' => false, 'error' => 'Administrator account already exists. Please sign in.'];
+    }
+
+    $username = trim($username);
+    $displayName = cbx_clean_str($displayName !== '' ? $displayName : 'Administrator', 128);
+    if (!preg_match('/^[a-zA-Z0-9._-]{3,64}$/', $username)) {
+        return ['ok' => false, 'error' => 'Username must be 3–64 characters (letters, numbers, ., _, -).'];
+    }
+    if (strlen($password) < 12) {
+        return ['ok' => false, 'error' => 'Password must be at least 12 characters long.'];
+    }
+
+    $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+    $pdo = cbx_db();
+    $stmt = $pdo->prepare(
+        'INSERT INTO admin_users (username, password_hash, display_name, active, created_at, last_login_at) VALUES (:u, :h, :d, 1, :ca, :la)'
+    );
+    $now = cbx_now_iso();
+    $stmt->execute([
+        ':u' => $username,
+        ':h' => $hash,
+        ':d' => $displayName,
+        ':ca' => $now,
+        ':la' => $now,
+    ]);
+
+    session_regenerate_id(true);
+    $_SESSION['admin_user_id'] = (int)$pdo->lastInsertId();
+    $_SESSION['admin_username'] = $username;
+    $_SESSION['admin_display_name'] = $displayName;
+    $_SESSION['_last_activity'] = time();
+    $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+
+    return ['ok' => true];
+}
+
 function cbx_login_admin(string $username, string $password): bool
 {
     cbx_start_session();

@@ -8,10 +8,27 @@ if (cbx_is_admin()) {
     exit;
 }
 
+$needsSetup = !cbx_has_admin_users();
 $error = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!cbx_verify_csrf($_POST)) {
         $error = 'Security token expired. Please refresh and try again.';
+    } elseif ($needsSetup) {
+        $username = cbx_clean_str($_POST['username'] ?? '', 64);
+        $displayName = cbx_clean_str($_POST['display_name'] ?? 'CoolerBox Admin', 128);
+        $password = (string)($_POST['password'] ?? '');
+        $confirm = (string)($_POST['password_confirm'] ?? '');
+        if ($password !== $confirm) {
+            $error = 'Passwords do not match.';
+        } else {
+            $res = cbx_create_initial_admin($username, $displayName, $password);
+            if ($res['ok']) {
+                header('Location: /admin', true, 302);
+                exit;
+            }
+            $error = (string)$res['error'];
+        }
     } else {
         $username = cbx_clean_str($_POST['username'] ?? '', 64);
         $password = (string)($_POST['password'] ?? '');
@@ -153,8 +170,8 @@ $csrfToken = cbx_csrf_token();
     <div class="brand">
       <img src="/assets/logo-primary.jpeg" alt="The CoolerBox Ice Hub Logo">
       <div>
-        <h1>CoolerBox Admin Portal</h1>
-        <p>Sign in to manage products, services &amp; enquiries</p>
+        <h1><?= $needsSetup ? 'First-Time Admin Setup' : 'CoolerBox Admin Portal' ?></h1>
+        <p><?= $needsSetup ? 'Create your secure administrator account to lock setup' : 'Sign in to manage products, services &amp; enquiries' ?></p>
       </div>
     </div>
 
@@ -162,16 +179,35 @@ $csrfToken = cbx_csrf_token();
       <div class="error-box" role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
     <?php endif; ?>
 
-    <form method="post" action="/admin/login" autocomplete="on">
-      <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" required autocomplete="username" autofocus>
+    <?php if ($needsSetup): ?>
+      <form method="post" action="/admin/login" autocomplete="off">
+        <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
+        <label for="username">Administrator Username</label>
+        <input id="username" name="username" type="text" required minlength="3" maxlength="64" placeholder="e.g. cbxadmin" autofocus>
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" required autocomplete="current-password">
+        <label for="display_name">Display Name</label>
+        <input id="display_name" name="display_name" type="text" maxlength="128" value="CoolerBox Admin">
 
-      <button type="submit">Sign In to Console</button>
-    </form>
+        <label for="password">Password (minimum 12 characters)</label>
+        <input id="password" name="password" type="password" required minlength="12" autocomplete="new-password">
+
+        <label for="password_confirm">Confirm Password</label>
+        <input id="password_confirm" name="password_confirm" type="password" required minlength="12" autocomplete="new-password">
+
+        <button type="submit">Create Administrator Account</button>
+      </form>
+    <?php else: ?>
+      <form method="post" action="/admin/login" autocomplete="on">
+        <input type="hidden" name="_csrf" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8') ?>">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required autocomplete="username" autofocus>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required autocomplete="current-password">
+
+        <button type="submit">Sign In to Console</button>
+      </form>
+    <?php endif; ?>
 
     <a class="back-link" href="/">&larr; Return to coolerboxicehub.com</a>
   </main>

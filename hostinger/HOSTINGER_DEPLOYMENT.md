@@ -2,69 +2,55 @@
 
 This package migrates **The CoolerBox Ice Hub** web application from Python (FastAPI + Uvicorn + SQLite) to **PHP 8.x + MySQL/MariaDB + Apache/LiteSpeed `.htaccess`**, ready for **Hostinger Premium Web Hosting** (`coolerboxicehub.com`) with **no VPS** and **no additional paid backend services**.
 
-> The original Python application in `app/`, `templates/`, `static/`, and `data/coolerbox.db` remains untouched as a complete backup.
+> The original Python application in `app/`, `templates/`, `static/`, and `data/coolerbox.db` remains untouched locally as a backup. **Do not upload Python files or `requirements.txt` to Hostinger.**
 
 ---
 
-## 1. Updated Project Folder Structure
+## 1. Deployment ZIP Contents
 
 ```text
-hostinger/
-├── HOSTINGER_DEPLOYMENT.md          # This deployment & configuration guide
+coolerbox-hostinger-php.zip
+├── HOSTINGER_DEPLOYMENT.md                 # This deployment & configuration guide
 ├── database/
-│   └── coolerbox_mysql.sql          # Full MySQL/MariaDB schema + migrated data (309 lines)
-└── public_html/                     # Upload contents of this folder into Hostinger's public_html/
-    ├── .htaccess                    # HTTPS redirect, security blocks, static asset mapping, front controller
-    ├── index.php                    # Front controller (public pages, /admin, /admin/login, /api/*)
+│   ├── coolerbox_mysql.sql                 # Safe schema + essential non-PII seed data
+│   └── coolerbox_historical_data.sql       # Optional historical orders/updates/messages export
+└── public_html/                            # Upload the CONTENTS of public_html/ into Hostinger's public_html/
+    ├── .htaccess                           # HTTPS redirect, security blocks, static asset mapping, front controller
+    ├── index.php                           # Front controller (public pages, /admin, /admin/login, /api/*)
     ├── config/
-    │   ├── config.example.php       # Template configuration file
-    │   └── config.php               # Active database, mail & security config (edit before upload)
+    │   ├── config.example.php              # Configuration template (placeholders only)
+    │   └── config.php                      # Active configuration (replace placeholders before upload)
     ├── includes/
-    │   ├── db.php                   # PDO connection with prepared statements (MySQL in prod)
-    │   ├── security.php             # Sessions, bcrypt auth, CSRF tokens, input sanitisation
-    │   └── api_router.php           # All /api/* REST endpoints (products, services, orders, contact, etc.)
-    ├── views/
-    │   ├── admin-login.php          # Branded Admin Login page (CSRF + password_verify)
-    │   ├── admin.html               # Admin Dashboard (Products, Services, Orders, Enquiries, Reviews, News)
-    │   ├── index.html               # Homepage
-    │   ├── shop.html                # Products page
-    │   ├── services.html            # Business & Events page
-    │   ├── order.html               # Order / Quote builder
-    │   ├── contact.html             # Contact & Enquiry form
-    │   ├── track.html               # Order tracking
-    │   ├── reviews.html             # Customer reviews
-    │   ├── news.html                # Noticeboard & News
-    │   ├── questions.html           # Q&A / Ask CoolerBox
-    │   └── privacy.html             # Privacy policy
-    ├── static/                      # CSS, JS, images, videos (copied intact from original static/)
-    └── uploads/                     # Runtime uploads (product images & customer label artwork)
+    │   ├── db.php                          # PDO connection with prepared statements (MySQL/MariaDB in prod)
+    │   ├── security.php                    # Sessions, bcrypt auth, first-time setup, CSRF tokens, sanitization
+    │   └── api_router.php                  # All /api/* REST endpoints
+    ├── views/                              # PHP templates (index.php, shop.php, services.php, admin.php, etc.)
+    ├── static/                             # CSS, JS, images, logos, videos
+    └── uploads/                            # Runtime uploads (product images & customer label artwork)
 ```
 
 ---
 
 ## 2. Database Setup & Migration (Hostinger hPanel + phpMyAdmin)
 
-1. Log in to **Hostinger hPanel** -> **Databases** -> **Management**.
-2. Create a new MySQL database and user (e.g., `u123456789_coolerbox` and `u123456789_cbxadmin`) with a strong password. Note the **MySQL Hostname** (usually `localhost` on Hostinger).
+1. Log in to **Hostinger hPanel** → **Databases** → **Management**.
+2. Create a new MySQL/MariaDB database and user with a strong password. Note the **MySQL Hostname** (usually `localhost` on Hostinger).
 3. Open **phpMyAdmin** for the newly created database.
-4. Click **Import**, choose `hostinger/database/coolerbox_mysql.sql`, and click **Go**.
-5. Verify that all **10 tables** and migrated records were imported:
-   - `orders` (33 rows)
-   - `updates` (58 rows)
-   - `catalogue` (11 products)
-   - `settings` (2 rows: `business_info`, `site_settings`)
-   - `faqs` (40 rows)
-   - `posts` (3 rows)
-   - `contact_messages` (2 rows)
-   - `reviews` (0 rows)
-   - `services` (4 seeded Business & Events services)
-   - `admin_users` (1 default admin user)
+4. Click **Import**, choose `database/coolerbox_mysql.sql`, and click **Go**.
+   - **Safe by design:** Uses `CREATE TABLE IF NOT EXISTS` and `INSERT IGNORE INTO`. It **does not drop existing tables**, **does not include customer PII**, and **does not seed any default admin password**.
+   - Imports schema for all **10 tables** plus essential non-PII seed data:
+     - `catalogue` (11 products)
+     - `services` (4 Business & Events services)
+     - `settings` (2 public settings records)
+     - `faqs` (40 FAQ entries)
+     - `posts` (3 noticeboard posts)
+5. *(Optional)* Only if you intentionally want to migrate historical local orders, updates, and contact messages, import `database/coolerbox_historical_data.sql` afterwards.
 
 ---
 
 ## 3. Configuration & Environment Variables
 
-Before uploading `hostinger/public_html/` to Hostinger, edit `hostinger/public_html/config/config.php` (or configure environment variables in hPanel / `.htaccess` `SetEnv`):
+Before uploading `public_html/`, edit `public_html/config/config.php` (which ships with placeholders only) or set environment variables in Hostinger:
 
 | Key / Env Var | Purpose | Production Value / Example |
 |---|---|---|
@@ -73,57 +59,44 @@ Before uploading `hostinger/public_html/` to Hostinger, edit `hostinger/public_h
 | `DB_DRIVER` | PDO driver | `mysql` |
 | `DB_HOST` | Hostinger MySQL host | `localhost` |
 | `DB_PORT` | MySQL port | `3306` |
-| `DB_NAME` | Hostinger database name | `u123456789_coolerbox` |
-| `DB_USER` | Hostinger database user | `u123456789_cbxadmin` |
+| `DB_NAME` | Hostinger database name | *(your hPanel database name)* |
+| `DB_USER` | Hostinger database user | *(your hPanel database username)* |
 | `DB_PASS` | Hostinger database password | *(your strong MySQL password)* |
 | `MAIL_FROM_EMAIL` | Sender address for contact emails | `info@coolerboxicehub.com` |
 | `CONTACT_TO_EMAIL` | Recipient address for enquiries | `info@coolerboxicehub.com` |
 
-> **Security:** `public_html/.htaccess` blocks all direct HTTP requests to `config/`, `includes/`, `views/`, `database/`, and `*.sql`, `*.db`, `*.env` files (`403 Forbidden`).
+> **Security:** `public_html/.htaccess` blocks all direct HTTP access to `config/`, `includes/`, `views/`, `database/`, and `*.sql`, `*.db`, `*.env`, `*.md` files (`403 Forbidden`).
 
 ---
 
 ## 4. Uploading to Hostinger File Manager & Enabling HTTPS
 
-1. Open **Hostinger hPanel** -> **Files** -> **File Manager** -> navigate into `domains/coolerboxicehub.com/public_html/`.
-2. If you want a clean deploy, back up any existing files and upload the **contents** of `hostinger/public_html/` directly into `public_html/` (so `index.php` and `.htaccess` sit in `public_html/`).
+1. Open **Hostinger hPanel** → **Files** → **File Manager** → navigate into `domains/coolerboxicehub.com/public_html/`.
+2. Upload the **contents** of `public_html/` from this ZIP directly into Hostinger's `public_html/` directory (so `index.php` and `.htaccess` sit directly inside `public_html/`).
 3. Ensure `public_html/uploads/` has write permissions (`755`).
-4. In **Hostinger hPanel** -> **Security** -> **SSL**, confirm that SSL is **Active** for `coolerboxicehub.com` and `www.coolerboxicehub.com`. `.htaccess` automatically redirects HTTP traffic to `https://`.
-5. In **Hostinger hPanel** -> **Advanced** -> **PHP Configuration**, select **PHP 8.2** or **PHP 8.3** (compatible with all syntax in `hostinger/public_html/`).
+4. In **Hostinger hPanel** → **Security** → **SSL**, confirm SSL is **Active** for `coolerboxicehub.com` and `www.coolerboxicehub.com` (`.htaccess` redirects HTTP to HTTPS automatically).
+5. In **Hostinger hPanel** → **Advanced** → **PHP Configuration**, select **PHP 8.2** or **PHP 8.3**.
 
 ---
 
-## 5. Default Admin Access (Change Password Immediately)
+## 5. Secure First-Time Administrator Setup (No Default Password)
 
-- **Admin URL:** `https://coolerboxicehub.com/admin` (redirects to `/admin/login` when signed out)
-- **Default Username:** `admin`
-- **Default Password:** `CoolerBoxAdmin2026!`
-- **Action Required:** After first login, generate a new bcrypt hash via PHP `password_hash('YOUR_NEW_PASSWORD', PASSWORD_BCRYPT)` and update `admin_users.password_hash` in phpMyAdmin.
+No default administrator password is shipped in SQL or PHP.
 
----
-
-## 6. Local Verification & Test Results
-
-All PHP files passed `php -l` syntax checks, and an automated 12-part HTTP test suite was executed against PHP `8.4.16` (`php -S 127.0.0.1:8099 index.php`) using a temporary SQLite copy of `data/coolerbox.db`:
-
-1. Public website loading (all 12 routes: `/`, `/products`, `/shop`, `/services`, `/business`, `/order`, `/contact`, `/track`, `/reviews`, `/news`, `/questions`, `/privacy`) — **PASS (200 OK)**
-2. Redirect `/calculator` -> `/products` — **PASS (302)**
-3. Static assets (`/ice-company.css`, `/assets/logo-primary.jpeg`, `/static/admin.js`, `/static/admin.css`) — **PASS (200 OK)**
-4. Public API (`/api/catalogue` 11 items, `/api/services`, `/api/business`, `/api/settings`, `/api/faqs` 40 items) — **PASS**
-5. Customer enquiry (`POST /api/contact` -> `CBX-MSG-*`) & order submission (`POST /api/orders` -> `CBX-*`) + `/api/my-orders` tracking — **PASS (201 / 200)**
-6. Unauthenticated `/admin` & `/api/orders` / `POST /api/catalogue` blocked — **PASS (302 / 401)**
-7. Admin login (`POST /api/admin/login` with CSRF + `password_verify`) & `/admin` HTML CSRF meta injection — **PASS (200)**
-8. CSRF rejection on missing token (`POST /api/catalogue`) — **PASS (403)**
-9. Product CRUD (`POST` -> `PATCH` -> `DELETE /api/catalogue`) — **PASS**
-10. Service CRUD (`POST` -> `PATCH` -> `DELETE /api/services`) — **PASS**
-11. Admin enquiries viewer (`GET /api/contact`) & order milestone update (`PATCH /api/orders/{ref}`) — **PASS**
-12. Admin logout (`POST /api/admin/logout` invalidates session, subsequent `/api/orders` returns `401`) — **PASS**
+1. Immediately after importing `database/coolerbox_mysql.sql` and uploading `public_html/`, visit:
+   `https://coolerboxicehub.com/admin`
+2. Because `admin_users` is empty, you will be presented with the **First-Time Admin Setup** screen.
+3. Enter your chosen **Administrator Username**, **Display Name**, and a strong **Password (minimum 12 characters)** twice.
+4. Submitting the form hashes your password with `PASSWORD_BCRYPT` (cost 12), signs you into `/admin`, and **permanently locks** first-time setup (`POST /api/admin/setup` returns `403 Forbidden` thereafter).
 
 ---
 
-## 7. Notes & Preserved Features
+## 6. Verification & Test Results
 
-- **All existing pages, branding, CSS, JS, images, and videos** are preserved 1:1.
-- **Admin security upgraded:** The original Python app had an unauthenticated `/admin` portal; the PHP version protects `/admin` and all mutating/admin `/api/*` endpoints with session auth, bcrypt password hashing, and CSRF tokens.
-- **Email delivery:** `cbx_send_contact_email()` uses PHP `mail()` on Hostinger (which routes through Hostinger's local MTA when `From:` matches your domain email `info@coolerboxicehub.com`) and always persists every enquiry in `contact_messages` so zero enquiries are lost even if mail delivery is delayed.
-
+- **PHP syntax (`php -l`)**: Passed on all PHP files and templates.
+- **Real MySQL (`mysqld` 3307) end-to-end suite**:
+  - Imported `database/coolerbox_mysql.sql` cleanly (`catalogue=11`, `services=4`, `faqs=40`, `posts=3`, `settings=2`, `admin_users=0`).
+  - Verified `/services` renders live `services` rows from MySQL via PDO.
+  - Verified first-time admin setup (`POST /api/admin/setup` -> `201`) and permanent setup lock (`403` on second attempt).
+  - Verified CSRF enforcement (`403` when missing), Product CRUD (`POST`/`PATCH`/`DELETE /api/catalogue`), Service CRUD (`POST`/`PATCH`/`DELETE /api/services`), Contact enquiry submission & admin listing (`/api/contact`), and Logout (`POST /api/admin/logout` -> `401` on `/api/orders`).
+- **Apache `.htaccess` syntax**: Verified `.htaccess` rewrite rules for HTTPS redirect, `403` directory/file blocks, `/assets/*` and root static mappings, and `index.php` front-controller fallback.

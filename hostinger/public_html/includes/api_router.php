@@ -23,7 +23,27 @@ function cbx_handle_api(string $path, string $method): never
 
     // 2. CSRF & Auth endpoints
     if ($sub === 'csrf-token' && $method === 'GET') {
-        cbx_json_response(['csrfToken' => cbx_csrf_token(), 'authenticated' => cbx_is_admin()]);
+        cbx_json_response([
+            'csrfToken' => cbx_csrf_token(),
+            'authenticated' => cbx_is_admin(),
+            'needsSetup' => !cbx_has_admin_users(),
+        ]);
+    }
+
+    if ($sub === 'admin/setup' && $method === 'POST') {
+        $body = cbx_json_input();
+        if (!cbx_verify_csrf($body)) {
+            cbx_json_response(['detail' => 'Invalid CSRF token'], 403);
+        }
+        $res = cbx_create_initial_admin(
+            cbx_clean_str($body['username'] ?? '', 64),
+            cbx_clean_str($body['displayName'] ?? 'CoolerBox Admin', 128),
+            (string)($body['password'] ?? '')
+        );
+        if (!$res['ok']) {
+            cbx_json_response(['detail' => $res['error']], 403);
+        }
+        cbx_json_response(['ok' => true, 'csrfToken' => cbx_csrf_token(), 'username' => $_SESSION['admin_username']], 201);
     }
 
     if ($sub === 'admin/login' && $method === 'POST') {
@@ -379,10 +399,12 @@ function cbx_handle_api(string $path, string $method): never
             cbx_json_response(['detail' => 'Title and body are required'], 422);
         }
         $now = cbx_now_iso();
+        $id = 'post-' . bin2hex(random_bytes(4));
         $stmt = $pdo->prepare(
-            'INSERT INTO posts (title, category, body, location, link, image, event_date, status, created_at) VALUES (:t, :c, :b, :loc, :lnk, :img, :ed, :st, :ts)'
+            'INSERT INTO posts (id, title, category, body, location, link, image, event_date, status, created_at) VALUES (:id, :t, :c, :b, :loc, :lnk, :img, :ed, :st, :ts)'
         );
         $stmt->execute([
+            ':id' => $id,
             ':t' => $title,
             ':c' => cbx_clean_str($body['category'] ?? 'Announcement', 64),
             ':b' => $postBody,
@@ -393,7 +415,6 @@ function cbx_handle_api(string $path, string $method): never
             ':st' => 'published',
             ':ts' => $now,
         ]);
-        $id = (int)$pdo->lastInsertId();
         cbx_json_response(['id' => $id, 'title' => $title, 'category' => cbx_clean_str($body['category'] ?? 'Announcement', 64), 'body' => $postBody, 'status' => 'published', 'created_at' => $now], 201);
     }
 
@@ -424,10 +445,12 @@ function cbx_handle_api(string $path, string $method): never
             cbx_json_response(['detail' => 'Review comment is required'], 422);
         }
         $now = cbx_now_iso();
+        $id = 'rev-' . bin2hex(random_bytes(4));
         $stmt = $pdo->prepare(
-            'INSERT INTO reviews (rating, title, comment, name, anonymous, reference, permission, status, created_at) VALUES (:r, :t, :c, :n, :a, :ref, :perm, :st, :ts)'
+            'INSERT INTO reviews (id, rating, title, comment, name, anonymous, reference, permission, status, created_at) VALUES (:id, :r, :t, :c, :n, :a, :ref, :perm, :st, :ts)'
         );
         $stmt->execute([
+            ':id' => $id,
             ':r' => $rating,
             ':t' => cbx_clean_str($body['title'] ?? '', 255),
             ':c' => $comment,
@@ -438,7 +461,7 @@ function cbx_handle_api(string $path, string $method): never
             ':st' => 'published',
             ':ts' => $now,
         ]);
-        cbx_json_response(['ok' => true, 'id' => (int)$pdo->lastInsertId()], 201);
+        cbx_json_response(['ok' => true, 'id' => $id], 201);
     }
 
     if (count($parts) === 2 && $parts[0] === 'reviews' && $method === 'DELETE') {

@@ -4,8 +4,9 @@ declare(strict_types=1);
 /**
  * CoolerBox Ice Hub — Active Runtime Configuration
  *
- * Update the database and mail values below with your Hostinger hPanel credentials
- * before uploading to public_html/config/config.php, or provide them via environment variables.
+ * Replace the placeholder values below with your Hostinger hPanel MySQL & SMTP
+ * credentials before uploading, or provide them via environment variables.
+ * Never commit real production passwords to version control.
  */
 
 return [
@@ -17,9 +18,9 @@ return [
         'driver' => getenv('DB_DRIVER') ?: 'mysql',
         'host' => getenv('DB_HOST') ?: 'localhost',
         'port' => (int)(getenv('DB_PORT') ?: 3306),
-        'database' => getenv('DB_NAME') ?: 'u000000000_coolerbox',
-        'username' => getenv('DB_USER') ?: 'u000000000_cbxadmin',
-        'password' => getenv('DB_PASS') ?: 'REPLACE_WITH_STRONG_DB_PASSWORD',
+        'database' => getenv('DB_NAME') ?: 'REPLACE_WITH_HOSTINGER_DB_NAME',
+        'username' => getenv('DB_USER') ?: 'REPLACE_WITH_HOSTINGER_DB_USER',
+        'password' => (getenv('DB_PASS') !== false) ? (string)getenv('DB_PASS') : 'REPLACE_WITH_STRONG_DB_PASSWORD',
         'charset' => 'utf8mb4',
         'sqlite_path' => getenv('SQLITE_PATH') ?: __DIR__ . '/../../database/local_test.db',
     ],
@@ -31,7 +32,7 @@ return [
         'smtp_host' => getenv('SMTP_HOST') ?: 'smtp.hostinger.com',
         'smtp_port' => (int)(getenv('SMTP_PORT') ?: 465),
         'smtp_user' => getenv('SMTP_USER') ?: 'info@coolerboxicehub.com',
-        'smtp_pass' => getenv('SMTP_PASS') ?: '',
+        'smtp_pass' => getenv('SMTP_PASS') ?: 'REPLACE_WITH_SMTP_PASSWORD',
     ],
 
     'security' => [
@@ -45,4 +46,3 @@ return [
         'max_bytes' => 5 * 1024 * 1024,
     ],
 ];
-
