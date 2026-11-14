@@ -561,11 +561,22 @@ function cbx_handle_api(string $path, string $method): never
             ':ts' => $now,
         ]);
 
+        $emailSent = cbx_send_order_email(
+            $ref,
+            $name,
+            $phone,
+            cbx_clean_str($cust['email'] ?? ($body['customerEmail'] ?? ''), 255),
+            $totalCents,
+            $items,
+            $details
+        );
+
         cbx_json_response([
             'ok' => true,
             'reference' => $ref,
             'status' => 'Received',
             'totalCents' => $totalCents,
+            'emailSent' => $emailSent,
             'createdAt' => $now,
         ], 201);
     }

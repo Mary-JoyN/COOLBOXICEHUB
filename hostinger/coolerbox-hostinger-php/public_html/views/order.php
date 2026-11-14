@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b2b5b">
+  <title>Order Now | The CoolerBox Ice Hub — Ongwediva, Namibia</title>
+  <meta name="description" content="Calculate and place your order enquiry for pure ice cubes, gourmet ice, block ice, cups, and purified bottled water at Makalani Mall, Ongwediva.">
+  <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+  <link rel="stylesheet" href="/commerce.css?v=20261103c">
+  <link rel="stylesheet" href="/ice-company.css?v=20261103c">
+  <style>
+    /* Order Product Thumbnail & Group Layout Constraints */
+    .product-row {
+      position: relative !important;
+      border-bottom: 1px solid var(--cb-border, #d2e4f0) !important;
+      padding: 16px 14px 16px 98px !important;
+      min-height: 104px !important;
+      background: #ffffff !important;
+    }
+
+    img.order-thumb,
+    .order-thumb {
+      position: absolute !important;
+      left: 12px !important;
+      top: 14px !important;
+      width: 72px !important;
+      height: 72px !important;
+      max-width: 72px !important;
+      max-height: 72px !important;
+      object-fit: contain !important;
+      background: #ffffff !important;
+      border: 1px solid var(--cb-border, #d2e4f0) !important;
+      border-radius: 8px !important;
+      padding: 4px !important;
+      box-shadow: 0 2px 6px rgba(0, 79, 132, 0.06) !important;
+      display: block !important;
+      margin: 0 !important;
+    }
+
+    .order-cube-group {
+      min-width: 0 !important;
+      margin: 18px 0 22px !important;
+      padding: 18px !important;
+      border: 1px solid var(--cb-border, #cce0ed) !important;
+      border-radius: 12px !important;
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 14px !important;
+      background: #f7fbfe !important;
+    }
+
+    .order-cube-group legend {
+      font-family: var(--cb-font-heading, system-ui, sans-serif) !important;
+      font-weight: 700 !important;
+      padding: 0 10px !important;
+      color: var(--cb-navy, #004f84) !important;
+      font-size: 15px !important;
+    }
+
+    .order-cube-group .product-row {
+      border: 1px solid var(--cb-border, #d2e4f0) !important;
+      border-radius: 8px !important;
+      padding: 14px 14px 14px 92px !important;
+      min-height: 100px !important;
+      box-shadow: 0 2px 6px rgba(0, 79, 132, 0.04) !important;
+    }
+
+    .order-cube-group .product-row img.order-thumb,
+    .order-cube-group .product-row .order-thumb {
+      left: 10px !important;
+      top: 14px !important;
+      width: 68px !important;
+      height: 68px !important;
+      max-width: 68px !important;
+      max-height: 68px !important;
+    }
+
+    .order-cube-group .product-row input[type="number"] {
+      max-width: 100% !important;
+    }
+
+    .product-row label.check {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      color: var(--cb-navy, #004f84) !important;
+      cursor: pointer !important;
+      margin: 0 0 4px !important;
+    }
+
+    .product-row input[type="checkbox"] {
+      width: 18px !important;
+      height: 18px !important;
+      accent-color: var(--cb-cyan, #00a5ef) !important;
+      cursor: pointer !important;
+    }
+
+    .product-row p.small {
+      margin: 2px 0 8px !important;
+      color: var(--cb-text-muted, #5f7d95) !important;
+      font-size: 12.5px !important;
+    }
+
+    .product-row > input[type="number"] {
+      max-width: 200px !important;
+      padding: 8px 12px !important;
+      font-size: 14px !important;
+      border-radius: 6px !important;
+    }
+
+    @media (max-width: 680px) {
+      .order-cube-group {
+        grid-template-columns: 1fr !important;
+        padding: 12px !important;
+      }
+      .product-row,
+      .order-cube-group .product-row {
+        padding-left: 78px !important;
+        min-height: 90px !important;
+      }
+      img.order-thumb,
+      .order-thumb,
+      .order-cube-group .product-row img.order-thumb,
+      .order-cube-group .product-row .order-thumb {
+        width: 60px !important;
+        height: 60px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
+        left: 8px !important;
+        top: 12px !important;
+        padding: 3px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Bar -->
+  <div class="site-top-bar">
+    <div class="site-top-inner">
+      <div class="top-bar-location">
+        <span>📍 Makalani Mall · Ongwediva, Namibia</span>
+      </div>
+      <div class="top-bar-contact">
+        <a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a>
+        <a href="https://wa.me/264852485426" target="_blank" rel="noopener">💬 WhatsApp +264 85 248 5426</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <div class="site-nav-container">
+      <a class="site-brand" href="/" aria-label="CoolerBox Ice Hub Home">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox — Ice, Water, Refreshment">
+      </a>
+      <ul class="site-nav-menu">
+        <li><a class="site-nav-link" href="/">Home</a></li>
+        <li><a class="site-nav-link" href="/products">Products</a></li>
+        <li><a class="site-nav-link" href="/services">Business & Events</a></li>        <li><a class="site-nav-link" href="/contact">Contact</a></li>
+      </ul>
+      <a class="btn-header-order active" href="/order">Order Now ↗</a>
+      <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a href="/services">Business & Events</a>      <a href="/contact">Contact</a>
+      <a class="active" href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
+    </div>
+  </header>
+
+  <!-- Title Banner -->
+  <section class="page-title-banner">
+    <div class="page-title-inner">
+      <span class="page-title-tag">ONLINE ESTIMATOR & ENQUIRY</span>
+      <h1>Choose Your Cool. We’ll Handle the Rest.</h1>
+      <p>Choose your products, enter quantities or use the estimator, then review your price and complete the enquiry.</p>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:24px 28px;margin-bottom:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;box-shadow:var(--cb-shadow-sm)">
+      <div>
+        <strong style="color:var(--cb-navy);font-size:16px;display:block;margin-bottom:4px">Planning a Large Commercial or Vendor Supply?</strong>
+        <p style="color:var(--cb-text-muted);margin:0;font-size:14px">Apply to become an official retail stockist or explore bulk discount terms.</p>
+      </div>
+      <a class="btn-hero-primary" href="/order?supplier=1" style="padding:10px 20px;font-size:13.5px">Become a Local Supplier ↗</a>
+    </div>
+
+    <p id="order-loading" role="status">Loading products…</p>
+
+    <form id="checkout" hidden>
+      <div class="editor">
+        <div>
+          <section class="info-panel">
+            <h2>Select products or a combo</h2>
+            <div class="supplier-mode">
+              <label class="event-toggle">
+                <input id="supplier-enabled" type="checkbox"> Apply to become a Local Supplier
+              </label>
+              <p class="small">For local resellers. Minimum 50 units of every selected ice product per delivery: 50 bags of each selected cube size, 50 blocks or 50 cups. Approval and final terms are confirmed on WhatsApp.</p>
+              <p id="supplier-status" class="small" role="status"></p>
+            </div>
+            <label for="order-offer">Promotional bundle (optional)</label>
+            <select id="order-offer">
+              <option value="">Choose products individually</option>
+            </select>
+            <p id="order-offer-note" class="small"></p>
+            <div id="order-products"></div>
+          </section>
+
+          <section class="info-panel" id="event-water-request">
+            <h2>Event bottled water</h2>
+            <label class="event-toggle">
+              <input id="event-enabled" type="checkbox"> Include an event-water or personalised-label request
+            </label>
+            <p class="small">For funerals, birthdays, anniversaries, weddings and organised gatherings.</p>
+            <div id="event-fields" hidden>
+              <div class="field-pair">
+                <div>
+                  <label for="event-occasion">Occasion</label>
+                  <select id="event-occasion">
+                    <option>Funeral</option>
+                    <option>Birthday</option>
+                    <option>Anniversary</option>
+                    <option>Wedding</option>
+                    <option>Corporate event</option>
+                    <option>Community event</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="event-name">Event name / label heading</label>
+                  <input id="event-name" maxlength="200" placeholder="Name or event heading">
+                </div>
+                <div>
+                  <label for="event-date">Event date</label>
+                  <input id="event-date" type="date">
+                </div>
+                <div>
+                  <label for="event-guests">Expected guests</label>
+                  <input id="event-guests" type="number" min="1" max="100000" step="1">
+                </div>
+                <div>
+                  <label for="event-bottle">Preferred bottle size</label>
+                  <select id="event-bottle">
+                    <option value="330">330 ml — request</option>
+                    <option value="500">500 ml</option>
+                    <option value="750">750 ml — request</option>
+                    <option value="1000">1 litre — request</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="event-label">Label request</label>
+                  <select id="event-label">
+                    <option value="standard">Standard CoolerBox label</option>
+                    <option value="personalised">Personalised event label — quote required</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="event-style">Preferred example style</label>
+                  <select id="event-style">
+                    <option value="standard">Standard CoolerBox</option>
+                    <option value="funeral">Remembrance / funeral</option>
+                    <option value="birthday">Birthday celebration</option>
+                    <option value="anniversary">Anniversary</option>
+                    <option value="corporate">Corporate event</option>
+                    <option value="other">Other design</option>
+                  </select>
+                </div>
+              </div>
+              <p id="event-pack-note" class="small"></p>
+              <label for="event-venue">Event venue / location</label>
+              <input id="event-venue" maxlength="500">
+              <div class="field-pair">
+                <div>
+                  <label for="event-contact-name">On-site contact person</label>
+                  <input id="event-contact-name" maxlength="100">
+                </div>
+                <div>
+                  <label for="event-contact-phone">On-site contact number</label>
+                  <input id="event-contact-phone" type="tel" maxlength="40" minlength="7">
+                </div>
+              </div>
+              <div id="event-artwork-fields" hidden>
+                <label for="event-artwork">Upload your artwork (optional)</label>
+                <input id="event-artwork" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
+                <p class="small">JPG, PNG, WebP or PDF, maximum 10 MB. Artwork is private to your account and the CoolerBox owner. Uploading does not approve a design.</p>
+                <p id="event-artwork-status" class="small" role="status"></p>
+                <button type="button" class="btn outline" id="event-clear-artwork">Remove artwork from this request</button>
+              </div>
+              <p class="small notice">The bottled-water quantity is entered in “Your products” above. Other bottle sizes, personalised labels, artwork and turnaround require a quotation. Artwork proofs and formal quotations will be provided or further discussed on WhatsApp before personalised production.</p>
+              <a href="/shop#label-gallery" class="owner-link" target="_blank" rel="noopener">View example bottle-label styles ↗</a>
+            </div>
+          </section>
+
+          <section class="info-panel">
+            <h2>Your contact details</h2>
+            <label for="order-name">Full name</label>
+            <input id="order-name" maxlength="100" required autocomplete="name">
+            <label for="order-phone">Contact number</label>
+            <input id="order-phone" type="tel" maxlength="40" minlength="7" required autocomplete="tel">
+            <label for="order-email">Email address</label>
+            <input id="order-email" type="email" maxlength="200" required autocomplete="email">
+            <label for="order-business">Business / organisation (optional)</label>
+            <input id="order-business" maxlength="200" autocomplete="organization">
+
+            <div id="supplier-fields" hidden>
+              <h3>Your local supplier application</h3>
+              <label for="supplier-area">Town / suburb / local trading area</label>
+              <input id="supplier-area" maxlength="300" minlength="2" autocomplete="address-level2">
+              <label for="supplier-outlet">Type of outlet</label>
+              <select id="supplier-outlet">
+                <option>Shop / retailer</option>
+                <option>Informal trader</option>
+                <option>Hospitality business</option>
+                <option>Distributor</option>
+                <option>Other</option>
+              </select>
+              <label class="event-toggle">
+                <input id="supplier-acknowledged" type="checkbox"> I understand the 50-unit minimum for each selected ice product, per delivery. This is an application; supplier approval and supply terms require confirmation.
+              </label>
+            </div>
+
+            <div class="field-pair">
+              <div>
+                <label for="order-category">Customer category</label>
+                <select id="order-category">
+                  <option>Home / individual bulk order</option>
+                  <option>Events &amp; celebrations</option>
+                  <option>Shops &amp; retailers</option>
+                  <option>Local supplier application</option>
+                  <option>Gyms &amp; workplaces</option>
+                  <option>Restaurants &amp; hospitality</option>
+                  <option>Service stations</option>
+                  <option>Funeral undertakers</option>
+                  <option>Schools &amp; institutions</option>
+                  <option>Vendors &amp; distributors</option>
+                  <option>Other business / organisation</option>
+                </select>
+              </div>
+              <div>
+                <label for="order-frequency">Supply frequency</label>
+                <select id="order-frequency">
+                  <option>Once-off order</option>
+                  <option>Daily supply</option>
+                  <option>Weekly supply</option>
+                  <option>Monthly supply</option>
+                  <option>To be discussed</option>
+                </select>
+              </div>
+            </div>
+            <p class="small">For regular supply, quantities and estimates are per delivery. The team will agree a schedule with you.</p>
+          </section>
+
+          <section class="info-panel">
+            <h2>Collection or delivery</h2>
+            <label for="order-fulfilment">Preferred arrangement</label>
+            <select id="order-fulfilment">
+              <option value="collection">Collection</option>
+              <option value="delivery">Request delivery — subject to confirmation</option>
+            </select>
+            <div class="field-pair">
+              <div>
+                <label for="order-date">Required date / first delivery</label>
+                <input id="order-date" type="date" required>
+              </div>
+              <div>
+                <label for="order-time">Required collection / delivery time</label>
+                <input id="order-time" type="time">
+              </div>
+            </div>
+            <div id="order-delivery-extra" hidden>
+              <label for="order-slot">Thursday delivery window</label>
+              <select id="order-slot">
+                <option value="0">08:00–10:00</option>
+                <option value="1">16:00–17:00</option>
+              </select>
+              <label for="order-distance">Approximate distance from Makalani Mall (km, optional)</label>
+              <input id="order-distance" type="number" min="0" max="10000" step="0.1">
+              <p class="small">Used for an estimated delivery charge. The team verifies the address and distance before confirmation.</p>
+            </div>
+            <div id="order-address-wrap" hidden>
+              <label for="order-address">Delivery address</label>
+              <textarea id="order-address" maxlength="1000" autocomplete="street-address"></textarea>
+            </div>
+            <p id="order-fulfilment-info" class="small"></p>
+
+            <label for="order-service">Service / supply arrangement (optional)</label>
+            <select id="order-service">
+              <option value="">Products only</option>
+              <option value="Funeral Supply Packages">Funeral Supply Packages</option>
+              <option value="Wedding &amp; Event Supply">Wedding &amp; Event Supply</option>
+              <option value="Corporate &amp; Public Event Supply">Corporate &amp; Public Event Supply</option>
+              <option value="Bulk Orders">Bulk Orders</option>
+              <option value="Ice &amp; Water Delivery">Ice &amp; Water Delivery</option>
+              <option value="Retail Supply">Retail Supply</option>
+              <option value="Business Supply">Business Supply</option>
+              <option value="Retail &amp; Vendor Partnerships">Retail &amp; Vendor Partnerships</option>
+            </select>
+            <p class="small">Service arrangements and any added costs require a quotation. Select the cup size and ice-cube type above.</p>
+
+            <div class="info-panel">
+              <h3>Payment, delivery &amp; cancellations</h3>
+              <p>Book strictly 48–72 hours before collection or delivery. Orders outside this window are rejected. No VAT is added to displayed prices.</p>
+              <p>Approved contract customers pay on delivery under their agreed terms. New and ordinary customers pay before delivery.</p>
+              <p>Free delivery within 25 km requires at least three different catalogue products, each meeting its minimum order. Thursday only: 08:00–10:00 or 16:00–17:00. The team verifies the address and distance. Regular and gourmet of one bag size count as one product.</p>
+              <p>Cancel at least six hours before scheduled collection or delivery via WhatsApp, quoting your reference. Payments are non-refundable.</p>
+              <p>Personalised labels: minimum 50 bottles, N$4 printing per bottle. Allow 48–72 hours after final artwork approval and order confirmation. Both bottled-water sizes are sold in packs of 10, minimum five packs per size.</p>
+            </div>
+
+            <label for="order-notes">Additional requirements (optional)</label>
+            <textarea id="order-notes" maxlength="2000" placeholder="Event details, recurring supply or collection requirements."></textarea>
+          </section>
+        </div>
+
+        <aside class="order-summary">
+          <div class="bulk-total">
+            <h2>Enquiry estimate</h2>
+            <div id="order-lines"></div>
+            <p id="order-total"></p>
+            <p id="order-lead" class="small"></p>
+            <p class="small">Confirmed water and cup prices are shown. Other marked prices remain samples. Delivery eligibility, availability and artwork need confirmation.</p>
+            <p class="small"><a href="/privacy" target="_blank" rel="noopener">Read privacy information ↗</a></p>
+            <label class="event-toggle" style="line-height:1.6;font-size:12px">
+              <input id="order-confirmation" type="checkbox" required> I have read the privacy information. This requests a quotation, with formal quotes and artwork discussed on WhatsApp. Final price, availability and any artwork must be agreed before production.
+            </label>
+            <button class="btn light" type="submit" id="order-save">Submit enquiry &amp; get reference ↗</button>
+            <p id="order-error" role="alert"></p>
+          </div>
+        </aside>
+      </div>
+    </form>
+
+    <section id="order-success" class="info-panel" hidden>
+      <div class="eyebrow">SAMPLE ENQUIRY SAVED</div>
+      <h2 id="order-reference"></h2>
+      <p>Your enquiry is saved as Received in the owner dashboard. The team must confirm your quotation, product availability and any artwork before production. No production has been authorised.</p>
+      <div class="confirmation-steps">
+        <p><strong>1. Quotation</strong> — the team confirms product, label and delivery costs.</p>
+        <p><strong>2. Availability &amp; artwork</strong> — supply arrangements and any design proof are agreed.</p>
+        <p><strong>3. Production</strong> — starts only after the required confirmations.</p>
+      </div>
+      <p id="order-saved-total"></p>
+      <label for="order-message">Your enquiry message</label>
+      <textarea id="order-message" readonly style="height:260px"></textarea>
+      <div class="actions">
+        <a class="btn outline" id="order-mail">Open email draft</a>
+        <a class="btn" id="order-wa" target="_blank" rel="noopener">Continue on WhatsApp ↗</a>
+        <button class="btn outline" type="button" id="order-copy">Copy enquiry</button>
+      </div>
+      <p id="order-send-status" class="small" role="status">Review and send the draft yourself. No message has been sent automatically.</p>
+      <p class="small">Formal quotations and artwork proofs are handled on WhatsApp. Open the WhatsApp draft above to continue the discussion.</p>
+      <a href="/dashboard" class="owner-link">Owner: open order dashboard ↗</a>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer-new">
+    <div class="footer-inner-grid">
+      <div class="footer-col-brand">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox Ice Hub">
+        <p>Pure Ice. Everyday Water. Reliable Supply across Ongwediva & Northern Namibia.</p>
+        <p style="margin-top:12px;font-size:13px;color:#8dafc9">📍 Shop 14, Makalani Mall, Ongwediva</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/services">Business & Events</a></li>
+          <li></li>
+          <li><a href="/order">Order & Estimates</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help & Info</h4>
+        <ul>
+          <li><a href="/questions">Questions & Answers</a></li>
+          <li><a href="/reviews">Customer Reviews</a></li>
+          <li><a href="/privacy">Privacy Notice</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Direct Contact</h4>
+        <ul>
+          <li><a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a></li>
+          <li><a href="https://wa.me/264852485426">💬 WhatsApp +264 85 248 5426</a></li>
+          <li><a href="tel:+264852485426">📞 Phone: +264 85 248 5426</a></li>
+          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 & 16:00–17:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
+      <a href="/dashboard">Owner Dashboard ↗</a>
+    </div>
+  </footer>
+
+  <script src="/sales-policy.js?v=20261103c"></script>
+  <script src="/commerce-ui.js?v=20261103c"></script>
+  <script src="/calculator.js?v=20261103c"></script>
+  <script src="/gathering.js?v=20261103c"></script>
+  <script src="/order-flow.js?v=20261103c"></script>
+  <script src="/event-order.js?v=20261103c"></script>
+  <script src="/supplier.js?v=20261103c"></script>
+  <script src="/order.js?v=20261103c"></script>
+  <script src="/qa.js?v=20261103c"></script>
+  <script src="/contacts.js?v=20261103c"></script>
+  <script src="/catalogue-link.js?v=20261103c"></script>
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    if (menuBtn && drawer) {
+      menuBtn.addEventListener('click', () => { drawer.classList.toggle('open'); });
+    }
+  </script>
+  <script src="/admin-side-tab.js"></script>
+</body>
+</html>

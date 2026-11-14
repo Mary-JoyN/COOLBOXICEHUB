@@ -1,0 +1,204 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/db.php';
+$cbxServices = [];
+try {
+    $cbxServices = cbx_db()
+        ->query('SELECT id, title, category, price_label, summary, details_json FROM services WHERE active = 1 ORDER BY sort_order ASC, title ASC')
+        ->fetchAll();
+} catch (Throwable $e) {
+    $cbxServices = [];
+}
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b2b5b">
+  <title>Business &amp; Events | The CoolerBox Ice Hub — Ongwediva</title>
+  <meta name="description"
+    content="Ice and water supply for businesses, celebrations, retail partnerships, and events from The CoolerBox Ice Hub in Ongwediva, Namibia.">
+  <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+  <link rel="stylesheet" href="/ice-company.css">
+</head>
+
+<body>
+  <!-- Top Bar -->
+  <div class="site-top-bar">
+    <div class="site-top-inner">
+      <div class="top-bar-location">
+        <span>📍 Makalani Mall · Ongwediva, Namibia</span>
+      </div>
+      <div class="top-bar-contact">
+        <a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a>
+        <a href="https://wa.me/264852485426" target="_blank" rel="noopener">💬 WhatsApp +264 85 248 5426</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="site-nav-container">
+      <a class="site-brand" href="/" aria-label="CoolerBox Ice Hub Home">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox — Ice, Water, Refreshment">
+      </a>
+      <ul class="site-nav-menu">
+        <li><a class="site-nav-link" href="/">Home</a></li>
+        <li><a class="site-nav-link" href="/products">Products</a></li>
+        <li><a class="site-nav-link active" href="/services">Business &amp; Events</a></li>        <li><a class="site-nav-link" href="/contact">Contact</a></li>
+      </ul>
+      <a class="btn-header-order" href="/order">Order Now ↗</a>
+      <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
+    </div>
+    <div class="mobile-drawer" id="mobile-drawer">
+      <a href="/">Home</a>
+      <a href="/products">Products</a>
+      <a class="active" href="/services">Business &amp; Events</a>      <a href="/contact">Contact</a>
+      <a href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
+    </div>
+  </header>
+
+  <!-- Title Banner -->
+  <section class="page-title-banner">
+    <div class="page-title-inner">
+      <span class="page-title-tag">BUSINESS &amp; EVENT SUPPLY</span>
+      <h1>Ice &amp; Water Supply for Businesses and Events</h1>
+      <p>Planning an event or looking for a regular ice and water supplier? The CoolerBox caters for retailers, bars, restaurants, accommodation establishments and event organisers. Contact us to discuss product options, quantities and supply arrangements for your business or occasion.</p>
+    </div>
+  </section>
+
+  <!-- Solutions Grid -->
+  <main class="content-section">
+    <div class="section-header-centered">
+      <span class="section-pre-title">TAILORED SUPPLY</span>
+      <h2>From CoolerBox to Events. We've got you covered.</h2>
+      <p>Whether you're hosting an event, managing a busy retail outlet, or need regular ice deliveries, explore our dedicated supply options below.</p>
+    </div>
+
+    <?php if (!empty($cbxServices)): ?>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:28px 0 42px">
+      <?php foreach ($cbxServices as $svc): ?>
+        <?php $details = json_decode((string)($svc['details_json'] ?? '[]'), true) ?: []; ?>
+        <article style="background:#ffffff;border:1px solid var(--cb-border,#d9e6f2);border-radius:16px;padding:24px;box-shadow:var(--cb-shadow-sm,0 4px 16px rgba(11,56,97,0.06));display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <span style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#0077B3;background:#E6F4FB;padding:4px 10px;border-radius:999px;margin-bottom:10px">
+              <?= htmlspecialchars((string)$svc['category'], ENT_QUOTES, 'UTF-8') ?>
+            </span>
+            <h3 style="margin:0 0 8px;color:var(--cb-navy,#0B3861);font-size:20px;font-family:var(--cb-font-heading,inherit)">
+              <?= htmlspecialchars((string)$svc['title'], ENT_QUOTES, 'UTF-8') ?>
+            </h3>
+            <p style="margin:0 0 12px;color:var(--cb-text-muted,#556b82);font-size:14.5px;line-height:1.55">
+              <?= htmlspecialchars((string)($svc['summary'] ?? ''), ENT_QUOTES, 'UTF-8') ?>
+            </p>
+            <?php if (!empty($details)): ?>
+              <ul style="margin:0 0 16px;padding-left:18px;color:var(--cb-navy,#0B3861);font-size:13.5px;line-height:1.6">
+                <?php foreach ($details as $item): ?>
+                  <li><?= htmlspecialchars((string)$item, ENT_QUOTES, 'UTF-8') ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid #eef4f9">
+            <strong style="color:#0077B3;font-size:14px"><?= htmlspecialchars((string)$svc['price_label'], ENT_QUOTES, 'UTF-8') ?></strong>
+            <a href="/contact" style="color:var(--cb-navy,#0B3861);font-weight:700;font-size:13.5px;text-decoration:none">Enquire &rarr;</a>
+          </div>
+        </article>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
+    <!-- Event Option: The Moments That Matter (Matching Reference Image 3) -->
+    <section class="event-feature" id="event-water">
+      <figure>
+        <img src="/assets/event-water-concept.jpg" loading="lazy" alt="CoolerBox bottled-water presentation at a celebration table">
+        <figcaption>Event-water presentation concept</figcaption>
+      </figure>
+      <div class="event-copy">
+        <span class="eyebrow">BOTTLED WATER FOR YOUR OCCASION</span>
+        <h2>For the moments<br>that matter.</h2>
+        <p>A thoughtful detail for your guests. Purified water, hygienically filled and packed, for gatherings big and small.</p>
+        <div class="occasion-tags">
+          <span>Funerals</span>
+          <span>Birthdays</span>
+          <span>Anniversaries</span>
+          <span>Weddings</span>
+          <span>Corporate events</span>
+        </div>
+        <p class="small">Bottled water is kept in cooled storage at approximately 10°C before collection. Personalised labels, artwork, quantities and turnaround are discussed on WhatsApp.</p>
+        <div class="actions">
+          <a class="btn" href="/order?product=water&occasion=1">Plan my event water ↗</a>
+          
+          <a class="text-link" href="/products">Explore label concepts ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Box -->
+    <div style="background:var(--cb-surface);border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:40px;margin-top:60px;text-align:center;box-shadow:var(--cb-shadow-sm)">
+      <h3 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 12px">Need a Custom Supply Agreement?</h3>
+      <p style="color:var(--cb-text-muted);max-width:600px;margin:0 auto 24px;font-size:16px">Our commercial team prepares tailored quotations based on your weekly volume, delivery frequency, and supply needs.</p>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px">
+        <a class="btn-hero-primary" href="/contact">Send an Enquiry ✉</a>
+        <a class="btn-hero-outline" href="/order" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8">Request a Quote ↗</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer-new">
+    <div class="footer-inner-grid">
+      <div class="footer-col-brand">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox Ice Hub">
+        <p>Pure Ice. Everyday Water. Reliable Supply across Ongwediva & Northern Namibia.</p>
+        <p style="margin-top:12px;font-size:13px;color:#8dafc9">📍 Shop 14, Makalani Mall, Ongwediva</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/products">Products</a></li>
+          <li><a href="/services">Business &amp; Events</a></li>
+          <li></li>
+          <li><a href="/order">Order Now</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help & Info</h4>
+        <ul>
+          <li><a href="/questions">Questions & Answers</a></li>
+          <li><a href="/reviews">Customer Reviews</a></li>
+          <li><a href="/privacy">Privacy Notice</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Direct Contact</h4>
+        <ul>
+          <li><a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a></li>
+          <li><a href="https://wa.me/264852485426">💬 WhatsApp +264 85 248 5426</a></li>
+          <li><a href="tel:+264852485426">📞 Phone: +264 85 248 5426</a></li>
+          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 & 16:00–17:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
+      <a href="/dashboard">Owner Dashboard ↗</a>
+    </div>
+  </footer>
+
+  <script src="/admin-side-tab.js"></script>
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const drawer = document.getElementById('mobile-drawer');
+    if (menuBtn && drawer) {
+      menuBtn.addEventListener('click', () => {
+        drawer.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+
+</html>

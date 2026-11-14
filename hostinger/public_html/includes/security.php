@@ -6,6 +6,7 @@ declare(strict_types=1);
  */
 
 require_once __DIR__ . '/db.php';
+require_once __DIR__ . '/smtp_mailer.php';
 
 function cbx_is_https(): bool
 {
@@ -249,6 +250,37 @@ function cbx_clean_str(mixed $value, int $maxLen = 2000): string
     return substr($str, 0, $maxLen);
 }
 
+function cbx_dispatch_notification_email(string $subject, string $body, string $replyTo = ''): bool
+{
+    $mailCfg = cbx_config()['mail'] ?? [];
+    $to = (string)($mailCfg['to_email'] ?? 'info@coolerboxicehub.com');
+    $from = (string)($mailCfg['from_email'] ?? 'info@coolerboxicehub.com');
+    $fromName = (string)($mailCfg['from_name'] ?? 'The CoolerBox Ice Hub');
+    $smtpPass = (string)($mailCfg['smtp_pass'] ?? '');
+
+    if ($smtpPass !== '' && !str_starts_with($smtpPass, 'REPLACE_WITH_')) {
+        $smtpError = null;
+        return cbx_send_smtp_mail($to, $subject, $body, $replyTo, $smtpError);
+    }
+
+    if ((cbx_config()['app_env'] ?? 'production') === 'local_test') {
+        return false;
+    }
+
+    $safeSubject = str_replace(["\r", "\n"], ' ', $subject);
+    $safeReplyTo = str_replace(["\r", "\n"], '', $replyTo);
+    $headers = [
+        "From: {$fromName} <{$from}>",
+        "MIME-Version: 1.0",
+        "Content-Type: text/plain; charset=UTF-8",
+    ];
+    if ($safeReplyTo !== '' && filter_var($safeReplyTo, FILTER_VALIDATE_EMAIL)) {
+        $headers[] = "Reply-To: {$safeReplyTo}";
+    }
+
+    return @mail($to, $safeSubject, $body, implode("\r\n", $headers));
+}
+
 function cbx_send_contact_email(
     string $reference,
     string $name,
@@ -257,11 +289,6 @@ function cbx_send_contact_email(
     string $subject,
     string $message
 ): bool {
-    $mailCfg = cbx_config()['mail'];
-    $to = (string)($mailCfg['to_email'] ?? 'info@coolerboxicehub.com');
-    $from = (string)($mailCfg['from_email'] ?? 'info@coolerboxicehub.com');
-    $fromName = (string)($mailCfg['from_name'] ?? 'The CoolerBox Ice Hub');
-
     $safeSubject = str_replace(["\r", "\n"], ' ', "[CoolerBox Enquiry {$reference}] {$subject}");
     $body = implode("\n", [
         "New website enquiry received on The CoolerBox Ice Hub",
@@ -277,18 +304,41 @@ function cbx_send_contact_email(
         "Submitted at: " . cbx_now_iso(),
     ]);
 
-    $safeReplyTo = str_replace(["\r", "\n"], '', $email);
-    $headers = [
-        "From: {$fromName} <{$from}>",
-        "Reply-To: {$safeReplyTo}",
-        "MIME-Version: 1.0",
-        "Content-Type: text/plain; charset=UTF-8",
-    ];
+    return cbx_dispatch_notification_email($safeSubject, $body, $email);
+}
 
-    if ((cbx_config()['app_env'] ?? 'production') === 'local_test') {
-        return false;
+function cbx_send_order_email(
+    string $reference,
+    string $name,
+    string $phone,
+    string $email,
+    int $totalCents,
+    array $items,
+    array $details
+): bool {
+    $itemLines = [];
+    foreach ($items as $it) {
+        $itemName = (string)($it['name'] ?? ($it['id'] ?? 'Item'));
+        $qty = (int)($it['quantity'] ?? ($it['qty'] ?? 0));
+        $itemLines[] = " - {$itemName} x {$qty}";
     }
 
-    return @mail($to, $safeSubject, $body, implode("\r\n", $headers));
+    $safeSubject = "[CoolerBox Order / Quote {$reference}] {$name}";
+    $body = implode("\n", [
+        "New order / quote request received on The CoolerBox Ice Hub",
+        "Reference: {$reference}",
+        "Customer: {$name}",
+        "Phone / WhatsApp: {$phone}",
+        "Email: " . ($email !== '' ? $email : 'Not provided'),
+        "Estimated Total: N$" . number_format($totalCents / 100, 2),
+        "",
+        "Items:",
+        $itemLines ? implode("\n", $itemLines) : " - Custom quote / enquiry",
+        "",
+        "Details: " . json_encode($details, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+        "Submitted at: " . cbx_now_iso(),
+    ]);
+
+    return cbx_dispatch_notification_email($safeSubject, $body, $email);
 }
 

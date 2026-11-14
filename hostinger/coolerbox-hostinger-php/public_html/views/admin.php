@@ -1,0 +1,639 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/security.php';
+$cbxCsrf = htmlspecialchars(cbx_csrf_token(), ENT_QUOTES, 'UTF-8');
+$cbxAdminUser = htmlspecialchars((string)($_SESSION['admin_username'] ?? 'admin'), ENT_QUOTES, 'UTF-8');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin &amp; Client Management Console | CoolerBox Ice Hub</title>
+  <meta name="description" content="Manage product catalogue, image uploads, phone &amp; contact numbers, orders, customer reviews and announcements for CoolerBox Ice Hub.">
+  <meta name="csrf-token" content="<?= $cbxCsrf ?>">
+  <meta name="admin-user" content="<?= $cbxAdminUser ?>">
+  <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
+  <link rel="stylesheet" href="/static/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- Top System Bar -->
+  <div class="admin-top-bar">
+    <div class="live-badge">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span>CoolerBox System Connected · Makalani Mall, Ongwediva</span>
+    </div>
+    <div style="display:flex;gap:18px;align-items:center">
+      <a href="/" target="_blank">View Storefront ↗</a>
+      <a href="/order" target="_blank">Order Flow ↗</a>
+      <a href="/track" target="_blank">Track Portal ↗</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a class="admin-brand-wrap" href="/admin" aria-label="CoolerBox Operations Console">
+        <img src="/assets/logo-primary.jpeg" alt="The CoolerBox Ice Hub">
+        <span class="admin-badge-portal">Operations Admin</span>
+      </a>
+
+      <div class="admin-header-actions">
+        <a class="btn-admin-pill ghost" href="/" target="_blank">
+          <span>🏪</span> Storefront
+        </a>
+        <button id="btn-add-product" class="btn-admin-pill primary" type="button">
+          <span>＋</span> Add Product
+        </button>
+        <a class="btn-admin-pill ghost" href="/admin/logout" title="Sign out of Admin Console">
+          <span>🚪</span> Logout
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+
+    <!-- Hero Banner -->
+    <section class="admin-hero">
+      <div style="font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#38bdf8;margin-bottom:6px">
+        CLIENT OPERATIONS PORTAL
+      </div>
+      <h1>CoolerBox Store &amp; Product Management</h1>
+      <p>Add new products with images, update your helpline and WhatsApp order numbers, respond to quotation enquiries, and manage customer reviews.</p>
+    </section>
+
+    <!-- Stats Highlights -->
+    <div class="admin-stat-grid">
+      <div class="admin-stat-card">
+        <div class="admin-stat-label">Catalogue Products <span>🛍️</span></div>
+        <div id="stat-products-count" class="admin-stat-val">0</div>
+        <div class="admin-stat-sub">Active in storefront &amp; order flow</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-label">Total Enquiries <span>📋</span></div>
+        <div id="stat-orders-count" class="admin-stat-val">0</div>
+        <div class="admin-stat-sub">Customer orders received</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-label">Awaiting Quotation <span>⏳</span></div>
+        <div id="stat-pending-quotes" class="admin-stat-val" style="color:#d97706">0</div>
+        <div class="admin-stat-sub">Action required by staff</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-label">Customer Reviews <span>⭐</span></div>
+        <div id="stat-reviews-count" class="admin-stat-val">0</div>
+        <div class="admin-stat-sub">Published testimonials</div>
+      </div>
+      <div class="admin-stat-card">
+        <div class="admin-stat-label">Active Contact Line <span>📞</span></div>
+        <div id="stat-active-phone" class="admin-stat-val" style="font-size:18px;margin-top:8px;color:#006da6;font-weight:700">Loading…</div>
+        <div class="admin-stat-sub">Synced across all website pages</div>
+      </div>
+    </div>
+
+    <!-- Tabbed Navigation -->
+    <nav class="admin-tabs-nav" aria-label="Admin Navigation Tabs">
+      <button class="admin-tab-btn active" data-adm-tab="products" type="button">
+        <span>🛍️</span> Products &amp; Images
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="contacts" type="button">
+        <span>📞</span> Phone &amp; Store Details
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="orders" type="button">
+        <span>📋</span> Quotations &amp; Orders
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="reviews" type="button">
+        <span>⭐</span> Customer Reviews
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="news" type="button">
+        <span>📢</span> Noticeboard &amp; News
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="services" type="button">
+        <span>🧊</span> Services
+      </button>
+      <button class="admin-tab-btn" data-adm-tab="enquiries" type="button">
+        <span>✉️</span> Contact Enquiries
+      </button>
+    </nav>
+
+    <!-- ========================================================
+         TAB 1: PRODUCTS & CATALOGUE
+         ======================================================== -->
+    <div id="pane-products" class="admin-tab-pane">
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <div>
+            <h2>Product Catalogue Management</h2>
+            <p>Upload product images, configure retail and bulk pricing, update availability, or add new ice and water products.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <input id="search-products" class="form-control" type="search" placeholder="Search products by name…" style="min-width:220px;max-width:300px">
+            <select id="filter-products-cat" class="form-control" style="width:auto">
+              <option value="all">All Units &amp; Categories</option>
+              <option value="bag">Ice Bags</option>
+              <option value="block">Ice Blocks</option>
+              <option value="cup">Ice Cups &amp; Slushies</option>
+              <option value="bottle">Bottled Water</option>
+              <option value="container">Water Refills</option>
+              <option value="pack">Packs &amp; Treats</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="admin-products-list" class="product-inventory-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 2: PHONE & STORE DETAILS
+         ======================================================== -->
+    <div id="pane-contacts" class="admin-tab-pane" hidden>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px">
+        <!-- Settings Form -->
+        <div class="admin-card">
+          <div class="admin-card-head">
+            <div>
+              <h2>Store Contact &amp; Phone Numbers</h2>
+              <p>Updates made here are immediately applied to the top banner, contact buttons, WhatsApp enquiry links, and footers on every page.</p>
+            </div>
+          </div>
+
+          <form id="contact-settings-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cfg-phone">Helpline Phone Number <small>Customer phone calls</small></label>
+                <input id="cfg-phone" class="form-control" type="text" placeholder="+264 85 248 5426" required>
+              </div>
+
+              <div class="form-group">
+                <label for="cfg-whatsapp">WhatsApp Order Number <small>Direct order chat</small></label>
+                <input id="cfg-whatsapp" class="form-control" type="text" placeholder="264852485426" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="cfg-email">Official Email Address <small>Customer enquiries</small></label>
+                <input id="cfg-email" class="form-control" type="email" placeholder="info@coolerboxicehub.com" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="cfg-location">Shop Location &amp; Address</label>
+                <input id="cfg-location" class="form-control" type="text" placeholder="Makalani Mall, Ongwediva, Namibia" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="cfg-hours">Trading &amp; Collection Hours</label>
+                <textarea id="cfg-hours" class="form-control" rows="2" placeholder="Monday–Thursday: 09:00–19:00..."></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="cfg-delivery">Delivery Terms &amp; Radius</label>
+                <textarea id="cfg-delivery" class="form-control" rows="2" placeholder="Free delivery terms and schedule..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="cfg-facebook">Facebook Page URL</label>
+                <input id="cfg-facebook" class="form-control" type="url" placeholder="https://facebook.com/coolerboxicehub">
+              </div>
+
+              <div class="form-group">
+                <label for="cfg-instagram">Instagram Profile URL</label>
+                <input id="cfg-instagram" class="form-control" type="url" placeholder="https://instagram.com/coolerboxicehub">
+              </div>
+
+              <div class="form-group">
+                <label for="cfg-tiktok">TikTok Profile URL</label>
+                <input id="cfg-tiktok" class="form-control" type="url" placeholder="https://tiktok.com/@coolerboxicehub">
+              </div>
+
+              <div class="form-group">
+                <label for="cfg-linkedin">LinkedIn Company URL</label>
+                <input id="cfg-linkedin" class="form-control" type="url" placeholder="https://linkedin.com/company/coolerbox">
+              </div>
+            </div>
+
+            <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
+              <button class="btn-admin-pill primary" type="submit" style="padding:12px 24px;font-size:14px">
+                💾 Save Store &amp; Phone Details
+              </button>
+              <button id="btn-test-whatsapp" class="btn-admin-pill ghost" type="button" style="padding:12px 20px;font-size:14px">
+                💬 Test WhatsApp Chat ↗
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Live Preview Card -->
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h3>Customer Contact Preview</h3>
+                <p>Live preview of how customers see your store contact information:</p>
+              </div>
+            </div>
+
+            <div class="contact-preview-box">
+              <h4>The CoolerBox Ice Hub · Ongwediva</h4>
+              <div class="contact-preview-row">
+                <span>📞</span>
+                <div>
+                  <div style="font-size:11px;opacity:0.8">Direct Phone Call</div>
+                  <a id="prev-phone-link" href="#"><strong id="prev-phone">+264 85 248 5426</strong></a>
+                </div>
+              </div>
+              <div class="contact-preview-row">
+                <span>💬</span>
+                <div>
+                  <div style="font-size:11px;opacity:0.8">WhatsApp Order Chat</div>
+                  <a id="prev-wa-link" href="#" target="_blank"><strong id="prev-wa">+264 85 248 5426</strong></a>
+                </div>
+              </div>
+              <div class="contact-preview-row">
+                <span>✉️</span>
+                <div>
+                  <div style="font-size:11px;opacity:0.8">Customer Email</div>
+                  <a id="prev-email-link" href="#"><strong id="prev-email">info@coolerboxicehub.com</strong></a>
+                </div>
+              </div>
+              <div class="contact-preview-row" style="margin-bottom:0">
+                <span>📍</span>
+                <div>
+                  <div style="font-size:11px;opacity:0.8">Shop Location</div>
+                  <span id="prev-location">Makalani Mall, Ongwediva, Namibia</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;padding:16px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;font-size:13px;color:#475569">
+              <strong>💡 Pro-Tip for Namibian Numbers:</strong>
+              <p style="margin:4px 0 0">Enter the WhatsApp number without spaces and starting with country code <code>264</code> (e.g. <code>264852485426</code>). The system formats it with a '+' and spaces for customers automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 3: QUOTATIONS & ORDERS
+         ======================================================== -->
+    <div id="pane-orders" class="admin-tab-pane" hidden>
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <div>
+            <h2>Quotations &amp; Customer Orders</h2>
+            <p>Review customer quotation requests, track order milestones, and contact customers directly via WhatsApp.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <input id="dash-order-search" class="form-control" type="search" placeholder="Search reference, customer or phone…" style="min-width:240px">
+            <select id="dash-filter-status" class="form-control" style="width:auto">
+              <option value="all">All statuses</option>
+              <option value="new">New (Awaiting quote)</option>
+              <option value="quoted">Quoted</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="dash-orders-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 4: CUSTOMER REVIEWS
+         ======================================================== -->
+    <div id="pane-reviews" class="admin-tab-pane" hidden>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h2>Customer Ratings &amp; Reviews</h2>
+                <p>Manage reviews displayed on the storefront.</p>
+              </div>
+            </div>
+            <div id="dash-rev-list">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h3>Add Customer Review</h3>
+                <p>Record a review received at the Makalani Mall counter or over WhatsApp.</p>
+              </div>
+            </div>
+            <form id="admin-add-review-form">
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="rev-author">Customer Name</label>
+                <input id="rev-author" class="form-control" type="text" placeholder="e.g. Selma Shilongo" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="rev-rating">Star Rating (1 to 5)</label>
+                <select id="rev-rating" class="form-control">
+                  <option value="5">★★★★★ (5 Stars - Excellent)</option>
+                  <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+                  <option value="3">★★★☆☆ (3 Stars - Good)</option>
+                  <option value="2">★★☆☆☆ (2 Stars - Fair)</option>
+                  <option value="1">★☆☆☆☆ (1 Star - Poor)</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="rev-title">Review Headline</label>
+                <input id="rev-title" class="form-control" type="text" placeholder="e.g. Fresh ice cubes on time for our wedding" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:18px">
+                <label for="rev-body">Customer Comment</label>
+                <textarea id="rev-body" class="form-control" rows="3" placeholder="Write the customer's comments..." required></textarea>
+              </div>
+
+              <button class="btn-admin-pill primary" type="submit" style="width:100%;justify-content:center">
+                Publish Review to Storefront ↗
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 5: NOTICEBOARD / NEWS
+         ======================================================== -->
+    <div id="pane-news" class="admin-tab-pane" hidden>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px">
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h2>Publish Announcement</h2>
+                <p>Share holiday hours, supplier promotions, or community news.</p>
+              </div>
+            </div>
+
+            <form id="dash-new-post-form">
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="post-title">Headline / Title</label>
+                <input id="post-title" class="form-control" type="text" placeholder="e.g. Extended Weekend Hours at Makalani Mall" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="post-category">Category</label>
+                <select id="post-category" class="form-control">
+                  <option value="news">News &amp; Updates</option>
+                  <option value="community">Community Work &amp; Partnerships</option>
+                  <option value="events">Events &amp; Holiday Hours</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="post-location">Location</label>
+                <input id="post-location" class="form-control" type="text" placeholder="e.g. Makalani Mall, Ongwediva">
+              </div>
+
+              <div class="form-group" style="margin-bottom:16px">
+                <label for="post-body">Announcement Body</label>
+                <textarea id="post-body" class="form-control" rows="4" placeholder="Announcement details..." required></textarea>
+              </div>
+
+              <button class="btn-admin-pill primary" type="submit" style="width:100%;justify-content:center">
+                Publish to Noticeboard ↗
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h3>Published Announcements</h3>
+                <p>Updates visible on the public noticeboard.</p>
+              </div>
+            </div>
+            <div id="dash-post-list">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 6: SERVICES MANAGEMENT
+    ======================================================== -->
+    <div id="panel-services" class="admin-panel">
+      <div class="admin-split">
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h3 id="service-form-title">Add / Edit Service</h3>
+                <p>Manage Business &amp; Events offerings shown on the website.</p>
+              </div>
+            </div>
+
+            <form id="service-form">
+              <input id="service-id" type="hidden">
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="service-title">Service Title</label>
+                <input id="service-title" class="form-control" type="text" placeholder="e.g. Wholesale Ice Supply" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="service-category">Category</label>
+                <input id="service-category" class="form-control" type="text" value="Business & Events">
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="service-price-label">Pricing Label</label>
+                <input id="service-price-label" class="form-control" type="text" placeholder="e.g. Custom Quote or From N$4.00 / label">
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px">
+                <label for="service-summary">Summary</label>
+                <textarea id="service-summary" class="form-control" rows="3" placeholder="Describe this service..."></textarea>
+              </div>
+
+              <div class="form-group" style="margin-bottom:16px">
+                <label for="service-details">Key Highlights <small>(one per line)</small></label>
+                <textarea id="service-details" class="form-control" rows="3" placeholder="Daily or weekly delivery&#10;Bulk pricing available"></textarea>
+              </div>
+
+              <div style="display:flex;gap:10px">
+                <button class="btn-admin-pill primary" type="submit" style="flex:1;justify-content:center">
+                  Save Service ↗
+                </button>
+                <button id="btn-reset-service" class="btn-admin-pill ghost" type="button">
+                  Clear
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <div class="admin-card">
+            <div class="admin-card-head">
+              <div>
+                <h3>Active Services</h3>
+                <p>Services currently listed for businesses and events.</p>
+              </div>
+            </div>
+            <div id="dash-service-list">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
+         TAB 7: CONTACT ENQUIRIES
+    ======================================================== -->
+    <div id="panel-enquiries" class="admin-panel">
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <div>
+            <h3>Customer Contact Enquiries</h3>
+            <p>Direct messages submitted via the Contact page enquiry form.</p>
+          </div>
+        </div>
+        <div id="dash-enquiry-list">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================================
+       MODAL: ADD / EDIT PRODUCT WITH IMAGE UPLOAD
+       ======================================================== -->
+  <div id="product-modal-overlay" class="admin-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
+    <div class="admin-modal">
+      <div class="admin-modal-head">
+        <h3 id="modal-product-title">Add New Product to Storefront</h3>
+        <button id="btn-close-prod-modal" class="admin-modal-close" type="button" aria-label="Close modal">&times;</button>
+      </div>
+
+      <form id="product-form">
+        <div class="admin-modal-body">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="prod-name">Product Name</label>
+              <input id="prod-name" class="form-control" type="text" placeholder="e.g. 7 kg Party Ice Cubes" required>
+            </div>
+
+            <!-- Image Upload Section -->
+            <div class="form-group full-width">
+              <label>Product Image</label>
+              <div class="image-upload-box">
+                <img id="prod-image-preview" class="image-preview-thumb" src="/assets/ice-product.webp" alt="Product Preview">
+                <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#006da6">
+                  Click below to upload an image from your device
+                </p>
+                <input id="prod-image-file" type="file" accept="image/png, image/jpeg, image/webp, image/svg+xml" style="font-size:12px">
+                <div id="prod-upload-status" style="font-size:12px;font-weight:600;color:#059669;margin-top:6px"></div>
+              </div>
+              <div style="margin-top:8px">
+                <label for="prod-image-url" style="font-size:12px;color:#64748b">Or Image URL path</label>
+                <input id="prod-image-url" class="form-control" type="text" placeholder="/assets/ice-product.webp" style="font-size:12px">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-unit">Product Unit / Type</label>
+              <select id="prod-unit" class="form-control">
+                <option value="bag">Bag (Ice Cubes)</option>
+                <option value="block">Block (Ice Block)</option>
+                <option value="cup">Cup (Ice Cups / Slushies)</option>
+                <option value="bottle">Bottle (Purified Water)</option>
+                <option value="container">Container (Water Refill)</option>
+                <option value="pack">Pack (Ice Lollies / Treats)</option>
+                <option value="unit">Unit / Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-size">Package Size &amp; Unit</label>
+              <div style="display:flex;gap:8px">
+                <input id="prod-size" class="form-control" type="number" step="0.1" placeholder="2" style="flex:1" required>
+                <input id="prod-size-unit" class="form-control" type="text" placeholder="kg" style="width:80px" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-retail-price">Retail Price (N$) <small>Counter price</small></label>
+              <input id="prod-retail-price" class="form-control" type="number" step="0.5" placeholder="15.00">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-bulk-price">Bulk Wholesale Price (N$)</label>
+              <input id="prod-bulk-price" class="form-control" type="number" step="0.5" placeholder="12.00">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-bulk-min">Minimum Bulk Quantity</label>
+              <input id="prod-bulk-min" class="form-control" type="number" placeholder="20">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-availability">Stock Availability</label>
+              <select id="prod-availability" class="form-control">
+                <option value="available">Available / Ready in Store</option>
+                <option value="advance-booking">Advance Booking Required (48-72h)</option>
+                <option value="sold-out">Temporarily Sold Out / Paused</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-gourmet-retail">Gourmet Retail Price (N$) <small>Optional</small></label>
+              <input id="prod-gourmet-retail" class="form-control" type="number" step="0.5" placeholder="18.00">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-gourmet-bulk">Gourmet Bulk Price (N$) <small>Optional</small></label>
+              <input id="prod-gourmet-bulk" class="form-control" type="number" step="0.5" placeholder="14.00">
+            </div>
+
+            <div class="form-group">
+              <label for="prod-lead-days">Lead Time (Days)</label>
+              <input id="prod-lead-days" class="form-control" type="number" value="1" min="0">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="prod-description">Product Description</label>
+              <textarea id="prod-description" class="form-control" rows="3" placeholder="Describe the product for customers and event planners..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button id="btn-cancel-prod-modal" class="btn-admin-pill ghost" type="button">Cancel</button>
+          <button class="btn-admin-pill primary" type="submit">Save Product ↗</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="admin-toast" class="admin-toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/admin.js"></script>
+</body>
+</html>
