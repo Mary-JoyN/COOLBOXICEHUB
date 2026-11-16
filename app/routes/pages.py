@@ -23,10 +23,19 @@ def order_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("order.html"))
 
 
-@router.get("/shop", response_class=HTMLResponse)
+@router.get("/shop")
+def shop_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/products", status_code=302)
+
+
 @router.get("/products", response_class=HTMLResponse)
 def shop_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("shop.html"))
+
+
+@router.get("/about")
+def about_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/#about", status_code=302)
 
 
 @router.get("/services", response_class=HTMLResponse)

@@ -38,16 +38,22 @@
       <ul class="site-nav-menu">
         <li><a class="site-nav-link active" href="/">Home</a></li>
         <li><a class="site-nav-link" href="/products">Products</a></li>
-        <li><a class="site-nav-link" href="/services">Business & Events</a></li>        <li><a class="site-nav-link" href="/contact">Contact</a></li>
+        <li><a class="site-nav-link" href="/order#calculator">Event Calculator</a></li>
+        <li><a class="site-nav-link" href="/services">Business &amp; Events</a></li>
+        <li><a class="site-nav-link" href="/#about">About</a></li>
+        <li><a class="site-nav-link" href="/contact">Contact</a></li>
       </ul>
-      <a class="btn-header-order" href="/order">Order Now ↗</a>
-      <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
+      <a class="btn-header-order" href="/order">Order / Quote ↗</a>
+      <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
     </div>
     <div class="mobile-drawer" id="mobile-drawer">
       <a class="active" href="/">Home</a>
       <a href="/products">Products</a>
-      <a href="/services">Business & Events</a>      <a href="/contact">Contact</a>
-      <a href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
+      <a href="/order#calculator">Event Calculator</a>
+      <a href="/services">Business &amp; Events</a>
+      <a href="/#about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/order" style="color:var(--cb-cyan);font-weight:700">Order / Quote ↗</a>
     </div>
   </header>
 
@@ -72,27 +78,92 @@
 
   <!-- Main Content -->
   <main class="content-section">
-    <!-- Company Story & Capability (5th card with 4th image on the side) -->
-    <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:44px 40px;margin-bottom:60px;box-shadow:var(--cb-shadow-sm)">
+    <!-- 2. Popular Products & Event Calculator Entry (L02) -->
+    <section id="popular-products" style="margin-bottom:56px">
+      <div class="section-header-centered">
+        <span class="section-pre-title">POPULAR PRODUCTS</span>
+        <h2>Ice, Bottled Water &amp; Refills</h2>
+        <p>Select a product to view pack sizes and price bases, or estimate quantities for your event.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:22px">
+        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
+          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Bagged Ice (2 kg · 3 kg · 5 kg)</strong>
+          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Clean ice for drinks, cooler boxes, bucket cooling and ice baths. From N$15.00 retail (2 kg).</p>
+          <a href="/order?product=ice" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
+        </div>
+        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
+          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">30 kg Ice Blocks</strong>
+          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Whole 30 kg blocks for long-lasting cooling and events. N$45.00 retail / N$40.00 bulk.</p>
+          <a href="/order?product=blocks" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
+        </div>
+        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
+          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Ice Cups (300 ml · 500 ml)</strong>
+          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Ready-filled ice cups—just pour your own drink. N$10.00 (300 ml) / N$12.00 (500 ml).</p>
+          <a href="/order?product=cups" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
+        </div>
+        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
+          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Bottled Water &amp; Refills</strong>
+          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">330 ml (N$9) &amp; 500 ml (N$12) still water, plus 25 L refills (N$25 retail / N$20 bulk).</p>
+          <a href="/order?product=water" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px">
+        <a class="btn-hero-primary" href="/products" style="padding:12px 24px;font-size:14px">View All Products &amp; Prices ↗</a>
+        <a class="btn-hero-outline" href="/order#calculator" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:12px 24px;font-size:14px">Open Event Calculator ↗</a>
+      </div>
+    </section>
+
+    <!-- 3. How to Order (L02) -->
+    <section style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:34px 32px;margin-bottom:56px;box-shadow:var(--cb-shadow-sm)">
+      <span class="section-pre-title">HOW TO ORDER</span>
+      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 18px">Three Simple Steps</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
+        <div><strong style="color:var(--cb-navy)">1. Choose Products or Estimate</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">Pick exact products or use the Event Calculator for guest-based estimates.</p></div>
+        <div><strong style="color:var(--cb-navy)">2. Submit Enquiry &amp; Get Reference</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">Receive a unique reference immediately. Submitting an enquiry does not lock stock yet.</p></div>
+        <div><strong style="color:var(--cb-navy)">3. Team Confirmation &amp; Fulfilment</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">We confirm availability, final pricing, payment and collection or delivery arrangements.</p></div>
+      </div>
+    </section>
+
+    <!-- 4 & 5. Custom Branding & Business Partner Programme (B01, B03) -->
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-bottom:56px">
+      <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:30px;box-shadow:var(--cb-shadow-sm)">
+        <span class="section-pre-title">CUSTOM EVENT BRANDING</span>
+        <h3 style="font-family:var(--cb-font-heading);font-size:22px;color:var(--cb-navy);margin:0 0 10px">Personalised Bottled Water</h3>
+        <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.6;margin:0 0 16px">Select bottle size, supply wording or artwork, approve your design proof, complete payment and schedule production.</p>
+        <a class="btn-hero-primary" href="/services#custom-branding" style="padding:10px 20px;font-size:14px">Explore Custom Branding ↗</a>
+      </div>
+      <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:30px;box-shadow:var(--cb-shadow-sm)">
+        <span class="section-pre-title">BUSINESS PARTNER PROGRAMME</span>
+        <h3 style="font-family:var(--cb-font-heading);font-size:22px;color:var(--cb-navy);margin:0 0 10px">Become a CoolerBox Stockist</h3>
+        <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.6;margin:0 0 16px">Supply-only and approved freezer-placement partnerships for shops, service stations, hotels, guesthouses and bars, subject to terms and availability.</p>
+        <a class="btn-hero-outline" href="/order?supplier=1" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:10px 20px;font-size:14px">Join Our Business Partner Programme ↗</a>
+      </div>
+    </section>
+
+    <!-- 6 & 7. Quality & About The CoolerBox Ice Hub cc (B05, P03) -->
+    <div id="about" style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:44px 40px;margin-bottom:60px;box-shadow:var(--cb-shadow-sm)">
       <div class="story-hub-grid">
         <div>
-          <span class="section-pre-title">NAMIBIAN. LOCAL. DEPENDABLE.</span>
+          <span class="section-pre-title">ABOUT THE COOLERBOX ICE HUB CC</span>
           <h2 style="font-family:var(--cb-font-heading);font-size:clamp(26px, 3.2vw, 36px);color:var(--cb-navy);margin:0 0 16px;line-height:1.25">
-            Your Neighbourhood Ice & Refreshment Hub in Ongwediva.
+            Your Neighbourhood Ice &amp; Refreshment Hub in Ongwediva.
           </h2>
-          <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 16px">
-            The CoolerBox Ice Hub operates from Shop 14, Makalani Mall in Ongwediva. We understand how critical reliable ice and clean drinking water are for families, celebrations, and businesses in Northern Namibia's hot climate.
+          <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 14px">
+            <strong>Vision:</strong> To become Northern Namibia’s trusted choice for ice and purified water, serving households, businesses and events with consistent quality and dependable supply.
           </p>
-          <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 24px">
-            Whether you need an emergency bag of cubes on your way home, bulk ice for a weekend wedding, or an ongoing supply agreement for your retail freezer, our facilities are equipped to deliver consistent quality and friendly service every day.
+          <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 14px">
+            <strong>Mission:</strong> To produce and supply quality ice and purified water at fair prices, with convenient ordering, reliable service and personalised branding, while creating local employment and supporting business partnerships.
+          </p>
+          <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 22px">
+            <strong>Quality &amp; Values:</strong> Consistency, fair pricing, quality, convenience and credibility guide our daily operations at Shop 14, Makalani Mall—backed by clean handling and hygienic packaging. Planned student attachments and community initiatives will be announced once active.
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:14px">
             <a class="btn-hero-primary" href="/products" style="padding:12px 24px;font-size:14px">View Product Catalogue ↗</a>
-            <a class="btn-hero-outline" href="/services" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:12px 24px;font-size:14px">Business & Event Supply ↗</a>
+            <a class="btn-hero-outline" href="/services" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:12px 24px;font-size:14px">Business &amp; Event Supply ↗</a>
           </div>
         </div>
         <div class="story-hub-image-wrap" style="border-radius:var(--cb-radius-md);overflow:hidden;box-shadow:0 10px 26px rgba(0,79,132,0.12);border:1px solid var(--cb-border)">
-          <img src="/assets/coolerbox-cool-starts-here.jpg" alt="The CoolerBox Ice Hub - Cool starts here" style="width:100%;height:100%;object-fit:cover;max-height:340px;display:block" loading="lazy">
+          <img src="/assets/coolerbox-cool-starts-here.jpg" alt="The CoolerBox Ice Hub cc storefront display" style="width:100%;height:100%;object-fit:cover;max-height:340px;display:block" loading="lazy">
         </div>
       </div>
     </div>
@@ -139,18 +210,21 @@
           </div>
         </div>
 
-        <div style="border-radius:var(--cb-radius-md);overflow:hidden;box-shadow:0 8px 24px rgba(0,79,132,0.12);border:1px solid var(--cb-border);background:#e8f1f8;min-height:360px;position:relative;display:flex;align-items:center;justify-content:center">
-          <div style="position:absolute;color:var(--cb-navy);font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:0;pointer-events:none">
-            <span>📍 Loading Makalani Mall Map…</span>
+        <div id="hub-map-box" style="border-radius:var(--cb-radius-md);overflow:hidden;box-shadow:0 8px 24px rgba(0,79,132,0.12);border:1px solid var(--cb-border);background:#e8f1f8;min-height:320px;position:relative;display:flex;align-items:center;justify-content:center">
+          <div id="hub-map-fallback" style="position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--cb-navy);z-index:0">
+            <strong style="font-size:16px;margin-bottom:6px">📍 Shop 14, Makalani Mall, Ongwediva</strong>
+            <span id="hub-map-status" style="font-size:13.5px;color:var(--cb-text-muted);margin-bottom:14px">Loading Makalani Mall map…</span>
+            <a class="btn-hero-primary" href="https://maps.google.com/?q=Makalani+Mall,+Ongwediva,+Namibia" target="_blank" rel="noopener noreferrer" style="padding:10px 20px;font-size:14px">Get Directions ↗</a>
           </div>
-          <iframe 
-            src="https://maps.google.com/maps?q=-17.7783,15.7646+(Makalani+Mall,+Ongwediva,+Namibia)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" 
-            width="100%" 
-            height="360" 
-            style="border:0;display:block;position:relative;z-index:1" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade" 
+          <iframe
+            id="hub-map-iframe"
+            src="https://maps.google.com/maps?q=-17.7783,15.7646+(Makalani+Mall,+Ongwediva,+Namibia)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            width="100%"
+            height="360"
+            style="border:0;display:block;position:relative;z-index:1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
             title="The CoolerBox Ice Hub location map at Makalani Mall, Ongwediva">
           </iframe>
         </div>
@@ -227,20 +301,39 @@
       </div>
     </div>
     <div class="footer-bottom-bar">
-      <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
-      <a href="/dashboard">Owner Dashboard ↗</a>
+      <span>© 2026 The CoolerBox Ice Hub cc. All rights reserved. Shop 14, Makalani Mall, Ongwediva.</span>
     </div>
   </footer>
 
   <script src="/hero-ice.js?v=2"></script>
-  <script src="/admin-side-tab.js"></script>
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const drawer = document.getElementById('mobile-drawer');
     if (menuBtn && drawer) {
       menuBtn.addEventListener('click', () => {
-        drawer.classList.toggle('open');
+        const isOpen = drawer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+        menuBtn.textContent = isOpen ? '✕' : '☰';
       });
+      drawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          menuBtn.textContent = '☰';
+        });
+      });
+    }
+    const mapIframe = document.getElementById('hub-map-iframe');
+    const mapStatus = document.getElementById('hub-map-status');
+    if (mapIframe && mapStatus) {
+      let mapLoaded = false;
+      mapIframe.addEventListener('load', () => { mapLoaded = true; });
+      setTimeout(() => {
+        if (!mapLoaded) {
+          mapStatus.textContent = 'Map preview timed out on your connection. Use Get Directions below to open Makalani Mall, Ongwediva.';
+          mapIframe.style.display = 'none';
+        }
+      }, 4500);
     }
   </script>
 </body>

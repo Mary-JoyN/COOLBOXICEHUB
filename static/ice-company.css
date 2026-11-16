@@ -1321,3 +1321,88 @@ body {
   display: block;
 }
 
+/* =====================================================================
+   Revision Brief L03, L04, L05, L07: Mobile Readability, Accessibility & Scrim
+   ===================================================================== */
+html, body {
+  overflow-x: clip;
+  font-size: 16px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0095D9;
+  outline-offset: 2px;
+}
+
+.hero-video-bg {
+  opacity: 0.42 !important;
+}
+
+.hero-video-overlay {
+  background: linear-gradient(135deg, rgba(6, 30, 56, 0.88) 0%, rgba(11, 56, 97, 0.72) 58%, rgba(0, 110, 166, 0.56) 100%) !important;
+}
+
+.mobile-menu-toggle,
+.mobile-drawer a,
+.btn-hero-primary,
+.btn-hero-outline,
+.btn-header-order,
+.btn-send-message {
+  min-height: 44px;
+}
+
+.mobile-menu-toggle {
+  min-width: 44px;
+}
+
+@media (max-width: 768px) {
+  .site-top-inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 12px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+  }
+  .top-bar-contact {
+    gap: 10px;
+  }
+  .hero-video-banner {
+    min-height: 360px;
+    padding: 44px 18px;
+  }
+  .page-title-banner {
+    padding: 34px 18px;
+  }
+  .content-section {
+    padding: 28px 16px 48px;
+  }
+  .site-footer-new {
+    padding-bottom: 76px;
+  }
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  #hero-ice-canvas {
+    opacity: 0.25 !important;
+  }
+}
+
+

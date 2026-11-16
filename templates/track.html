@@ -145,6 +145,5 @@
       menuBtn.addEventListener('click', () => { drawer.classList.toggle('open'); });
     }
   </script>
-  <script src="/admin-side-tab.js"></script>
 </body>
 </html>

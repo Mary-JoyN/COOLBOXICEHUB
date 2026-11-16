@@ -126,13 +126,40 @@ try {
           <span>Weddings</span>
           <span>Corporate events</span>
         </div>
-        <p class="small">Bottled water is kept in cooled storage at approximately 10°C before collection. Personalised labels, artwork, quantities and turnaround are discussed on WhatsApp.</p>
+        <p class="small">Bottled water is stored hygienically prior to collection or delivery. Personalised labels, artwork proofs, quantities and turnaround are confirmed with our team.</p>
         <div class="actions">
           <a class="btn" href="/order?product=water&occasion=1">Plan my event water ↗</a>
           
-          <a class="text-link" href="/products">Explore label concepts ↗</a>
+          <a class="text-link" href="#custom-branding">Explore custom branding details ↓</a>
         </div>
       </div>
+    </section>
+
+    <!-- Custom Event Branding Sequence (B01, B02) -->
+    <section id="custom-branding" style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:34px 32px;margin-top:42px;box-shadow:var(--cb-shadow-sm)">
+      <span class="section-pre-title">CUSTOM EVENT BRANDING</span>
+      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 12px">How Custom Bottled Water Branding Works</h2>
+      <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 18px">
+        Available for 500 ml still bottled water (and 330 ml on enquiry). Minimum quantities, artwork charges and printing charges apply and are confirmed on your quotation.
+      </p>
+      <ol style="margin:0 0 20px;padding-left:20px;color:var(--cb-navy);font-size:14.5px;line-height:1.75">
+        <li><strong>Select product &amp; quantity</strong> (minimum order quantities apply for custom runs).</li>
+        <li><strong>Supply wording or artwork</strong> (PNG, JPG, WebP or PDF up to 5 MB; stored privately for your enquiry).</li>
+        <li><strong>Receive &amp; approve your design proof</strong> before any printing begins.</li>
+        <li><strong>Complete payment requirement</strong> — the production lead-time clock starts only after final proof approval and required payment.</li>
+        <li><strong>Production &amp; collection or delivery</strong> at Shop 14, Makalani Mall or scheduled route.</li>
+      </ol>
+      <a class="btn-hero-primary" href="/order?product=water&occasion=1" style="padding:11px 22px;font-size:14px">Start Custom Branding Enquiry ↗</a>
+    </section>
+
+    <!-- Business Partner Programme (B03, B04) -->
+    <section id="partner-programme" style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:34px 32px;margin-top:32px;box-shadow:var(--cb-shadow-sm)">
+      <span class="section-pre-title">BUSINESS PARTNER PROGRAMME</span>
+      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 12px">Become a CoolerBox Stockist</h2>
+      <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 16px">
+        Join our Business Partner Programme for shops, service stations, hotels, guesthouses, bars and approved outlets across Ongwediva and Northern Namibia. We offer supply-only arrangements and proposed freezer-placement options subject to outlet approval, equipment availability and agreed commercial terms.
+      </p>
+      <a class="btn-hero-outline" href="/order?supplier=1" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8;padding:11px 22px;font-size:14px">Apply for Business Partner Programme ↗</a>
     </section>
 
     <!-- CTA Box -->
@@ -184,18 +211,25 @@ try {
       </div>
     </div>
     <div class="footer-bottom-bar">
-      <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
-      <a href="/dashboard">Owner Dashboard ↗</a>
+      <span>© 2026 The CoolerBox Ice Hub cc. All rights reserved. Shop 14, Makalani Mall, Ongwediva.</span>
     </div>
   </footer>
 
-  <script src="/admin-side-tab.js"></script>
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const drawer = document.getElementById('mobile-drawer');
     if (menuBtn && drawer) {
       menuBtn.addEventListener('click', () => {
-        drawer.classList.toggle('open');
+        const isOpen = drawer.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+        menuBtn.textContent = isOpen ? '✕' : '☰';
+      });
+      drawer.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          drawer.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          menuBtn.textContent = '☰';
+        });
       });
     }
   </script>

@@ -81,7 +81,7 @@ def run_comprehensive_test():
         assert len(resp.body) > 500, f"{name} body too short ({len(resp.body)} bytes)"
         assert b"logo-primary.jpeg" in resp.body or b"brand-logo" in resp.body, f"{name} missing official logo reference"
         if name != "Dashboard (/dashboard)":
-            assert b"admin-side-tab.js" in resp.body, f"{name} missing admin-side-tab.js"
+            assert b"Owner Dashboard" not in resp.body, f"{name} still exposes Owner Dashboard link"
         print(f"✓ {name}: Status {resp.status_code}, Length {len(resp.body)} bytes")
 
     # 3. Test Health Check

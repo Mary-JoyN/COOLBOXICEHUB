@@ -198,7 +198,7 @@
         </div>
         <div class="browse-card-info">
           <h3 class="browse-card-title">Gourmet Ice</h3>
-          <p class="browse-card-meta">Premium rounded cylindrical ice shape that melts slowly and chills drinks with zero dilution. Available in 2kg, 3kg, 5kg.</p>
+          <p class="browse-card-meta">Premium rounded cylindrical ice shape that melts slowly and chills drinks with slow-melting clarity. Available in 2kg, 3kg, 5kg.</p>
           <div class="browse-card-footer">
             <span class="browse-price-tag">From N$ 18.00</span>
             <a class="btn-card-order" href="/order?product=ice&gourmet=1">Order Now ↗</a>
@@ -243,7 +243,7 @@
         <h3 style="font-family:var(--cb-font-heading);font-size:20px;color:var(--cb-navy);margin:0 0 6px">Supply Your Business With CoolerBox</h3>
         <p style="color:var(--cb-text-muted);margin:0;font-size:14.5px">Special commercial pricing available for orders of 50+ units per delivery. Free delivery within 25 km on qualifying recurring agreements.</p>
       </div>
-      <a class="btn-hero-primary" href="/order?supplier=1" style="padding:12px 24px;font-size:14px">Become a Local Supplier ↗</a>
+      <a class="btn-hero-primary" href="/order?supplier=1" style="padding:12px 24px;font-size:14px">Become a CoolerBox Stockist ↗</a>
     </div>
   </main>
 
@@ -286,7 +286,6 @@
     </div>
     <div class="footer-bottom-bar">
       <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
-      <a href="/dashboard">Owner Dashboard ↗</a>
     </div>
   </footer>
 
@@ -320,7 +319,6 @@
       });
     });
   </script>
-  <script src="/admin-side-tab.js"></script>
 </body>
 
 </html>

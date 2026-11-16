@@ -294,10 +294,14 @@ $cbxAdminUser = htmlspecialchars((string)($_SESSION['admin_username'] ?? 'admin'
               <option value="all">All statuses</option>
               <option value="new">New (Awaiting quote)</option>
               <option value="quoted">Quoted</option>
+              <option value="awaiting-confirmation">Awaiting customer confirmation</option>
+              <option value="awaiting-payment">Awaiting payment</option>
               <option value="confirmed">Confirmed</option>
+              <option value="ready">Ready</option>
               <option value="completed">Completed</option>
               <option value="cancelled">Cancelled</option>
             </select>
+            <button id="btn-export-orders-csv" class="btn-admin-pill ghost" type="button">⬇ Export CSV</button>
           </div>
         </div>
 

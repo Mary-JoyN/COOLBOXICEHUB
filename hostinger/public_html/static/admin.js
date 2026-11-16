@@ -1081,6 +1081,35 @@
     });
   }
 
+  // Export Orders / Enquiries CSV for Bookkeeping (A03)
+  if ($('btn-export-orders-csv')) {
+    $('btn-export-orders-csv').onclick = () => {
+      const esc = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+      const rows = [
+        ['Reference', 'Status', 'Created At', 'Customer', 'Phone', 'Email', 'Category', 'Fulfilment', 'Estimated Total (N$)'].map(esc).join(','),
+      ];
+      orders.forEach(o => {
+        const c = o.customer || {};
+        const d = o.details || {};
+        const totalN = o.totalCents !== null && o.totalCents !== undefined ? (o.totalCents / 100).toFixed(2) : 'Quote';
+        rows.push([
+          o.reference, o.status, o.createdAt, c.name, c.phone, c.email,
+          d.category || '', d.fulfilment || '', totalN,
+        ].map(esc).join(','));
+      });
+      const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `coolerbox-enquiries-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('✓ Exported enquiries CSV.');
+    };
+  }
+
   // Initialize on dom ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

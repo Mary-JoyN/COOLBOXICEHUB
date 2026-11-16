@@ -437,7 +437,6 @@
     </div>
     <div class="footer-bottom-bar">
       <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
-      <a href="/dashboard">Owner Dashboard ↗</a>
     </div>
   </footer>
 
@@ -451,6 +450,5 @@
       menuBtn.addEventListener('click', () => { drawer.classList.toggle('open'); });
     }
   </script>
-  <script src="/admin-side-tab.js"></script>
 </body>
 </html>

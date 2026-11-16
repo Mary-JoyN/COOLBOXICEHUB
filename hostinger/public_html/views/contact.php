@@ -108,11 +108,14 @@
         </div>
 
         <div style="display:flex;flex-wrap:wrap;gap:12px">
-          <a class="btn-hero-primary" href="mailto:info@coolerboxicehub.com?subject=CoolerBox%20Enquiry" style="padding:12px 22px;font-size:14px">
-            Email Us Directly ✉
+          <a class="btn-hero-primary" href="mailto:info@coolerboxicehub.com?subject=CoolerBox%20Enquiry&body=Product%3A%20%0AQuantity%3A%20%0APreferred%20Date%3A%20%0ACollection%20or%20Delivery%3A%20%0ANotes%3A%20" style="padding:12px 22px;font-size:14px">
+            Email Us ✉
           </a>
           <a class="btn-hero-outline" href="https://wa.me/264852485426" target="_blank" rel="noopener" style="padding:12px 22px;font-size:14px">
             WhatsApp Chat ↗
+          </a>
+          <a class="btn-hero-outline" href="https://maps.google.com/?q=Makalani+Mall+Ongwediva+Namibia" target="_blank" rel="noopener" style="padding:12px 22px;font-size:14px">
+            Get Directions ↗
           </a>
         </div>
       </div>
@@ -157,10 +160,10 @@
           </div>
 
           <button type="submit" class="btn-send-message" id="submit-btn">
-            Send Message to info@coolerboxicehub.com ✉
+            Send Enquiry ✉
           </button>
 
-          <div id="status-box" class="contact-status-box"></div>
+          <div id="status-box" class="contact-status-box" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -205,7 +208,6 @@
     </div>
     <div class="footer-bottom-bar">
       <span>© 2026 The CoolerBox Ice Hub. All rights reserved. Makalani Mall, Ongwediva.</span>
-      <a href="/dashboard">Owner Dashboard ↗</a>
     </div>
   </footer>
 
@@ -223,12 +225,15 @@
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const statusBox = document.getElementById('status-box');
+    let isSending = false;
 
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (isSending) return;
+        isSending = true;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending to info@coolerboxicehub.com...';
+        submitBtn.textContent = 'Sending Enquiry…';
         statusBox.className = 'contact-status-box';
         statusBox.style.display = 'none';
 
@@ -246,25 +251,36 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
-          const data = await res.json();
-          if (res.ok && (data.status === 'success' || data.success)) {
+          const raw = await res.text();
+          let data = null;
+          if (raw) {
+            try { data = JSON.parse(raw); } catch { data = null; }
+          }
+          if (res.ok && data && (data.ok || data.status === 'success' || data.success)) {
             statusBox.className = 'contact-status-box success';
-            statusBox.innerHTML = `✅ <strong>Message Received!</strong> Reference: <code>${data.reference}</code><br>${data.message}`;
+            statusBox.style.display = 'block';
+            const ref = data.reference || 'Saved';
+            const msgNote = data.message || 'Your enquiry has been saved and routed to our team for confirmation.';
+            statusBox.innerHTML = `✅ <strong>Enquiry Received!</strong> Reference: <code>${ref}</code><br>${msgNote}`;
             form.reset();
+            statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           } else {
-            throw new Error(data.detail || 'Could not send message.');
+            throw new Error((data && (data.detail || data.error)) || 'We could not submit your enquiry right now.');
           }
         } catch (err) {
           statusBox.className = 'contact-status-box error';
-          statusBox.innerHTML = `⚠️ We could not submit directly through the form. Please click here to email us directly: <a href="mailto:info@coolerboxicehub.com?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(payload.message)}" style="color:#00a5ef;font-weight:bold">Open Email to info@coolerboxicehub.com ↗</a>`;
+          statusBox.style.display = 'block';
+          const mailBody = `Product / Subject: ${payload.subject}\nName: ${payload.name}\nPhone: ${payload.phone}\n\n${payload.message}`;
+          statusBox.innerHTML = `⚠️ ${err.message || 'Could not submit right now.'} Your form details have been preserved — you can retry or <a href="mailto:info@coolerboxicehub.com?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(mailBody)}" style="color:#00a5ef;font-weight:bold">Email Us ✉</a> / <a href="https://wa.me/264852485426" target="_blank" rel="noopener" style="color:#00a5ef;font-weight:bold">WhatsApp ↗</a>.`;
+          statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } finally {
+          isSending = false;
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Message to info@coolerboxicehub.com ✉';
+          submitBtn.textContent = 'Send Enquiry ✉';
         }
       });
     }
   </script>
-  <script src="/admin-side-tab.js"></script>
 </body>
 
 </html>

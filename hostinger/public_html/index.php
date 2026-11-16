@@ -26,9 +26,14 @@ if (str_starts_with($path, '/api/') || $path === '/api') {
     cbx_handle_api($path, $method);
 }
 
-// Redirects preserved from FastAPI
-if ($path === '/calculator' || $path === '/estimator') {
+// Redirects preserved from FastAPI (L01 canonical routes)
+if ($path === '/calculator' || $path === '/estimator' || $path === '/shop') {
     header('Location: /products', true, 302);
+    exit;
+}
+
+if ($path === '/about') {
+    header('Location: /#about', true, 302);
     exit;
 }
 
