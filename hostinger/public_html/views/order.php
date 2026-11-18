@@ -374,7 +374,7 @@
               </div>
             </div>
             <div id="order-delivery-extra" hidden>
-              <label for="order-slot">Thursday delivery window</label>
+              <label for="order-slot">Thursday delivery window (bulk contract clients only)</label>
               <select id="order-slot">
                 <option value="0">08:00–10:00</option>
                 <option value="1">16:00–17:00</option>
@@ -407,7 +407,7 @@
               <h3>Payment, delivery &amp; cancellations</h3>
               <p>Book strictly 48–72 hours before collection or delivery. Orders outside this window are rejected. No VAT is added to displayed prices.</p>
               <p>Approved contract customers pay on delivery under their agreed terms. New and ordinary customers pay before delivery.</p>
-              <p>Free delivery within 25 km requires at least three different catalogue products, each meeting its minimum order. Thursday only: 08:00–10:00 or 16:00–17:00. The team verifies the address and distance. Regular and gourmet of one bag size count as one product.</p>
+              <p>Thursday delivery (08:00–10:00 or 16:00–17:00) is for bulk contract clients only within 25 km (requires at least three different catalogue products meeting their minimum order). All other customers pick up at the agreed time once the order is confirmed.</p>
               <p>Cancel at least six hours before scheduled collection or delivery via WhatsApp, quoting your reference. Payments are non-refundable.</p>
               <p>Personalised labels: minimum 50 bottles, N$4 printing per bottle. Allow 48–72 hours after final artwork approval and order confirmation. Both bottled-water sizes are sold in packs of 10, minimum five packs per size.</p>
             </div>
@@ -491,7 +491,7 @@
           <li><a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a></li>
           <li><a href="https://wa.me/264852485426">💬 WhatsApp +264 85 248 5426</a></li>
           <li><a href="tel:+264852485426">📞 Phone: +264 85 248 5426</a></li>
-          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 & 16:00–17:00</span></li>
+          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 &amp; 16:00–17:00 (bulk contract clients only; all other orders pick up at agreed time once confirmed) (bulk contract clients only; all other orders pick up at agreed time once confirmed)</span></li>
         </ul>
       </div>
     </div>

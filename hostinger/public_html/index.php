@@ -64,6 +64,7 @@ $routeMap = [
     '/' => 'index.php',
     '/index.html' => 'index.php',
     '/order' => 'order.php',
+    '/express' => 'express.php',
     '/shop' => 'shop.php',
     '/products' => 'shop.php',
     '/services' => 'services.php',

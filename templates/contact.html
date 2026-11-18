@@ -184,6 +184,7 @@
           <li><a href="/products">Products</a></li>
           <li><a href="/services">Business & Events</a></li>
           <li></li>
+          <li><a href="/express">CoolerBox Express</a></li>
           <li><a href="/order">Order Now</a></li>
           <li><a href="/contact">Contact Us</a></li>
         </ul>
@@ -202,7 +203,7 @@
           <li><a href="mailto:info@coolerboxicehub.com">✉ info@coolerboxicehub.com</a></li>
           <li><a href="https://wa.me/264852485426">💬 WhatsApp +264 85 248 5426</a></li>
           <li><a href="tel:+264852485426">📞 Phone: +264 85 248 5426</a></li>
-          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 & 16:00–17:00</span></li>
+          <li><span style="color:#8dafc9;font-size:13px">Deliveries: Thursdays 08:00–10:00 &amp; 16:00–17:00 (bulk contract clients only; all other orders pick up at agreed time once confirmed) (bulk contract clients only; all other orders pick up at agreed time once confirmed)</span></li>
         </ul>
       </div>
     </div>
