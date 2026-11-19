@@ -149,13 +149,13 @@
             Your Neighbourhood Ice &amp; Refreshment Hub in Ongwediva.
           </h2>
           <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 14px">
-            <strong>Vision:</strong> To become Northern Namibia’s trusted choice for ice and purified water, serving households, businesses and events with consistent quality and dependable supply.
+            <strong>Vision:</strong> To be the ice and water supplier northern Namibia can rely on: always in stock, always clean, always on time.
           </p>
           <p style="color:var(--cb-text-muted);font-size:16px;line-height:1.7;margin:0 0 14px">
-            <strong>Mission:</strong> To produce and supply quality ice and purified water at fair prices, with convenient ordering, reliable service and personalised branding, while creating local employment and supporting business partnerships.
+            <strong>Mission:</strong> To produce safe ice and drinking water through controlled, efficient processes, deliver them dependably, and build skilled, paid jobs for young people in Ongwediva.
           </p>
           <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 22px">
-            <strong>Quality &amp; Values:</strong> Consistency, fair pricing, quality, convenience and credibility guide our daily operations at Shop 14, Makalani Mall—backed by clean handling and hygienic packaging. Planned student attachments and community initiatives will be announced once active.
+            <strong>Quality &amp; Operations:</strong> Consistency, fair pricing, quality, convenience and credibility guide our daily operations at Shop 14, Makalani Mall—backed by clean handling and hygienic packaging.
           </p>
           <div style="display:flex;flex-wrap:wrap;gap:14px">
             <a class="btn-hero-primary" href="/products" style="padding:12px 24px;font-size:14px">View Product Catalogue ↗</a>
@@ -167,6 +167,47 @@
         </div>
       </div>
     </div>
+
+    <!-- Vision, Mission & Values Card -->
+    <section id="vision-mission" style="background:#0f3a52;border-radius:var(--cb-radius-md);padding:42px 36px;margin-bottom:60px;color:#ffffff;box-shadow:var(--cb-shadow-sm)">
+      <span style="display:block;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e5a952;margin-bottom:16px">VISION, MISSION AND VALUES</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;margin-bottom:30px">
+        <div>
+          <h2 style="font-family:var(--cb-font-heading);font-size:22px;color:#ffffff;margin:0 0 10px">Vision</h2>
+          <p style="color:#dbeaf3;font-size:16px;line-height:1.65;margin:0">
+            To be the ice and water supplier northern Namibia can rely on: always in stock, always clean, always on time.
+          </p>
+        </div>
+        <div>
+          <h2 style="font-family:var(--cb-font-heading);font-size:22px;color:#ffffff;margin:0 0 10px">Mission</h2>
+          <p style="color:#dbeaf3;font-size:16px;line-height:1.65;margin:0">
+            To produce safe ice and drinking water through controlled, efficient processes, deliver them dependably, and build skilled, paid jobs for young people in Ongwediva.
+          </p>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px">
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
+          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Consistency</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Planned daily production, so stock never runs out</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
+          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Price</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Fair, fixed prices and N$1.50/L refills</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
+          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Quality</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Treated, tested water; sealed, dated bags</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
+          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Convenience</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Two shops, partner freezers, WhatsApp and delivery</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
+          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Credibility</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Registered, compliant and run by a qualified artisan</p>
+        </div>
+      </div>
+    </section>
 
     <!-- Location & Google Map Section (Makalani Mall, Ongwediva) -->
     <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:44px 40px;margin-bottom:60px;box-shadow:var(--cb-shadow-sm)">
