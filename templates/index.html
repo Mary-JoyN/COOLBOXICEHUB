@@ -78,69 +78,7 @@
 
   <!-- Main Content -->
   <main class="content-section">
-    <!-- 2. Popular Products & Event Calculator Entry (L02) -->
-    <section id="popular-products" style="margin-bottom:56px">
-      <div class="section-header-centered">
-        <span class="section-pre-title">POPULAR PRODUCTS</span>
-        <h2>Ice, Bottled Water &amp; Refills</h2>
-        <p>Select a product to view pack sizes and price bases, or estimate quantities for your event.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:22px">
-        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
-          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Bagged Ice (2 kg · 3 kg · 5 kg)</strong>
-          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Clean ice for drinks, cooler boxes, bucket cooling and ice baths. From N$15.00 retail (2 kg).</p>
-          <a href="/order?product=ice" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
-        </div>
-        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
-          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">30 kg Ice Blocks</strong>
-          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Whole 30 kg blocks for long-lasting cooling and events. N$45.00 retail / N$40.00 bulk.</p>
-          <a href="/order?product=blocks" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
-        </div>
-        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
-          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Ice Cups (300 ml · 500 ml)</strong>
-          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">Ready-filled ice cups—just pour your own drink. N$10.00 (300 ml) / N$12.00 (500 ml).</p>
-          <a href="/order?product=cups" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
-        </div>
-        <div style="background:#fff;border:1px solid var(--cb-border);border-radius:14px;padding:20px;box-shadow:var(--cb-shadow-sm)">
-          <strong style="color:var(--cb-navy);font-size:17px;display:block;margin-bottom:6px">Bottled Water &amp; Refills</strong>
-          <p style="color:var(--cb-text-muted);font-size:14px;margin:0 0 10px">330 ml (N$9) &amp; 500 ml (N$12) still water, plus 25 L refills (N$25 retail / N$20 bulk).</p>
-          <a href="/order?product=water" style="color:var(--cb-cyan);font-weight:700;font-size:14px;text-decoration:none">Request Enquiry ↗</a>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:14px">
-        <a class="btn-hero-primary" href="/products" style="padding:12px 24px;font-size:14px">View All Products &amp; Prices ↗</a>
-        <a class="btn-hero-outline" href="/order#calculator" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:12px 24px;font-size:14px">Open Event Calculator ↗</a>
-      </div>
-    </section>
-
-    <!-- 3. How to Order (L02) -->
-    <section style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:34px 32px;margin-bottom:56px;box-shadow:var(--cb-shadow-sm)">
-      <span class="section-pre-title">HOW TO ORDER</span>
-      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 18px">Three Simple Steps</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
-        <div><strong style="color:var(--cb-navy)">1. Choose Products or Estimate</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">Pick exact products or use the Event Calculator for guest-based estimates.</p></div>
-        <div><strong style="color:var(--cb-navy)">2. Submit Enquiry &amp; Get Reference</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">Receive a unique reference immediately. Submitting an enquiry does not lock stock yet.</p></div>
-        <div><strong style="color:var(--cb-navy)">3. Team Confirmation &amp; Fulfilment</strong><p style="color:var(--cb-text-muted);font-size:14px;margin:6px 0 0">We confirm availability, final pricing, payment and collection or delivery arrangements.</p></div>
-      </div>
-    </section>
-
-    <!-- 4 & 5. Custom Branding & Business Partner Programme (B01, B03) -->
-    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-bottom:56px">
-      <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:30px;box-shadow:var(--cb-shadow-sm)">
-        <span class="section-pre-title">CUSTOM EVENT BRANDING</span>
-        <h3 style="font-family:var(--cb-font-heading);font-size:22px;color:var(--cb-navy);margin:0 0 10px">Personalised Bottled Water</h3>
-        <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.6;margin:0 0 16px">Select bottle size, supply wording or artwork, approve your design proof, complete payment and schedule production.</p>
-        <a class="btn-hero-primary" href="/services#custom-branding" style="padding:10px 20px;font-size:14px">Explore Custom Branding ↗</a>
-      </div>
-      <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:30px;box-shadow:var(--cb-shadow-sm)">
-        <span class="section-pre-title">BUSINESS PARTNER PROGRAMME</span>
-        <h3 style="font-family:var(--cb-font-heading);font-size:22px;color:var(--cb-navy);margin:0 0 10px">Become a CoolerBox Stockist</h3>
-        <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.6;margin:0 0 16px">Supply-only and approved freezer-placement partnerships for shops, service stations, hotels, guesthouses and bars, subject to terms and availability.</p>
-        <a class="btn-hero-outline" href="/supplier" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:10px 20px;font-size:14px">Join Our Business Partner Programme ↗</a>
-      </div>
-    </section>
-
-    <!-- 6 & 7. Quality & About The CoolerBox Ice Hub cc (B05, P03) -->
+    <!-- Quality & About The CoolerBox Ice Hub cc -->
     <div id="about" style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:44px 40px;margin-bottom:60px;box-shadow:var(--cb-shadow-sm)">
       <div class="story-hub-grid">
         <div>
