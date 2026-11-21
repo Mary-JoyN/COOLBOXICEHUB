@@ -149,7 +149,7 @@ try {
         <li><strong>Complete payment requirement</strong> — the production lead-time clock starts only after final proof approval and required payment.</li>
         <li><strong>Production &amp; collection or delivery</strong> at Shop 14, Makalani Mall or scheduled route.</li>
       </ol>
-      <a class="btn-hero-primary" href="/order?product=water&occasion=1" style="padding:11px 22px;font-size:14px">Start Custom Branding Enquiry ↗</a>
+      <a class="btn-hero-primary" href="/contact" style="padding:11px 22px;font-size:14px">Start Custom Branding Enquiry ↗</a>
     </section>
 
     <!-- Business Partner Programme (B03, B04) -->
