@@ -504,7 +504,7 @@
   <script src="/commerce-ui.js?v=20261103c"></script>
   <script src="/calculator.js?v=20261103c"></script>
   <script src="/gathering.js?v=20261103c"></script>
-  <script src="/order-flow.js?v=20261103c"></script>
+  <script src="/order-flow.js?v=20261121"></script>
   <script src="/event-order.js?v=20261103c"></script>
   <script src="/supplier.js?v=20261103c"></script>
   <script src="/order.js?v=20261103c"></script>

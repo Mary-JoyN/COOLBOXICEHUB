@@ -146,12 +146,16 @@
             <label for="contact-subject">Subject</label>
             <select id="contact-subject" name="subject">
               <option value="General Enquiry">General Enquiry</option>
+              <option value="Custom Event Branding & Labelled Water">Custom Event Branding &amp; Labelled Water</option>
               <option value="Purified Ice Supply Quote">Purified Ice Supply Quote</option>
               <option value="Bottled Water for Event / Occasion">Bottled Water for Event / Occasion</option>
-              <option value="Bulk Retail & Business Supply">Bulk Retail & Business Supply</option>
-              <option value="Retail & Outlet Partnership">Retail & Outlet Partnership</option>
+              <option value="Bulk Retail & Business Supply">Bulk Retail &amp; Business Supply</option>
+              <option value="Retail & Outlet Partnership">Retail &amp; Outlet Partnership</option>
               <option value="Other">Other</option>
             </select>
+            <div id="branding-enquiry" style="margin-top:8px;padding:10px 12px;border-radius:10px;background:#edf6fa;border:1px solid #cce3f2;font-size:13px;color:#0b3861" hidden>
+              <strong>Custom Event Branding:</strong> Please include your bottle size (330 ml or 500 ml), quantity (min. 50 bottles), event date, and label wording/theme. Proof approval &amp; required payment start the 48–72 hour production clock.
+            </div>
           </div>
 
           <div class="form-field-unit">
@@ -226,7 +230,23 @@
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const statusBox = document.getElementById('status-box');
+    const subjectSelect = document.getElementById('contact-subject');
+    const brandingNote = document.getElementById('branding-enquiry');
     let isSending = false;
+
+    function syncBrandingNote() {
+      if (subjectSelect && brandingNote) {
+        brandingNote.hidden = subjectSelect.value !== 'Custom Event Branding & Labelled Water';
+      }
+    }
+    if (subjectSelect) {
+      const urlSubject = new URLSearchParams(window.location.search).get('subject');
+      if (urlSubject && Array.from(subjectSelect.options).some(o => o.value === urlSubject)) {
+        subjectSelect.value = urlSubject;
+      }
+      syncBrandingNote();
+      subjectSelect.addEventListener('change', syncBrandingNote);
+    }
 
     if (form) {
       form.addEventListener('submit', async (e) => {
