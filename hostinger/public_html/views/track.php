@@ -108,7 +108,7 @@
         <ul>
           <li><a href="/services">Business &amp; Event Supply</a></li>          <li><a href="/services">Event &amp; Wedding Supply</a></li>
           <li><a href="/services">Bulk Ice &amp; Water Orders</a></li>
-          <li><a href="/order?supplier=1">Become a Local Reseller</a></li>
+          <li><a href="/supplier">Become a Local Reseller</a></li>
           <li><a href="/contact">Get a Formal Quotation</a></li>
         </ul>
       </div>

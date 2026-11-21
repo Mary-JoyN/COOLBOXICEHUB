@@ -250,10 +250,10 @@ function cbx_clean_str(mixed $value, int $maxLen = 2000): string
     return substr($str, 0, $maxLen);
 }
 
-function cbx_dispatch_notification_email(string $subject, string $body, string $replyTo = ''): bool
+function cbx_dispatch_notification_email(string $subject, string $body, string $replyTo = '', string $toOverride = ''): bool
 {
     $mailCfg = cbx_config()['mail'] ?? [];
-    $to = (string)($mailCfg['to_email'] ?? 'info@coolerboxicehub.com');
+    $to = $toOverride !== '' ? $toOverride : (string)($mailCfg['to_email'] ?? 'info@coolerboxicehub.com');
     $from = (string)($mailCfg['from_email'] ?? 'info@coolerboxicehub.com');
     $fromName = (string)($mailCfg['from_name'] ?? 'The CoolerBox Ice Hub');
     $smtpPass = (string)($mailCfg['smtp_pass'] ?? '');

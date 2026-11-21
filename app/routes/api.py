@@ -532,3 +532,76 @@ def submit_contact_endpoint(req: ContactMessageRequest) -> dict[str, Any]:
         "emailSent": email_sent,
         "message": detail_msg,
     }
+
+
+@router.post("/supplier-application")
+def submit_supplier_application(payload: dict[str, Any]) -> dict[str, Any]:
+    now = datetime.now(UTC)
+    now_iso = now.isoformat()
+    ref = f"CBX-SUP-{now.strftime('%y%m')}-{random.randint(1000, 9999)}"
+
+    outlet_name = str(payload.get("outletName") or "").strip()
+    outlet_type = str(payload.get("outletType") or "").strip()
+    location = str(payload.get("location") or "").strip()
+    contact_name = str(payload.get("contactName") or "").strip()
+    phone = str(payload.get("phone") or "").strip()
+    email = str(payload.get("email") or "").strip()
+    freezer_capacity = str(payload.get("freezerCapacity") or "").strip()
+    products = payload.get("products") or []
+    weekly_volume = str(payload.get("weeklyVolume") or "").strip()
+    delivery_freq = str(payload.get("deliveryFrequency") or "").strip()
+    arrangement = str(payload.get("arrangement") or "").strip()
+    notes = str(payload.get("notes") or "").strip()
+
+    if not outlet_name or not location or not contact_name or not phone or not email:
+        raise HTTPException(status_code=422, detail="Please complete all required business and contact fields.")
+
+    products_str = ", ".join(str(p) for p in products) if isinstance(products, list) and products else "Not specified"
+    formatted_msg = (
+        f"Business Partner / Stockist Application ({ref})\n"
+        f"Outlet Name: {outlet_name}\n"
+        f"Outlet Type: {outlet_type or 'Not specified'}\n"
+        f"Location / Trading Area: {location}\n"
+        f"Contact Person: {contact_name}\n"
+        f"Phone / WhatsApp: {phone}\n"
+        f"Email: {email}\n"
+        f"Existing Freezer Capacity: {freezer_capacity or 'Not specified'}\n"
+        f"Products Requested: {products_str}\n"
+        f"Expected Weekly Volume: {weekly_volume or 'Not specified'}\n"
+        f"Preferred Delivery Frequency: {delivery_freq or 'Not specified'}\n"
+        f"Arrangement Requested: {arrangement or 'Supply-only'}\n\n"
+        f"Notes:\n{notes or 'None'}"
+    )
+
+    recipient = "sebiue@colerboxicehub.com"
+    req_obj = ContactMessageRequest(
+        name=f"{contact_name} ({outlet_name})",
+        phone=phone,
+        email=email,
+        subject=f"Business Partner Application — {outlet_name}",
+        message=formatted_msg,
+    )
+    email_sent = _send_contact_email(recipient, ref, req_obj)
+
+    save_contact_message(
+        reference=ref,
+        name=f"{contact_name} ({outlet_name})",
+        phone=phone,
+        email_addr=email,
+        subject=f"Business Partner Application — {outlet_name}",
+        message=formatted_msg,
+        email_sent=email_sent,
+        created_at=now_iso,
+    )
+
+    return {
+        "ok": True,
+        "status": "success",
+        "reference": ref,
+        "emailSent": email_sent,
+        "message": (
+            f"Your Business Partner application has been emailed to {recipient} and saved."
+            if email_sent
+            else f"Your Business Partner application has been saved for {recipient}. Our team will review and contact you."
+        ),
+    }

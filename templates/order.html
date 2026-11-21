@@ -187,7 +187,7 @@
         <strong style="color:var(--cb-navy);font-size:16px;display:block;margin-bottom:4px">Planning a Large Commercial or Vendor Supply?</strong>
         <p style="color:var(--cb-text-muted);margin:0;font-size:14px">Apply to become an official retail stockist or explore bulk discount terms.</p>
       </div>
-      <a class="btn-hero-primary" href="/order?supplier=1" style="padding:10px 20px;font-size:13.5px">Become a CoolerBox Stockist ↗</a>
+      <a class="btn-hero-primary" href="/supplier" style="padding:10px 20px;font-size:13.5px">Become a CoolerBox Stockist ↗</a>
     </div>
 
     <p id="order-loading" role="status">Loading products…</p>

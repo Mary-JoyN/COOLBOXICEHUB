@@ -159,7 +159,7 @@ try {
       <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 16px">
         Join our Business Partner Programme for shops, service stations, hotels, guesthouses, bars and approved outlets across Ongwediva and Northern Namibia. We offer supply-only arrangements and proposed freezer-placement options subject to outlet approval, equipment availability and agreed commercial terms.
       </p>
-      <a class="btn-hero-outline" href="/order?supplier=1" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8;padding:11px 22px;font-size:14px">Apply for Business Partner Programme ↗</a>
+      <a class="btn-hero-outline" href="/supplier" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8;padding:11px 22px;font-size:14px">Apply for Business Partner Programme ↗</a>
     </section>
 
     <!-- CTA Box -->

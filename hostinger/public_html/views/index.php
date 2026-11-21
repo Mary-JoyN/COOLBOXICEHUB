@@ -136,7 +136,7 @@
         <span class="section-pre-title">BUSINESS PARTNER PROGRAMME</span>
         <h3 style="font-family:var(--cb-font-heading);font-size:22px;color:var(--cb-navy);margin:0 0 10px">Become a CoolerBox Stockist</h3>
         <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.6;margin:0 0 16px">Supply-only and approved freezer-placement partnerships for shops, service stations, hotels, guesthouses and bars, subject to terms and availability.</p>
-        <a class="btn-hero-outline" href="/order?supplier=1" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:10px 20px;font-size:14px">Join Our Business Partner Programme ↗</a>
+        <a class="btn-hero-outline" href="/supplier" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b8d3ea;padding:10px 20px;font-size:14px">Join Our Business Partner Programme ↗</a>
       </div>
     </section>
 

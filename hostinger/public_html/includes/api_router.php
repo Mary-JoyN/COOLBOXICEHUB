@@ -622,7 +622,77 @@ function cbx_handle_api(string $path, string $method): never
         cbx_json_response(['ok' => true, 'reference' => $row['reference'], 'status' => $newStatus]);
     }
 
-    // 9. Contact Enquiries
+    // 9. Contact & Supplier Applications
+    if ($sub === 'supplier-application' && $method === 'POST') {
+        $body = cbx_json_input();
+        $outletName = cbx_clean_str($body['outletName'] ?? '', 255);
+        $outletType = cbx_clean_str($body['outletType'] ?? '', 128);
+        $location = cbx_clean_str($body['location'] ?? '', 255);
+        $contactName = cbx_clean_str($body['contactName'] ?? '', 255);
+        $phone = cbx_clean_str($body['phone'] ?? '', 64);
+        $email = cbx_clean_str($body['email'] ?? '', 255);
+        $freezerCapacity = cbx_clean_str($body['freezerCapacity'] ?? '', 128);
+        $products = is_array($body['products'] ?? null) ? array_map(fn($p) => cbx_clean_str($p, 128), $body['products']) : [];
+        $weeklyVolume = cbx_clean_str($body['weeklyVolume'] ?? '', 128);
+        $deliveryFreq = cbx_clean_str($body['deliveryFrequency'] ?? '', 128);
+        $arrangement = cbx_clean_str($body['arrangement'] ?? 'Supply-only arrangement', 255);
+        $notes = cbx_clean_str($body['notes'] ?? '', 3000);
+
+        if ($outletName === '' || $location === '' || $contactName === '' || $phone === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            cbx_json_response(['detail' => 'Please complete all required business and contact fields.'], 422);
+        }
+
+        $ref = 'CBX-SUP-' . gmdate('ym') . '-' . strtoupper(bin2hex(random_bytes(2)));
+        $now = cbx_now_iso();
+        $productsStr = $products ? implode(', ', $products) : 'Not specified';
+        $formattedMsg = implode("\n", [
+            "Business Partner / Stockist Application ({$ref})",
+            "Outlet Name: {$outletName}",
+            "Outlet Type: " . ($outletType !== '' ? $outletType : 'Not specified'),
+            "Location / Trading Area: {$location}",
+            "Contact Person: {$contactName}",
+            "Phone / WhatsApp: {$phone}",
+            "Email: {$email}",
+            "Existing Freezer Capacity: " . ($freezerCapacity !== '' ? $freezerCapacity : 'Not specified'),
+            "Products Requested: {$productsStr}",
+            "Expected Weekly Volume: " . ($weeklyVolume !== '' ? $weeklyVolume : 'Not specified'),
+            "Preferred Delivery Frequency: " . ($deliveryFreq !== '' ? $deliveryFreq : 'Not specified'),
+            "Arrangement Requested: {$arrangement}",
+            "",
+            "Notes:",
+            $notes !== '' ? $notes : 'None',
+        ]);
+
+        $recipient = 'sebiue@colerboxicehub.com';
+        $subject = "Business Partner Application — {$outletName}";
+        $emailSent = cbx_dispatch_notification_email("[CoolerBox Supplier {$ref}] {$subject}", $formattedMsg, $email, $recipient);
+
+        $stmt = $pdo->prepare(
+            'INSERT INTO contact_messages (reference, name, phone, email, subject, message, email_sent, created_at) VALUES (:ref, :n, :p, :e, :s, :m, :es, :ts)'
+        );
+        $stmt->execute([
+            ':ref' => $ref,
+            ':n' => "{$contactName} ({$outletName})",
+            ':p' => $phone,
+            ':e' => $email,
+            ':s' => $subject,
+            ':m' => $formattedMsg,
+            ':es' => $emailSent ? 1 : 0,
+            ':ts' => $now,
+        ]);
+
+        cbx_json_response([
+            'ok' => true,
+            'status' => 'success',
+            'reference' => $ref,
+            'emailSent' => $emailSent,
+            'message' => $emailSent
+                ? "Your Business Partner application has been emailed to {$recipient} and saved."
+                : "Your Business Partner application has been saved for {$recipient}. Our team will review and contact you.",
+            'createdAt' => $now,
+        ], 201);
+    }
+
     if ($sub === 'contact' && $method === 'POST') {
         $body = cbx_json_input();
         $name = cbx_clean_str($body['name'] ?? '', 255);
