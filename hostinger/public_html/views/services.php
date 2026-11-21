@@ -152,14 +152,14 @@ try {
       <a class="btn-hero-primary" href="/contact" style="padding:11px 22px;font-size:14px">Start Custom Branding Enquiry ↗</a>
     </section>
 
-    <!-- Business Partner Programme (B03, B04) -->
+    <!-- Business Partner (B03, B04) -->
     <section id="partner-programme" style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:34px 32px;margin-top:32px;box-shadow:var(--cb-shadow-sm)">
-      <span class="section-pre-title">BUSINESS PARTNER PROGRAMME</span>
-      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 12px">Become a CoolerBox Stockist</h2>
+      <span class="section-pre-title">BUSINESS PARTNER</span>
+      <h2 style="font-family:var(--cb-font-heading);font-size:26px;color:var(--cb-navy);margin:0 0 12px">Become a CoolerBox Partner</h2>
       <p style="color:var(--cb-text-muted);font-size:15px;line-height:1.65;margin:0 0 16px">
-        Join our Business Partner Programme for shops, service stations, hotels, guesthouses, bars and approved outlets across Ongwediva and Northern Namibia. We offer supply-only arrangements and proposed freezer-placement options subject to outlet approval, equipment availability and agreed commercial terms.
+        Join our Business Partner for shops, service stations, hotels, guesthouses, bars and approved outlets across Ongwediva and Northern Namibia. We offer supply-only arrangements and proposed freezer-placement options subject to outlet approval, equipment availability and agreed commercial terms.
       </p>
-      <a class="btn-hero-outline" href="/supplier" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8;padding:11px 22px;font-size:14px">Apply for Business Partner Programme ↗</a>
+      <a class="btn-hero-outline" href="/supplier" style="color:var(--cb-navy);background:var(--cb-ice-white);border-color:#b5d1e8;padding:11px 22px;font-size:14px">Apply for Business Partner ↗</a>
     </section>
 
     <!-- CTA Box -->

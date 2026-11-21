@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0b2b5b">
-  <title>Become a Supplier / Stockist | The CoolerBox Ice Hub — Ongwediva</title>
+  <title>Become a Supplier / Partner | The CoolerBox Ice Hub — Ongwediva</title>
   <meta name="description"
-    content="Apply to become a CoolerBox stockist or business partner for retail ice and bottled water supply in Northern Namibia.">
+    content="Apply to become a CoolerBox partner or business partner for retail ice and bottled water supply in Northern Namibia.">
   <link rel="icon" type="image/jpeg" href="/assets/logo-symbol-blue.jpeg">
   <link rel="stylesheet" href="/ice-company.css">
 </head>
@@ -54,7 +54,7 @@
   <section class="page-title-banner">
     <div class="page-title-inner">
       <span class="page-title-tag">BUSINESS PARTNER PROGRAMME</span>
-      <h1>Become a CoolerBox Stockist</h1>
+      <h1>Become a CoolerBox Partner</h1>
       <p>Apply for wholesale ice and bottled water supply or freezer-placement consideration for your shop, service station, hotel, guesthouse or bar.</p>
     </div>
   </section>
