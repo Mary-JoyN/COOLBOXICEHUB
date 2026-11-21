@@ -102,48 +102,31 @@
           <img src="/assets/coolerbox-cool-starts-here.jpg" alt="The CoolerBox Ice Hub cc storefront display" style="width:100%;height:100%;object-fit:cover;max-height:340px;display:block" loading="lazy">
         </div>
       </div>
-    </div>
 
-    <!-- Vision, Mission & Values Card -->
-    <section id="vision-mission" style="background:#0f3a52;border-radius:var(--cb-radius-md);padding:42px 36px;margin-bottom:60px;color:#ffffff;box-shadow:var(--cb-shadow-sm)">
-      <span style="display:block;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e5a952;margin-bottom:16px">VISION, MISSION AND VALUES</span>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;margin-bottom:30px">
-        <div>
-          <h2 style="font-family:var(--cb-font-heading);font-size:22px;color:#ffffff;margin:0 0 10px">Vision</h2>
-          <p style="color:#dbeaf3;font-size:16px;line-height:1.65;margin:0">
-            To be the ice and water supplier northern Namibia can rely on: always in stock, always clean, always on time.
-          </p>
+      <!-- 5 Core Pillars / Values -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px;margin-top:32px;padding-top:28px;border-top:1px solid var(--cb-border)">
+        <div style="background:var(--cb-ice-white);border:1px solid var(--cb-border);border-radius:12px;padding:16px">
+          <strong style="display:block;font-size:15.5px;color:var(--cb-navy);margin-bottom:5px">Consistency</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--cb-text-muted)">Planned daily production, so stock never runs out</p>
         </div>
-        <div>
-          <h2 style="font-family:var(--cb-font-heading);font-size:22px;color:#ffffff;margin:0 0 10px">Mission</h2>
-          <p style="color:#dbeaf3;font-size:16px;line-height:1.65;margin:0">
-            To produce safe ice and drinking water through controlled, efficient processes, deliver them dependably, and build skilled, paid jobs for young people in Ongwediva.
-          </p>
+        <div style="background:var(--cb-ice-white);border:1px solid var(--cb-border);border-radius:12px;padding:16px">
+          <strong style="display:block;font-size:15.5px;color:var(--cb-navy);margin-bottom:5px">Price</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--cb-text-muted)">Fair, fixed prices and N$1.50/L refills</p>
         </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px">
-        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
-          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Consistency</strong>
-          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Planned daily production, so stock never runs out</p>
+        <div style="background:var(--cb-ice-white);border:1px solid var(--cb-border);border-radius:12px;padding:16px">
+          <strong style="display:block;font-size:15.5px;color:var(--cb-navy);margin-bottom:5px">Quality</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--cb-text-muted)">Treated, tested water; sealed, dated bags</p>
         </div>
-        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
-          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Price</strong>
-          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Fair, fixed prices and N$1.50/L refills</p>
+        <div style="background:var(--cb-ice-white);border:1px solid var(--cb-border);border-radius:12px;padding:16px">
+          <strong style="display:block;font-size:15.5px;color:var(--cb-navy);margin-bottom:5px">Convenience</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--cb-text-muted)">Two shops, partner freezers, WhatsApp and delivery</p>
         </div>
-        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
-          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Quality</strong>
-          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Treated, tested water; sealed, dated bags</p>
-        </div>
-        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
-          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Convenience</strong>
-          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Two shops, partner freezers, WhatsApp and delivery</p>
-        </div>
-        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:18px 16px">
-          <strong style="display:block;font-size:16px;color:#ffffff;margin-bottom:6px">Credibility</strong>
-          <p style="margin:0;font-size:13.5px;line-height:1.5;color:#cfe2ee">Registered, compliant and run by a qualified artisan</p>
+        <div style="background:var(--cb-ice-white);border:1px solid var(--cb-border);border-radius:12px;padding:16px">
+          <strong style="display:block;font-size:15.5px;color:var(--cb-navy);margin-bottom:5px">Credibility</strong>
+          <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--cb-text-muted)">Registered, compliant and run by a qualified artisan</p>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Location & Google Map Section (Makalani Mall, Ongwediva) -->
     <div style="background:#ffffff;border:1px solid var(--cb-border);border-radius:var(--cb-radius-md);padding:44px 40px;margin-bottom:60px;box-shadow:var(--cb-shadow-sm)">
