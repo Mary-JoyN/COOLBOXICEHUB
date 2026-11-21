@@ -92,7 +92,7 @@ def run_comprehensive_test():
 
     # 4. Test Catalogue Endpoint
     catalogue = catalogue_endpoint()
-    assert len(catalogue) >= 11, f"Expected >= 11 products, got {len(catalogue)}"
+    assert len(catalogue) >= 9, f"Expected >= 9 products, got {len(catalogue)}"
     print(f"✓ Catalogue: {len(catalogue)} products verified:")
     for p in catalogue:
         print(f"   • {p['name']} ({p['size']} {p['sizeUnit']}) | Retail: N${p.get('retailPrice')} | Bulk: N${p.get('bulkPrice')}")
@@ -129,7 +129,7 @@ def run_comprehensive_test():
         items=[
             OrderItemModel(id="ice", quantity=10, iceType="gourmet"),
             OrderItemModel(id="water", quantity=50, iceType="regular"),
-            OrderItemModel(id="slushies", quantity=15, iceType="regular"),
+            OrderItemModel(id="blocks", quantity=5, iceType="regular"),
         ],
         fulfilment="collection",
         date="2026-11-10",

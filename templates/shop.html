@@ -205,36 +205,6 @@
           </div>
         </div>
       </article>
-
-      <!-- CoolerBox Slushies -->
-      <article class="browse-product-card" data-cat="cups">
-        <div class="browse-card-img-wrap">
-          <img src="/assets/blocks-product.jpg" alt="CoolerBox Slushies" loading="lazy">
-        </div>
-        <div class="browse-card-info">
-          <h3 class="browse-card-title">CoolerBox Slushies</h3>
-          <p class="browse-card-meta">Flavoured ice-cold frozen drinks in different fruit flavours and sizes for retail, events, and parties.</p>
-          <div class="browse-card-footer">
-            <span class="browse-price-tag">N$ 15.00</span>
-            <a class="btn-card-order" href="/order?product=slushies">Order Now ↗</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- CoolerBox Ice Lollies -->
-      <article class="browse-product-card" data-cat="cups">
-        <div class="browse-card-img-wrap">
-          <img src="/assets/blocks-product.jpg" alt="CoolerBox Ice Lollies" loading="lazy">
-        </div>
-        <div class="browse-card-info">
-          <h3 class="browse-card-title">CoolerBox Ice Lollies</h3>
-          <p class="browse-card-meta">Frozen treats and fruity iced lollies supplied to individuals, retailers, schools, events and vendors.</p>
-          <div class="browse-card-footer">
-            <span class="browse-price-tag">N$ 6.00</span>
-            <a class="btn-card-order" href="/order?product=icelollies">Order Now ↗</a>
-          </div>
-        </div>
-      </article>
     </div>
 
     <!-- Wholesale & Supplier Strip -->
