@@ -286,7 +286,7 @@ async def upload_file_endpoint(request: Request) -> dict[str, str]:
                 file_content = part.get_payload(decode=True) or b""
                 break
 
-    allowed_exts = {".jpg", ".jpeg", ".png", ".webp", ".svg", ".pdf"}
+    allowed_exts = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".pdf", ".ai", ".eps", ".psd", ".cdr", ".tiff", ".tif", ".zip"}
     _, ext = os.path.splitext(filename.lower())
     if ext not in allowed_exts:
         ext = ".png"

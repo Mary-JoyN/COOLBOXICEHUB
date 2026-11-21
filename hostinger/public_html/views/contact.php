@@ -153,8 +153,13 @@
               <option value="Retail & Outlet Partnership">Retail &amp; Outlet Partnership</option>
               <option value="Other">Other</option>
             </select>
-            <div id="branding-enquiry" style="margin-top:8px;padding:10px 12px;border-radius:10px;background:#edf6fa;border:1px solid #cce3f2;font-size:13px;color:#0b3861" hidden>
+            <div id="branding-enquiry" style="margin-top:8px;padding:12px;border-radius:10px;background:#edf6fa;border:1px solid #cce3f2;font-size:13px;color:#0b3861" hidden>
               <strong>Custom Event Branding:</strong> Please include your bottle size (330 ml or 500 ml), quantity (min. 50 bottles), event date, and label wording/theme. Proof approval &amp; required payment start the 48–72 hour production clock.
+              <div style="margin-top:10px">
+                <label for="contact-design-file" style="display:block;font-weight:700;margin-bottom:4px">Upload Design / Artwork File (optional — all design extensions)</label>
+                <input type="file" id="contact-design-file" accept=".png,.jpg,.jpeg,.webp,.gif,.svg,.pdf,.ai,.eps,.psd,.cdr,.tiff,.tif,.zip,image/*,application/pdf" style="width:100%;font-size:13px">
+                <small style="display:block;margin-top:4px;color:#47606f">Accepted: PNG, JPG, WebP, GIF, SVG, PDF, AI, EPS, PSD, CDR, TIFF, ZIP (max 10 MB).</small>
+              </div>
             </div>
           </div>
 
@@ -267,6 +272,24 @@
         };
 
         try {
+          const designInput = document.getElementById('contact-design-file');
+          if (designInput && designInput.files && designInput.files[0]) {
+            const designFile = designInput.files[0];
+            if (designFile.size > 10 * 1024 * 1024) {
+              throw new Error('Design file must be 10 MB or smaller.');
+            }
+            const fd = new FormData();
+            fd.append('file', designFile);
+            const upRes = await fetch('/api/artwork', { method: 'POST', body: fd });
+            const upRaw = await upRes.text();
+            let upData = null;
+            if (upRaw) { try { upData = JSON.parse(upRaw); } catch { upData = null; } }
+            if (!upRes.ok || !upData) {
+              throw new Error((upData && (upData.detail || upData.error)) || 'Could not upload your design file.');
+            }
+            payload.message += `\n\nAttached Design File: ${designFile.name} (${upData.url || upData.filename || upData.id})`;
+          }
+
           const res = await fetch('/api/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

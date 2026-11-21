@@ -752,12 +752,7 @@ function cbx_handle_api(string $path, string $method): never
     }
 
     if ($sub === 'artwork' && $method === 'POST') {
-        cbx_handle_upload('file', 'artwork', [
-            'image/png' => 'png',
-            'image/jpeg' => 'jpg',
-            'image/webp' => 'webp',
-            'application/pdf' => 'pdf',
-        ]);
+        cbx_handle_artwork_upload('file');
     }
 
     cbx_json_response(['detail' => 'API endpoint not found'], 404);
@@ -816,7 +811,48 @@ function cbx_handle_upload(string $field, string $subdir, array $allowedMimes): 
 
     cbx_json_response([
         'ok' => true,
+        'id' => $filename,
+        'name' => $filename,
         'filename' => $filename,
         'url' => '/uploads/' . $subdir . '/' . $filename,
+    ], 201);
+}
+
+function cbx_handle_artwork_upload(string $field): never
+{
+    if (empty($_FILES[$field]) || !is_uploaded_file((string)$_FILES[$field]['tmp_name'])) {
+        cbx_json_response(['detail' => 'No design file uploaded'], 400);
+    }
+    $file = $_FILES[$field];
+    $maxBytes = 10 * 1024 * 1024;
+    if ((int)$file['size'] > $maxBytes) {
+        cbx_json_response(['detail' => 'Design file exceeds maximum allowed size (10 MB)'], 413);
+    }
+
+    $allowedExts = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg', 'pdf', 'ai', 'eps', 'psd', 'cdr', 'tiff', 'tif', 'zip'];
+    $origName = (string)($file['name'] ?? 'design.png');
+    $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+    if (!in_array($ext, $allowedExts, true)) {
+        cbx_json_response(['detail' => 'Unsupported design file extension: .' . $ext], 415);
+    }
+
+    $uploadRoot = rtrim((string)cbx_config()['uploads']['dir'], '/');
+    $targetDir = $uploadRoot . '/artwork';
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0755, true);
+    }
+
+    $filename = gmdate('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $dest = $targetDir . '/' . $filename;
+    if (!move_uploaded_file((string)$file['tmp_name'], $dest)) {
+        cbx_json_response(['detail' => 'Failed to save uploaded design file'], 500);
+    }
+
+    cbx_json_response([
+        'ok' => true,
+        'id' => $filename,
+        'name' => $origName,
+        'filename' => $filename,
+        'url' => '/uploads/artwork/' . $filename,
     ], 201);
 }

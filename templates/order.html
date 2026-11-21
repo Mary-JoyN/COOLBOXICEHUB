@@ -286,14 +286,13 @@
                 </div>
               </div>
               <div id="event-artwork-fields" hidden>
-                <label for="event-artwork">Upload your artwork (optional)</label>
-                <input id="event-artwork" type="file" accept="image/jpeg,image/png,image/webp,application/pdf">
-                <p class="small">JPG, PNG, WebP or PDF, maximum 10 MB. Artwork is private to your account and the CoolerBox owner. Uploading does not approve a design.</p>
+                <label for="event-artwork">Upload your design / artwork (optional)</label>
+                <input id="event-artwork" type="file" accept=".png,.jpg,.jpeg,.webp,.gif,.svg,.pdf,.ai,.eps,.psd,.cdr,.tiff,.tif,.zip,image/*,application/pdf">
+                <p class="small">PNG, JPG, WebP, GIF, SVG, PDF, AI, EPS, PSD, CDR, TIFF or ZIP (max 10 MB). Artwork is private to your account and the CoolerBox owner. Uploading does not approve a design.</p>
                 <p id="event-artwork-status" class="small" role="status"></p>
                 <button type="button" class="btn outline" id="event-clear-artwork">Remove artwork from this request</button>
               </div>
               <p class="small notice">The bottled-water quantity is entered in “Your products” above. Other bottle sizes, personalised labels, artwork and turnaround require a quotation. Artwork proofs and formal quotations will be provided or further discussed on WhatsApp before personalised production.</p>
-              <a href="/shop#label-gallery" class="owner-link" target="_blank" rel="noopener">View example bottle-label styles ↗</a>
             </div>
           </section>
 
