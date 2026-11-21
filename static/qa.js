@@ -101,6 +101,7 @@
       <p class="note">Answers reflect published website details. Orders, stock and prices require team confirmation.</p>
       <div class="links">
         <a href="/products">Products</a>
+        <a href="/order#calculator">Event Calculator</a>
         <a href="/questions">All Q&amp;A</a>
         <a href="/contact">Send Enquiry</a>
         <a href="https://wa.me/264852485426" target="_blank" rel="noopener">WhatsApp</a>

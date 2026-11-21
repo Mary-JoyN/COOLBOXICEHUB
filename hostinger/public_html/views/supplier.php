@@ -35,7 +35,6 @@
       <ul class="site-nav-menu">
         <li><a class="site-nav-link" href="/">Home</a></li>
         <li><a class="site-nav-link" href="/products">Products</a></li>
-        <li><a class="site-nav-link" href="/order#calculator">Event Calculator</a></li>
         <li><a class="site-nav-link active" href="/services">Business &amp; Events</a></li>
         <li><a class="site-nav-link" href="/contact">Contact</a></li>
       </ul>
@@ -45,7 +44,6 @@
     <div class="mobile-drawer" id="mobile-drawer">
       <a href="/">Home</a>
       <a href="/products">Products</a>
-      <a href="/order#calculator">Event Calculator</a>
       <a class="active" href="/services">Business &amp; Events</a>
       <a href="/contact">Contact</a>
       <a href="/order" style="color:var(--cb-cyan);font-weight:700">Order / Quote ↗</a>
