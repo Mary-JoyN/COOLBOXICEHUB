@@ -23,11 +23,6 @@ def order_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("order.html"))
 
 
-@router.get("/express", response_class=HTMLResponse)
-def express_page() -> HTMLResponse:
-    return HTMLResponse(content=_read_template("express.html"))
-
-
 @router.get("/supplier", response_class=HTMLResponse)
 def supplier_page() -> HTMLResponse:
     return HTMLResponse(content=_read_template("supplier.html"))

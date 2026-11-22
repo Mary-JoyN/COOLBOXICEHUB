@@ -232,7 +232,6 @@
           <li><a href="/products">Products</a></li>
           <li><a href="/services">Business & Events</a></li>
           <li></li>
-          <li><a href="/express">CoolerBox Express</a></li>
           <li><a href="/order">Order Now</a></li>
           <li><a href="/contact">Contact Us</a></li>
         </ul>
