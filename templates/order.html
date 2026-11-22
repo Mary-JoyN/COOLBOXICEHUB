@@ -408,6 +408,16 @@
                 <option value="Cash on delivery">Cash on delivery</option>
               </select>
               <p id="express-fare-note" class="small" style="margin-top:8px;font-weight:600"></p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #c6dfee">
+                <h4 style="margin:0 0 8px;color:#0b3861;font-size:15px">How it works</h4>
+                <ul style="margin:0 0 10px;padding-left:20px;font-size:13.5px;line-height:1.6;color:#14283a">
+                  <li>Choose your shop, ice and delivery place.</li>
+                  <li>The team confirms stock, total price and delivery time on WhatsApp.</li>
+                  <li>Pay by EFT, eWallet, BlueWallet, EasyWallet, Pay to Cell, card on delivery or cash on delivery. Payment details are sent with your confirmation.</li>
+                  <li>You receive an order reference and updates until your ice arrives, sealed and cold.</li>
+                </ul>
+                <p class="small" style="margin:0">For orders over 20 kg, events or regular supply, request collection or scheduled bulk-contract delivery through the <a href="/" style="color:#0077b3;font-weight:600">main CoolerBox website</a>.</p>
+              </div>
             </div>
             <div id="order-address-wrap" hidden>
               <label for="order-address">Delivery address</label>
