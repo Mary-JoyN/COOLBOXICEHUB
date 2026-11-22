@@ -39,7 +39,7 @@ function validateBooking(policy, date, time, fulfilment, now = new Date()) {
     throw Error('Choose a valid collection or delivery date.');
   }
   const hours = (at.getTime() - now.getTime()) / 3600000;
-  const min = policy.bookingMinHours ?? 48;
+  const min = fulfilment === 'express' ? 0 : (policy.bookingMinHours ?? 48);
   const maxHours = (policy.bookingMaxDays ?? 365) * 24;
   if (hours < min) {
     throw Error('Please choose a date and time at least ' + min + ' hours from now (48–72 hours notice required before your collection or event).');
@@ -50,9 +50,9 @@ function validateBooking(policy, date, time, fulfilment, now = new Date()) {
   if (fulfilment === 'delivery') {
     const windows = policy.deliveryWindows || [{ start: '08:00', end: '10:00' }, { start: '16:00', end: '17:00' }];
     if (new Date(date + 'T12:00:00+02:00').getUTCDay() !== (policy.deliveryDay ?? 4) || !windows.some(w => time >= w.start && time <= w.end)) {
-      throw Error('Thursday delivery (08:00–10:00 or 16:00–17:00) is for bulk contract clients only. For any other day or time, select Collection and pick up at your agreed time once confirmed.');
+      throw Error('Thursday delivery (08:00–10:00 or 16:00–17:00) is for bulk contract clients only. For any other day or time, select Collection or CoolerBox Express.');
     }
-  } else {
+  } else if (fulfilment === 'collection') {
     const w = salesWindow(policy, date);
     if (w && (time < w.start || time > w.end)) {
       throw Error('Collection on this day is available ' + w.start + '–' + w.end + '.');

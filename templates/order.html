@@ -359,8 +359,9 @@
             <h2>Collection or delivery</h2>
             <label for="order-fulfilment">Preferred arrangement</label>
             <select id="order-fulfilment">
-              <option value="collection">Collection</option>
-              <option value="delivery">Request delivery — subject to confirmation</option>
+              <option value="collection">Collection (pick up at agreed time once confirmed)</option>
+              <option value="delivery">Bulk Contract Delivery (Thursday 08:00–10:00 or 16:00–17:00)</option>
+              <option value="express">CoolerBox Express Shipping (5–20 kg sealed ice, up to 10 km)</option>
             </select>
             <div class="field-pair">
               <div>
@@ -381,6 +382,32 @@
               <label for="order-distance">Approximate distance from Makalani Mall (km, optional)</label>
               <input id="order-distance" type="number" min="0" max="10000" step="0.1">
               <p class="small">Used for an estimated delivery charge. The team verifies the address and distance before confirmation.</p>
+            </div>
+            <div id="order-express-extra" class="info-panel" style="background:#edf6fa;border-color:#bfe0f2;margin-top:12px" hidden>
+              <h3 style="margin-top:0">CoolerBox Express Shipping <span style="display:inline-block;background:#e59239;color:#14283a;font-size:11px;padding:2px 8px;border-radius:99px;vertical-align:middle;margin-left:6px">5–20 kg · Coming soon</span></h3>
+              <p class="small">Get 5–20 kg of sealed ice cubes or gourmet ice delivered up to 10 km by road from Makalani, Ongwediva. Register your Express enquiry now and our team will confirm stock, fare and delivery time.</p>
+              <label for="express-shop">Deliver from</label>
+              <select id="express-shop">
+                <option value="Makalani, Ongwediva">Makalani, Ongwediva</option>
+                <option value="Oshakati branch" disabled>Oshakati branch (opening soon)</option>
+              </select>
+              <label for="express-area">Area or place name</label>
+              <input id="express-area" type="text" maxlength="80" placeholder="e.g. suburb, street, lodge, shop or landmark">
+              <label for="express-distance">Road distance from shop (km, optional — max 10 km)</label>
+              <input id="express-distance" type="number" min="0" max="999" step="0.1" placeholder="Enter km if known">
+              <label class="check" style="margin-top:10px"><input id="express-priority" type="checkbox"> <span>Priority delivery (+N$10.00, delivered first)</span></label>
+              <label for="express-payment">Preferred payment method</label>
+              <select id="express-payment">
+                <option value="">Choose a payment method</option>
+                <option value="EFT">EFT</option>
+                <option value="eWallet">eWallet</option>
+                <option value="BlueWallet">BlueWallet</option>
+                <option value="EasyWallet">EasyWallet</option>
+                <option value="Pay to Cell">Pay to Cell</option>
+                <option value="Card on delivery (POS)">Card on delivery (POS)</option>
+                <option value="Cash on delivery">Cash on delivery</option>
+              </select>
+              <p id="express-fare-note" class="small" style="margin-top:8px;font-weight:600"></p>
             </div>
             <div id="order-address-wrap" hidden>
               <label for="order-address">Delivery address</label>
@@ -404,10 +431,10 @@
 
             <div class="info-panel">
               <h3>Payment, delivery &amp; cancellations</h3>
-              <p>Book strictly 48–72 hours before collection or delivery. Orders outside this window are rejected. No VAT is added to displayed prices.</p>
-              <p>Approved contract customers pay on delivery under their agreed terms. New and ordinary customers pay before delivery.</p>
-              <p>Thursday delivery (08:00–10:00 or 16:00–17:00) is for bulk contract clients only within 25 km (requires at least three different catalogue products meeting their minimum order). All other customers pick up at the agreed time once the order is confirmed.</p>
-              <p>Cancel at least six hours before scheduled collection or delivery via WhatsApp, quoting your reference. Payments are non-refundable.</p>
+              <p>Please allow at least 48–72 hours notice before scheduled collection or bulk delivery. Future event dates are welcome. No VAT is added to displayed prices.</p>
+              <p>Approved contract customers pay on delivery under their agreed terms. New and ordinary customers pay before delivery or on collection as confirmed.</p>
+              <p>Thursday delivery (08:00–10:00 or 16:00–17:00) is for bulk contract clients only within 25 km (requires at least three different catalogue products meeting their minimum order). All other customers pick up at the agreed time once the order is confirmed, or request CoolerBox Express Shipping (5–20 kg ice, up to 10 km).</p>
+              <p>Cancellations requested before production or dispatch are reviewed fairly on a case-by-case basis. Custom-branded orders cannot be cancelled once artwork proof is approved and printing has started.</p>
               <p>Personalised labels: minimum 50 bottles, N$4 printing per bottle. Allow 48–72 hours after final artwork approval and order confirmation. Both bottled-water sizes are sold in packs of 10, minimum five packs per size.</p>
             </div>
 
