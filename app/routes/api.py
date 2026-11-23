@@ -574,13 +574,16 @@ def submit_supplier_application(payload: dict[str, Any]) -> dict[str, Any]:
     )
 
     recipient = "sebiue@colerboxicehub.com"
-    req_obj = ContactMessageRequest(
-        name=f"{contact_name} ({outlet_name})",
-        phone=phone,
-        email=email,
-        subject=f"Business Partner Application — {outlet_name}",
-        message=formatted_msg,
-    )
+    try:
+        req_obj = ContactMessageRequest(
+            name=f"{contact_name} ({outlet_name})",
+            phone=phone,
+            email=email,
+            subject=f"Business Partner Application — {outlet_name}",
+            message=formatted_msg,
+        )
+    except Exception:
+        raise HTTPException(status_code=422, detail="Please enter a valid phone number (at least 5 digits) and valid email address.")
     email_sent = _send_contact_email(recipient, ref, req_obj)
 
     save_contact_message(

@@ -122,13 +122,13 @@
 
           <div class="form-field-unit">
             <label>Products Interested In</label>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px">
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="2 kg Ice Cubes"> 2 kg Ice Cubes</label>
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="3 kg Ice Cubes"> 3 kg Ice Cubes</label>
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="5 kg Ice Cubes"> 5 kg Ice Cubes</label>
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="30 kg Ice Blocks"> 30 kg Ice Blocks</label>
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="Ice Cups (300 ml / 500 ml)"> Ice Cups</label>
-              <label style="font-weight:500;display:inline-flex;align-items:center;gap:6px"><input type="checkbox" name="sup-prod" value="Bottled Water (330 ml / 500 ml)"> Bottled Water</label>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:8px">
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="2 kg Ice Cubes" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>2 kg Ice Cubes</span></label>
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="3 kg Ice Cubes" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>3 kg Ice Cubes</span></label>
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="5 kg Ice Cubes" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>5 kg Ice Cubes</span></label>
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="30 kg Ice Blocks" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>30 kg Ice Blocks</span></label>
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="Ice Cups (300 ml / 500 ml)" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>Ice Cups</span></label>
+              <label style="font-weight:600;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #cfe0ec;border-radius:10px;background:#f8fbfd;cursor:pointer;margin:0"><input type="checkbox" name="sup-prod" value="Bottled Water (330 ml / 500 ml)" style="width:18px;height:18px;min-width:18px;padding:0;margin:0;flex-shrink:0"> <span>Bottled Water</span></label>
             </div>
           </div>
 
