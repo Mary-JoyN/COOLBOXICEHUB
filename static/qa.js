@@ -54,15 +54,15 @@
     button{cursor:pointer}
     button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #006da6;outline-offset:2px}
     .launcher{position:fixed;bottom:18px;left:18px;background:#bdeaff;color:#0b2b5b;border:1px solid #6dbfe8;border-radius:40px;padding:12px 16px;min-height:44px;font-weight:700;font-size:13px;z-index:900;box-shadow:0 6px 22px rgba(11,43,91,0.18)}
-    dialog{position:fixed;inset:auto auto 74px 18px;margin:0;width:min(390px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:min(540px,calc(100dvh - 96px));border:1px solid #c5d3dd;border-radius:16px;padding:0;box-shadow:0 18px 60px rgba(11,43,91,0.28);color:#0b2b5b;background:#ffffff;overflow:hidden}
+    dialog{position:fixed;inset:auto auto 74px 18px;margin:0;width:min(390px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:min(560px,calc(100dvh - 96px));border:1px solid #c5d3dd;border-radius:16px;padding:0;box-shadow:0 18px 60px rgba(11,43,91,0.28);color:#0b2b5b;background:#ffffff;overflow:hidden}
     dialog[open]{display:flex;flex-direction:column}
     dialog::backdrop{background:rgba(11,43,91,0.42)}
     .head{padding:14px 16px;background:#0b2b5b;color:#ffffff;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
     .head strong{display:block;font-size:15px}
     .head small{display:block;margin-top:3px;color:#c7d5de;font-size:11.5px}
     .close{border:0;color:#ffffff;background:rgba(255,255,255,0.12);border-radius:8px;min-width:44px;min-height:44px;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-    .inside{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:0;flex:1;overflow:hidden}
-    .log{flex:1;min-height:100px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding-right:2px}
+    .inside{padding:14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .log{min-height:120px;max-height:220px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:10px;padding-right:2px}
     .reply,.question{font-size:14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;padding:10px 12px;border-radius:10px;margin:0;background:#eff4f7;max-width:100%}
     .question{background:#dcefff;align-self:flex-end}
     .suggestions{display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0}
