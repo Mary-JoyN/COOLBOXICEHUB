@@ -160,6 +160,7 @@
         <li><a class="site-nav-link" href="/">Home</a></li>
         <li><a class="site-nav-link" href="/products">Products</a></li>
         <li><a class="site-nav-link" href="/services">Business & Events</a></li>        <li><a class="site-nav-link" href="/contact">Contact</a></li>
+        <li><a class="site-nav-link" href="/order?express=1">Express</a></li>
       </ul>
       <a class="btn-header-order active" href="/order">Order Now ↗</a>
       <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
@@ -168,6 +169,7 @@
       <a href="/">Home</a>
       <a href="/products">Products</a>
       <a href="/services">Business & Events</a>      <a href="/contact">Contact</a>
+      <a href="/order?express=1">Express</a>
       <a class="active" href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
     </div>
   </header>
