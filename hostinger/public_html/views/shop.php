@@ -36,7 +36,7 @@
         <li><a class="site-nav-link" href="/">Home</a></li>
         <li><a class="site-nav-link active" href="/products">Products</a></li>
         <li><a class="site-nav-link" href="/services">Business & Events</a></li>        <li><a class="site-nav-link" href="/contact">Contact</a></li>
-        <li><a class="site-nav-link" href="/order?product=ice">Express</a></li>
+        <li><a class="site-nav-link" href="/express">Express</a></li>
       </ul>
       <a class="btn-header-order" href="/order">Order Now ↗</a>
       <button class="mobile-menu-toggle" id="menu-btn" aria-label="Toggle navigation">☰</button>
@@ -45,7 +45,7 @@
       <a href="/">Home</a>
       <a class="active" href="/products">Products</a>
       <a href="/services">Business & Events</a>      <a href="/contact">Contact</a>
-      <a href="/order?product=ice">Express</a>
+      <a href="/express">Express</a>
       <a href="/order" style="color:var(--cb-cyan);font-weight:700">Order Now ↗</a>
     </div>
   </header>
@@ -83,7 +83,7 @@
           <p class="browse-card-meta">Pure, crystal-clear ice cubes packaged in convenient 2 kg bags. Ideal for home freezers, coolers, and everyday drinks.</p>
           <div class="browse-card-footer">
             <span class="browse-price-tag">N$ 15.00</span>
-            <a class="btn-card-order" href="/order?product=ice">Order Now ↗</a>
+            <a class="btn-card-order" href="/express">Order Now ↗</a>
           </div>
         </div>
       </article>
